@@ -1,68 +1,454 @@
-{% comment %}
-  This section is used in the article template to render the article page, which
-  displays the full content of the blog post and can optionally include a
-  comments section for customers (not shown in this example).
-
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/article
-{% endcomment %}
-
-{% if article.image %}
-  {{ article.image | image_url: width: 1000 | image_tag }}
-{% endif %}
-
-<h1>{{ article.title }}</h1>
-
-{% assign date = article.published_at | time_tag: format: 'date' %}
-<p>{{ 'blog.article_metadata_html' | t: date: date, author: article.author }}</p>
-
-{{ article.content }}
-
-{% if blog.comments_enabled? %}
-  <h2>{{ 'blog.article_comments' | t }}</h2>
-
-  <div id="comments">
-    {% paginate article.comments by 10 %}
-      {% for comment in article.comments %}
-        <div>
-          <p>{{ comment.author }}</p>
-          <p>
-            {{- comment.created_at | time_tag: format: 'date' -}}
-          </p>
-          <p>{{ comment.content }}</p>
+<article class="article-page">
+  {%- if article.image -%}
+    <div class="article-page__hero">
+      {{
+        article.image
+        | image_url: width: 2000
+        | image_tag:
+          loading: 'eager',
+          sizes: '100vw',
+          alt: article.image.alt | default: article.title
+      }}
+      <div class="article-page__hero-overlay"></div>
+      <div class="article-page__hero-content">
+        {%- if section.settings.show_blog_link -%}
+          <a href="{{ blog.url }}" class="article-page__back-top eyebrow">
+            &larr; {{ blog.title }}
+          </a>
+        {%- endif -%}
+        <h1 class="article-page__title">{{ article.title }}</h1>
+        <div class="article-page__meta">
+          {%- assign pub_date = article.published_at | time_tag: format: 'date' -%}
+          <span class="article-page__date">{{ pub_date }}</span>
+          {%- if section.settings.show_author -%}
+            <span class="article-page__sep">·</span>
+            <span class="article-page__author">{{ article.author }}</span>
+          {%- endif -%}
         </div>
-      {% endfor %}
+      </div>
+    </div>
+  {%- else -%}
+    <div class="article-page__header">
+      {%- if section.settings.show_blog_link -%}
+        <a href="{{ blog.url }}" class="article-page__back-top eyebrow">
+          &larr; {{ blog.title }}
+        </a>
+      {%- endif -%}
+      <h1 class="article-page__title article-page__title--plain">{{ article.title }}</h1>
+      <div class="article-page__meta">
+        {%- assign pub_date = article.published_at | time_tag: format: 'date' -%}
+        <span class="article-page__date">{{ pub_date }}</span>
+        {%- if section.settings.show_author -%}
+          <span class="article-page__sep">·</span>
+          <span class="article-page__author">{{ article.author }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
 
-      {{ paginate | default_pagination: anchor: 'comments' }}
-    {% endpaginate %}
+  <div class="article-page__body">
+    <div class="article-page__content rte">
+      {{ article.content }}
+    </div>
+
+    {%- if section.settings.show_tags and article.tags.size > 0 -%}
+      <div class="article-page__tags">
+        {%- for tag in article.tags -%}
+          <a href="{{ blog.url }}/tagged/{{ tag | handleize }}" class="article-page__tag">{{ tag }}</a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    <a href="{{ blog.url }}" class="article-page__back btn btn--secondary">
+      &larr; {{ section.settings.back_text }}
+    </a>
   </div>
 
-  {% form 'new_comment', article %}
-    <h2>{{ 'blog.comment_form_title' | t }}</h2>
+  {%- if blog.comments_enabled? -%}
+    <div class="article-page__comments">
+      <div class="article-page__comments-inner">
+        {%- if article.comments_count > 0 -%}
+          <h2 class="article-page__comments-title">
+            {{ 'blog.article_comments' | t }}
+            <span>({{ article.comments_count }})</span>
+          </h2>
 
-    {{ form.errors | default_errors }}
+          <div class="comments-list">
+            {% paginate article.comments by 10 %}
+              {%- for comment in article.comments -%}
+                <div class="comment">
+                  <div class="comment__header">
+                    <span class="comment__author">{{ comment.author }}</span>
+                    <span class="comment__sep">·</span>
+                    <span class="comment__date">{{ comment.created_at | time_tag: format: 'date' }}</span>
+                  </div>
+                  <p class="comment__content">{{ comment.content }}</p>
+                </div>
+              {%- endfor -%}
 
-    <div>
-      <label for="author">{{ 'blog.comment_form_name' | t }}</label>
-      <input type="text" name="comment[author]" id="author" value="{{ form.author }}" required>
+              {%- if paginate.pages > 1 -%}
+                <div class="pagination">{{ paginate | default_pagination: anchor: 'comments' }}</div>
+              {%- endif -%}
+            {% endpaginate %}
+          </div>
+        {%- endif -%}
+
+        <div class="comment-form">
+          <h2 class="article-page__comments-title">{{ 'blog.comment_form_title' | t }}</h2>
+
+          {% form 'new_comment', article %}
+            {{ form.errors | default_errors }}
+
+            {%- if form.posted_successfully? -%}
+              <p class="comment-form__success">{{ section.settings.comment_success_text }}</p>
+            {%- endif -%}
+
+            <div class="comment-form__row">
+              <div class="comment-form__field">
+                <label class="comment-form__label" for="comment-author">{{ 'blog.comment_form_name' | t }}</label>
+                <input
+                  type="text"
+                  name="comment[author]"
+                  id="comment-author"
+                  class="form-input"
+                  value="{{ form.author }}"
+                  required
+                  autocomplete="name"
+                >
+              </div>
+              <div class="comment-form__field">
+                <label class="comment-form__label" for="comment-email">{{ 'blog.comment_form_email' | t }}</label>
+                <input
+                  type="email"
+                  name="comment[email]"
+                  id="comment-email"
+                  class="form-input"
+                  value="{{ form.email }}"
+                  required
+                  autocomplete="email"
+                >
+              </div>
+            </div>
+
+            <div class="comment-form__field">
+              <label class="comment-form__label" for="comment-body">{{ 'blog.comment_form_body' | t }}</label>
+              <textarea
+                name="comment[body]"
+                id="comment-body"
+                class="form-input comment-form__textarea"
+                required
+                rows="5"
+              >{{ form.body }}</textarea>
+            </div>
+
+            <button type="submit" class="btn btn--primary comment-form__submit">
+              {{ 'blog.comment_form_submit' | t }}
+            </button>
+          {% endform %}
+        </div>
+      </div>
     </div>
+  {%- endif -%}
+</article>
 
-    <div>
-      <label for="email">{{ 'blog.comment_form_email' | t }}</label>
-      <input type="email" name="comment[email]" id="email" value="{{ form.email }}" required>
-    </div>
+{% stylesheet %}
+  /* Hero with image */
+  .article-page__hero {
+    position: relative;
+    height: clamp(380px, 55vh, 640px);
+    overflow: hidden;
+  }
 
-    <div>
-      <label for="body">{{ 'blog.comment_form_body' | t }}</label>
-      <textarea name="comment[body]" id="body" required>{{ form.body }}</textarea>
-    </div>
+  .article-page__hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-    <input type="submit" value="{{ 'blog.comment_form_submit' | t }}">
-  {% endform %}
-{% endif %}
+  .article-page__hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(17, 16, 9, 0.92) 0%,
+      rgba(17, 16, 9, 0.55) 50%,
+      rgba(17, 16, 9, 0.2) 100%
+    );
+  }
+
+  .article-page__hero-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 48px var(--page-margin);
+    max-width: calc(var(--page-width) + var(--page-margin) * 2);
+    margin: 0 auto;
+  }
+
+  /* Plain header (no image) */
+  .article-page__header {
+    background: var(--color-charcoal);
+    padding: 64px var(--page-margin);
+    max-width: 100%;
+  }
+
+  .article-page__header .article-page__title--plain {
+    max-width: var(--page-width);
+    margin: 12px auto 0;
+  }
+
+  .article-page__header .article-page__meta {
+    max-width: var(--page-width);
+    margin: 12px auto 0;
+  }
+
+  .article-page__back-top {
+    text-decoration: none;
+    margin-bottom: 16px;
+    display: inline-block;
+    transition: opacity 0.2s;
+  }
+
+  .article-page__back-top:hover { opacity: 0.7; }
+
+  .article-page__title {
+    font-family: var(--font-heading);
+    font-size: clamp(28px, 4.5vw, 54px);
+    color: var(--color-white);
+    line-height: 1.05;
+    margin: 12px 0 16px;
+  }
+
+  .article-page__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .article-page__date,
+  .article-page__author,
+  .article-page__sep {
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(200, 169, 110, 0.7);
+  }
+
+  .article-page__date time {
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+  }
+
+  /* Body */
+  .article-page__body {
+    background: var(--color-black);
+    padding: 60px var(--page-margin) 80px;
+  }
+
+  .article-page__content {
+    max-width: 720px;
+    margin: 0 auto;
+    font-size: 17px;
+  }
+
+  /* Tags */
+  .article-page__tags {
+    max-width: 720px;
+    margin: 40px auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .article-page__tag {
+    font-family: var(--font-label);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-tan);
+    text-decoration: none;
+    border: 1px solid rgba(200, 169, 110, 0.3);
+    padding: 5px 12px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .article-page__tag:hover {
+    background: rgba(200, 169, 110, 0.1);
+    border-color: var(--color-tan);
+  }
+
+  /* Back link */
+  .article-page__back {
+    display: inline-flex;
+    margin-top: 48px;
+  }
+
+  /* Comments section */
+  .article-page__comments {
+    background: var(--color-charcoal);
+    padding: 60px var(--page-margin) 80px;
+  }
+
+  .article-page__comments-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .article-page__comments-title {
+    font-family: var(--font-heading);
+    font-size: clamp(22px, 3vw, 32px);
+    color: var(--color-white);
+    margin-bottom: 32px;
+  }
+
+  .article-page__comments-title span {
+    color: var(--color-tan);
+  }
+
+  /* Comment list */
+  .comment {
+    border-top: 1px solid rgba(200, 169, 110, 0.15);
+    padding: 24px 0;
+  }
+
+  .comment__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .comment__author {
+    font-family: var(--font-label);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-tan);
+  }
+
+  .comment__sep,
+  .comment__date {
+    font-family: var(--font-label);
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: rgba(200, 169, 110, 0.5);
+  }
+
+  .comment__date time {
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+  }
+
+  .comment__content {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--color-tan-light);
+    line-height: 1.7;
+  }
+
+  /* Comment form */
+  .comment-form {
+    margin-top: 56px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(200, 169, 110, 0.2);
+  }
+
+  .comment-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .comment-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .comment-form__label {
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--color-tan);
+  }
+
+  .comment-form__textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .comment-form__success {
+    background: rgba(74, 92, 42, 0.2);
+    border: 1px solid var(--color-olive-light);
+    color: var(--color-tan-light);
+    font-family: var(--font-body);
+    font-size: 15px;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+  }
+
+  .comment-form__submit {
+    font-size: 13px;
+  }
+
+  @media (max-width: 768px) {
+    .article-page__hero { height: 300px; }
+    .article-page__hero-content { padding: 32px var(--page-margin); }
+    .comment-form__row { grid-template-columns: 1fr; }
+    .article-page__body { padding: 40px var(--page-margin) 60px; }
+    .article-page__comments { padding: 40px var(--page-margin) 60px; }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.article",
-  "settings": []
+  "name": "Article",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "label": "Show article tags",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_blog_link",
+      "label": "Show back to blog link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "back_text",
+      "label": "Back to blog link text",
+      "default": "Back to Field Notes"
+    },
+    {
+      "type": "text",
+      "id": "comment_success_text",
+      "label": "Comment success message",
+      "default": "Your comment has been submitted for review."
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
 }
 {% endschema %}

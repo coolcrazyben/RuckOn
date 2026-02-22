@@ -1,17 +1,69 @@
-{% comment %}
-  This section is used in the page template to render store pages like About us
-  or Contact us.
+<div class="page-content">
+  <div class="page-content__inner">
+    {%- if section.settings.show_eyebrow and section.settings.eyebrow_text != blank -%}
+      <span class="eyebrow">{{ section.settings.eyebrow_text }}</span>
+    {%- endif -%}
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/page
-{% endcomment %}
+    <h1 class="page-content__title">{{ page.title }}</h1>
 
-<h1>{{ page.title }}</h1>
+    {%- if page.content != blank -%}
+      <div class="page-content__body rte">
+        {{ page.content }}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
 
-{{ page.content }}
+{% stylesheet %}
+  .page-content {
+    background: var(--color-black);
+    padding: 80px var(--page-margin);
+    min-height: calc(60vh - var(--header-total-height));
+  }
+
+  .page-content__inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-content__title {
+    font-family: var(--font-heading);
+    font-size: clamp(32px, 5vw, 60px);
+    color: var(--color-white);
+    line-height: 1;
+    margin-bottom: 40px;
+  }
+
+  .page-content__body {
+    font-size: 17px;
+  }
+
+  @media (max-width: 768px) {
+    .page-content {
+      padding: 48px var(--page-margin);
+    }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.page",
-  "settings": []
+  "name": "Page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_eyebrow",
+      "label": "Show eyebrow label",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow label",
+      "default": "// About"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
 }
 {% endschema %}

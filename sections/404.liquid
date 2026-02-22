@@ -1,23 +1,86 @@
-{% comment %}
-  This section is used in the 404 template to render page shown when customers
-  enter an invalid store URL.
+<div class="not-found">
+  <div class="not-found__code">{{ section.settings.error_code }}</div>
+  <h1 class="not-found__title">{{ section.settings.heading }}</h1>
+  <p class="not-found__message">{{ section.settings.subheading }}</p>
+  <a href="{{ routes.root_url }}" class="btn btn--primary not-found__btn">
+    {{ section.settings.button_text }}
+  </a>
+</div>
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/404
-{% endcomment %}
+{% stylesheet %}
+  .not-found {
+    min-height: calc(80vh - var(--header-total-height));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px var(--page-margin);
+    background: var(--color-black);
+  }
 
-<h1>{{ '404.title' | t }}</h1>
+  .not-found__code {
+    font-family: var(--font-heading);
+    font-size: clamp(120px, 20vw, 220px);
+    line-height: 0.85;
+    color: var(--color-tan);
+    opacity: 0.35;
+    user-select: none;
+    letter-spacing: -4px;
+  }
 
-<p>
-  {{ '404.not_found' | t }}
-</p>
+  .not-found__title {
+    font-family: var(--font-heading);
+    font-size: clamp(28px, 5vw, 52px);
+    color: var(--color-white);
+    margin-top: 24px;
+    margin-bottom: 16px;
+    line-height: 1;
+  }
 
-<a href="{{ routes.all_products_collection_url }}">
-  {{ '404.back_to_shopping' | t }}
-</a>
+  .not-found__message {
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: var(--color-tan-light);
+    max-width: 480px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .not-found__btn {
+    font-size: 14px;
+    padding: 16px 40px;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.404",
-  "settings": []
+  "name": "404 Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "error_code",
+      "label": "Error code display",
+      "default": "404"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Mission Not Found"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "The page you're looking for has gone MIA. It may have been moved, renamed, or decommissioned."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Return to Base"
+    }
+  ]
 }
 {% endschema %}

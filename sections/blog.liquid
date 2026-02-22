@@ -1,35 +1,270 @@
-{% comment %}
-  This section is used in the blog template to render the blog page listing all
-  articles within a blog.
+{% style %}
+  #shopify-section-{{ section.id }} .blog-listing {
+    --blog-cols: {{ section.settings.columns_desktop }};
+  }
+{% endstyle %}
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/blog
-{% endcomment %}
+<div class="blog-listing">
+  <div class="blog-listing__header">
+    {%- if section.settings.eyebrow_text != blank -%}
+      <span class="eyebrow">{{ section.settings.eyebrow_text }}</span>
+    {%- endif -%}
+    <h1 class="blog-listing__title">{{ blog.title }}</h1>
+  </div>
 
-<h1>{{ blog.title }}</h1>
+  {% paginate blog.articles by section.settings.articles_per_page %}
+    <div class="blog-listing__grid">
+      {%- for article in blog.articles -%}
+        <article class="article-card fade-up" data-delay="{{ forloop.index | modulo: 4 | plus: 1 }}">
+          <a href="{{ article.url }}" class="article-card__link">
+            <div class="article-card__media">
+              {%- if article.image -%}
+                {{
+                  article.image
+                  | image_url: width: 800
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
+                    alt: article.image.alt | default: article.title
+                }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'article-card__placeholder' }}
+              {%- endif -%}
+              <div class="article-card__overlay"></div>
+            </div>
 
-{% paginate blog.articles by 5 %}
-  {% for article in blog.articles %}
-    <div>
-      {% if article.image %}
-        {{ article.image | image_url: width: 1000 | image_tag }}
-      {% endif %}
-      <h2>
-        {{ article.title | link_to: article.url }}
-      </h2>
-      {% assign date = article.published_at | time_tag: format: 'date' %}
-      <p>{{ 'blog.article_metadata_html' | t: date: date, author: article.author }}</p>
-      <p>{{ article.excerpt }}</p>
+            <div class="article-card__content">
+              <div class="article-card__meta">
+                {%- assign pub_date = article.published_at | time_tag: format: 'date' -%}
+                <span class="article-card__date">{{ pub_date }}</span>
+                {%- if section.settings.show_author -%}
+                  <span class="article-card__sep">·</span>
+                  <span class="article-card__author">{{ article.author }}</span>
+                {%- endif -%}
+              </div>
+
+              <h2 class="article-card__title">{{ article.title }}</h2>
+
+              {%- if article.excerpt != blank and section.settings.show_excerpt -%}
+                <p class="article-card__excerpt">{{ article.excerpt | strip_html | truncate: 120 }}</p>
+              {%- endif -%}
+
+              <span class="article-card__cta">{{ section.settings.read_more_text }} &rarr;</span>
+            </div>
+          </a>
+        </article>
+      {%- endfor -%}
     </div>
-  {% endfor %}
 
-  {%- if paginate.pages > 1 -%}
-    {{- paginate | default_pagination -}}
-  {%- endif -%}
-{% endpaginate %}
+    {%- if paginate.pages > 1 -%}
+      <div class="blog-listing__pagination pagination">
+        {{ paginate | default_pagination }}
+      </div>
+    {%- endif -%}
+  {% endpaginate %}
+</div>
+
+{% stylesheet %}
+  .blog-listing {
+    background: var(--color-black);
+    padding: 80px var(--page-margin);
+    max-width: var(--page-width);
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .blog-listing__header {
+    margin-bottom: 48px;
+  }
+
+  .blog-listing__title {
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 5vw, 64px);
+    color: var(--color-white);
+    line-height: 1;
+  }
+
+  .blog-listing__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--blog-cols, 3), 1fr);
+    gap: 32px;
+  }
+
+  /* Article card */
+  .article-card {
+    background: var(--color-charcoal);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .article-card__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .article-card__media {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .article-card__media img,
+  .article-card__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .article-card:hover .article-card__media img {
+    transform: scale(1.04);
+  }
+
+  .article-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(17,16,9,0.5) 0%, transparent 60%);
+  }
+
+  .article-card__content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .article-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .article-card__date,
+  .article-card__author,
+  .article-card__sep {
+    font-family: var(--font-label);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(200, 169, 110, 0.65);
+  }
+
+  .article-card__date time {
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+  }
+
+  .article-card__title {
+    font-family: var(--font-heading);
+    font-size: clamp(18px, 2vw, 22px);
+    line-height: 1.1;
+    color: var(--color-white);
+    transition: color 0.2s;
+  }
+
+  .article-card:hover .article-card__title {
+    color: var(--color-tan);
+  }
+
+  .article-card__excerpt {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-tan-light);
+    opacity: 0.8;
+    flex: 1;
+  }
+
+  .article-card__cta {
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-tan);
+    margin-top: auto;
+    display: block;
+    transition: color 0.2s;
+  }
+
+  .article-card:hover .article-card__cta {
+    color: var(--color-orange);
+  }
+
+  @media (max-width: 1024px) {
+    .blog-listing__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .blog-listing { padding: 48px var(--page-margin); }
+    .blog-listing__grid { grid-template-columns: 1fr; }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.blog",
-  "settings": []
+  "name": "Blog",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow label",
+      "default": "// Field Notes"
+    },
+    {
+      "type": "text",
+      "id": "read_more_text",
+      "label": "Read more link text",
+      "default": "Read More"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show article excerpt",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show author name",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "articles_per_page",
+      "label": "Articles per page",
+      "min": 3,
+      "max": 12,
+      "step": 3,
+      "default": 9
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ],
+      "default": "3"
+    }
+  ]
 }
 {% endschema %}
