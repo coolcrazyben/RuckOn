@@ -62,10 +62,89 @@
           {{ cart.item_count }}
         </span>
       </a>
+
+      {%- comment -%} Hamburger — mobile only {%- endcomment -%}
+      <button
+        class="site-header__burger"
+        id="mobile-nav-toggle"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <svg viewBox="0 0 24 18" fill="none" aria-hidden="true" focusable="false">
+          <rect y="0"  width="24" height="2" rx="1" fill="currentColor"/>
+          <rect y="8"  width="24" height="2" rx="1" fill="currentColor"/>
+          <rect y="16" width="24" height="2" rx="1" fill="currentColor"/>
+        </svg>
+      </button>
     </div>
 
   </header>
 </div>
+
+{%- comment -%} Mobile navigation drawer {%- endcomment -%}
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
+
+  <div class="mobile-nav__panel">
+    {%- comment -%} Panel header {%- endcomment -%}
+    <div class="mobile-nav__head">
+      <a href="{{ routes.root_url }}" class="mobile-nav__logo" aria-label="{{ shop.name }}">
+        {%- if section.settings.logo_image -%}
+          {%- assign mn_logo_2x = section.settings.logo_max_width | times: 2 -%}
+          {%- assign mn_logo_alt = section.settings.logo_image.alt | default: shop.name -%}
+          {{
+            section.settings.logo_image
+            | image_url: width: mn_logo_2x
+            | image_tag:
+              class: 'site-header__logo-img',
+              alt: mn_logo_alt,
+              loading: 'lazy'
+          }}
+        {%- else -%}
+          <span class="logo-word-1">{{ section.settings.logo_text_1 }}</span>
+          <span class="logo-word-2">{{ section.settings.logo_text_2 }}</span>
+        {%- endif -%}
+      </a>
+
+      <button class="mobile-nav__close" id="mobile-nav-close" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18"/>
+        </svg>
+      </button>
+    </div>
+
+    {%- comment -%} Nav links {%- endcomment -%}
+    <ul class="mobile-nav__links" role="list">
+      {%- for link in section.settings.menu.links -%}
+        <li class="mobile-nav__item">
+          <a
+            href="{{ link.url }}"
+            class="mobile-nav__link{% if link.active %} is-active{% endif %}"
+            {% if link.current %}aria-current="page"{% endif %}
+          >{{ link.title }}</a>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    {%- comment -%} Bottom actions {%- endcomment -%}
+    <div class="mobile-nav__foot">
+      <a href="{{ routes.cart_url }}" class="mobile-nav__cart">
+        {{ section.settings.cart_label }}
+        {%- if cart.item_count > 0 -%}
+          <span class="mobile-nav__cart-count">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" class="mobile-nav__account">
+          {{ section.settings.account_label }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="mobile-nav__backdrop" id="mobile-nav-backdrop" aria-hidden="true"></div>
+</nav>
 
 {% stylesheet %}
   .site-header-wrapper {
@@ -230,23 +309,286 @@
 
   .cart-btn__count.is-hidden { display: none; }
 
-  /* Mobile: hide nav links, keep logo + cart */
+  /* Hamburger button — hidden on desktop */
+  .site-header__burger {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--color-tan);
+    cursor: pointer;
+    padding: 6px 4px;
+    margin-left: 4px;
+    line-height: 0;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+  }
+
+  .site-header__burger:hover { opacity: 0.7; }
+
+  .site-header__burger svg {
+    width: 24px;
+    height: 18px;
+    display: block;
+  }
+
+  /* Mobile: hide desktop nav, show burger */
   @media (max-width: 1024px) {
-    .site-header__nav { display: none; }
+    .site-header__nav    { display: none; }
+    .site-header__burger { display: flex; align-items: center; }
+  }
+
+  /* =====================
+     Mobile Navigation
+     ===================== */
+  .mobile-nav {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .mobile-nav.is-open {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* Backdrop */
+  .mobile-nav__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(17, 16, 9, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .mobile-nav.is-open .mobile-nav__backdrop {
+    opacity: 1;
+  }
+
+  /* Slide-in panel */
+  .mobile-nav__panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(340px, 88vw);
+    background: var(--color-charcoal);
+    border-right: 1px solid rgba(200, 169, 110, 0.12);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+  }
+
+  .mobile-nav.is-open .mobile-nav__panel {
+    transform: translateX(0);
+  }
+
+  /* Panel header */
+  .mobile-nav__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(200, 169, 110, 0.1);
+    flex-shrink: 0;
+  }
+
+  .mobile-nav__logo {
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 22px;
+    letter-spacing: 3px;
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+    line-height: 1;
+  }
+
+  /* Close button */
+  .mobile-nav__close {
+    background: none;
+    border: none;
+    color: rgba(200, 169, 110, 0.6);
+    cursor: pointer;
+    padding: 6px;
+    line-height: 0;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+
+  .mobile-nav__close:hover { color: var(--color-tan); }
+
+  .mobile-nav__close svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  /* Nav links */
+  .mobile-nav__links {
+    list-style: none;
+    padding: 24px 0;
+    margin: 0;
+    flex: 1;
+  }
+
+  .mobile-nav__item {
+    border-bottom: 1px solid rgba(200, 169, 110, 0.07);
+  }
+
+  .mobile-nav__link {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: var(--color-tan);
+    text-decoration: none;
+    padding: 16px 28px;
+    transition: color 0.2s, padding-left 0.2s;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.2s ease, padding-left 0.2s ease;
+  }
+
+  .mobile-nav.is-open .mobile-nav__link {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Stagger link animations */
+  .mobile-nav__item:nth-child(1) .mobile-nav__link { transition-delay: 0.08s; }
+  .mobile-nav__item:nth-child(2) .mobile-nav__link { transition-delay: 0.13s; }
+  .mobile-nav__item:nth-child(3) .mobile-nav__link { transition-delay: 0.18s; }
+  .mobile-nav__item:nth-child(4) .mobile-nav__link { transition-delay: 0.23s; }
+  .mobile-nav__item:nth-child(5) .mobile-nav__link { transition-delay: 0.28s; }
+  .mobile-nav__item:nth-child(6) .mobile-nav__link { transition-delay: 0.33s; }
+
+  .mobile-nav__link:hover,
+  .mobile-nav__link.is-active {
+    color: var(--color-white);
+    padding-left: 36px;
+  }
+
+  /* Panel footer — cart + account */
+  .mobile-nav__foot {
+    padding: 20px 28px;
+    border-top: 1px solid rgba(200, 169, 110, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .mobile-nav__cart {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-label);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--color-tan);
+    text-decoration: none;
+    border: 1px solid var(--color-tan);
+    padding: 12px 20px;
+    transition: background 0.2s, color 0.2s;
+    align-self: flex-start;
+  }
+
+  .mobile-nav__cart:hover {
+    background: var(--color-tan);
+    color: var(--color-black);
+  }
+
+  .mobile-nav__cart-count {
+    background: var(--color-orange);
+    color: var(--color-white);
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+  }
+
+  .mobile-nav__account {
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(200, 169, 110, 0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .mobile-nav__account:hover { color: var(--color-tan); }
+
+  /* Only show on mobile */
+  @media (min-width: 1025px) {
+    .mobile-nav { display: none; }
   }
 {% endstylesheet %}
 
 {% javascript %}
 (function () {
+  // Scroll-shadow on header
   var wrapper = document.getElementById('site-header-wrapper');
-  if (!wrapper) return;
+  if (wrapper) {
+    var announcementBar = document.querySelector('.announcement-bar');
+    var abHeight = announcementBar ? announcementBar.offsetHeight : 42;
+    window.addEventListener('scroll', function () {
+      wrapper.classList.toggle('is-scrolled', window.scrollY > abHeight);
+    }, { passive: true });
+  }
 
-  var announcementBar = document.querySelector('.announcement-bar');
-  var abHeight = announcementBar ? announcementBar.offsetHeight : 42;
+  // Mobile nav
+  var nav      = document.getElementById('mobile-nav');
+  var toggle   = document.getElementById('mobile-nav-toggle');
+  var close    = document.getElementById('mobile-nav-close');
+  var backdrop = document.getElementById('mobile-nav-backdrop');
+  if (!nav || !toggle) return;
 
-  window.addEventListener('scroll', function () {
-    wrapper.classList.toggle('is-scrolled', window.scrollY > abHeight);
-  }, { passive: true });
+  function openNav() {
+    nav.classList.add('is-open');
+    nav.setAttribute('aria-hidden', 'false');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.documentElement.setAttribute('scroll-lock', '');
+    // Focus the close button for accessibility
+    if (close) setTimeout(function () { close.focus(); }, 50);
+  }
+
+  function closeNav() {
+    nav.classList.remove('is-open');
+    nav.setAttribute('aria-hidden', 'true');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.documentElement.removeAttribute('scroll-lock');
+    toggle.focus();
+  }
+
+  toggle.addEventListener('click', openNav);
+  if (close)    close.addEventListener('click', closeNav);
+  if (backdrop) backdrop.addEventListener('click', closeNav);
+
+  // Close on Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && nav.classList.contains('is-open')) closeNav();
+  });
+
+  // Close when a nav link is tapped
+  nav.querySelectorAll('.mobile-nav__link, .mobile-nav__cart, .mobile-nav__logo').forEach(function (el) {
+    el.addEventListener('click', closeNav);
+  });
 })();
 {% endjavascript %}
 
@@ -307,6 +649,12 @@
       "id": "cart_label",
       "label": "Cart button label",
       "default": "Cart"
+    },
+    {
+      "type": "text",
+      "id": "account_label",
+      "label": "Account link label (mobile menu)",
+      "default": "Account"
     },
     {
       "type": "header",
