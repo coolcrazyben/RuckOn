@@ -172,26 +172,31 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 
 /* === Shared Product Card === */
 .product-card {
-  position: relative;
-  overflow: hidden;
   background-color: var(--color-charcoal);
-  min-height: 320px;
+  display: flex;
+  flex-direction: column;
 }
 
-.product-card--tall { min-height: 643px; }
-
 .product-card__link {
-  display: block;
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   text-decoration: none;
   color: inherit;
 }
 
 .product-card__media {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Tall featured card (best-sellers grid): image fills the extra row height */
+.product-card--tall .product-card__media {
+  aspect-ratio: unset;
+  flex: 1;
+  min-height: 300px;
 }
 
 .product-card__media img,
@@ -204,28 +209,15 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 
 .product-card:hover .product-card__media img { transform: scale(1.05); }
 
-.product-card__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(17, 16, 9, 0.88) 0%,
-    rgba(17, 16, 9, 0.3)  45%,
-    transparent           75%
-  );
-  z-index: 1;
-}
+/* Overlay removed — info is now below the image */
+.product-card__overlay { display: none; }
 
 .product-card__info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  padding: 24px;
+  background: #1e1e1a;
+  padding: 14px 16px 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
 .product-card__badge {
@@ -289,7 +281,12 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 
 @media (max-width: 768px) {
   .product-card__title { font-size: 16px; }
-  .product-card--tall { grid-row: span 1; min-height: 320px; }
+  /* On mobile, tall card collapses to single row — image uses default aspect ratio */
+  .product-card--tall .product-card__media {
+    aspect-ratio: 4 / 5;
+    flex: unset;
+    min-height: unset;
+  }
 }
 
 /* === Shared Pagination === */

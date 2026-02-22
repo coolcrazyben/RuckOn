@@ -663,9 +663,7 @@
     gap: 3px;
   }
 
-  .product-related__grid .product-card {
-    min-height: 300px;
-  }
+  /* product-card height driven by image aspect-ratio */
 
   @media (max-width: 1024px) {
     .product-page__inner {
@@ -699,7 +697,7 @@
     }
 
     .product-related__grid { grid-template-columns: repeat(2, 1fr); }
-    .product-related__grid .product-card { min-height: 240px; }
+    /* product-card height driven by image aspect-ratio */
   }
 {% endstylesheet %}
 

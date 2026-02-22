@@ -275,9 +275,7 @@
     gap: 3px;
   }
 
-  .collection-card {
-    min-height: 340px;
-  }
+  /* collection-card height driven by image aspect-ratio */
 
   .collection-card__badges {
     display: flex;
@@ -319,7 +317,7 @@
     .collection-banner { min-height: 200px; }
     .collection-banner__content { padding: 32px var(--page-margin); }
     .collection-grid { grid-template-columns: repeat(var(--col-cols-mobile, 2), 1fr); }
-    .collection-card { min-height: 260px; }
+    /* collection-card height driven by image aspect-ratio */
     .collection-grid-wrap { padding: 24px var(--page-margin) 60px; }
     .collection-sort-bar { position: static; }
   }
