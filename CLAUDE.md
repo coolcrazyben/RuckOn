@@ -30,6 +30,21 @@
 - All uppercase text: `letter-spacing: 2–5px` depending on size
 - Scroll-triggered `fade-up` animations on cards and stats
 
+## Header Layout
+
+The header uses a **3-column CSS grid** (`1fr auto 1fr`) so the logo is always truly centered:
+
+| Zone | Desktop (≥1025px) | Mobile (≤1024px) |
+|------|-------------------|------------------|
+| Left `.site-header__left` | Nav links | Hamburger + Search icon |
+| Center `.site-header__logo` | Logo | Logo |
+| Right `.site-header__right` | Search + Account + Cart icons | Account + Cart icons |
+
+- Cart is an **icon link** (shopping bag SVG) with an orange count badge — not the old styled button
+- Search icon in the right zone has class `site-header__search-desktop` (hidden on mobile via CSS)
+- Search icon in the left zone has class `site-header__search-link` (hidden on desktop via CSS)
+- Mobile slide-out drawer is unchanged — triggered by the hamburger button
+
 ## Theme Editor Rules
 Every section must have complete schema settings so ALL text, colors, images,
 links, and visibility can be edited from the Shopify Customize editor without
