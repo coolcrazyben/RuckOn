@@ -1,19 +1,31 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero",
       "settings": {
+        "min_height": 700,
         "eyebrow_text": "// Tactical Gear & Apparel",
-        "headline_line1": "Carry",
-        "headline_line2": "the Weight.",
-        "subtext": "Gear built for those who don't put the ruck down. Built to last. Built to perform. Built to Ruck On.",
-        "btn_primary_text": "Shop Now",
-        "btn_secondary_text": "Our Story",
-        "show_scroll_indicator": true,
         "eyebrow_color": "#d4622a",
+        "headline_line1": "Built to",
         "headline1_color": "#faf8f4",
+        "headline_line2": "Ruck On",
         "headline2_color": "#c8a96e",
-        "subtext_color": "#e8d5b0"
+        "subtext": "Gear built for those who don't put the ruck down. Built to last. Built to perform. Built to Ruck On.",
+        "subtext_color": "#e8d5b0",
+        "btn_primary_text": "Shop Now",
+        "btn_primary_url": "",
+        "btn_secondary_text": "Our Story",
+        "btn_secondary_url": "",
+        "show_scroll_indicator": true
       }
     },
     "stats-bar": {
@@ -25,20 +37,32 @@
         "stat_2_label": "Miles Tested",
         "stat_3_number": "100%",
         "stat_3_label": "No Quit Guarantee",
-        "stat_4_number": "5\u2605",
-        "stat_4_label": "Avg. Rating"
+        "stat_4_number": "5★",
+        "stat_4_label": "Avg. Rating",
+        "background_color": "#2d3a18",
+        "number_color": "#c8a96e",
+        "label_color": "#e8d5b0",
+        "divider_color": "#4a5c2a"
       }
     },
     "best-sellers": {
       "type": "best-sellers",
       "settings": {
         "eyebrow_text": "// Drop 01",
-        "heading_text_1": "Best ",
+        "heading_text_1": "Best",
         "heading_text_2": "Sellers",
         "view_all_text": "View All",
+        "collection": "",
         "product_limit": 6,
         "show_badge": true,
-        "card_cta_text": "Add to Cart"
+        "card_cta_text": "Add to Cart",
+        "empty_text": "No products found — add some to this collection.",
+        "background_color": "#111009",
+        "eyebrow_color": "#d4622a",
+        "heading_color": "#faf8f4",
+        "accent_color": "#c8a96e",
+        "badge_bg_color": "#d4622a",
+        "badge_text_color": "#faf8f4"
       }
     },
     "manifesto": {
@@ -47,51 +71,27 @@
         "quote_line1": "Don't Just Rock On.",
         "quote_line2": "Ruck On.",
         "body_text": "We don't make gear for the gym. We make gear for the grind — the 20-mile ruck, the 4am alarm, the weight that never comes off. Built by ruckers. Tested in the field. Made to last a lifetime.",
-        "cta_text": "Read Our Story"
+        "cta_text": "Read Our Story",
+        "cta_url": "",
+        "background_color": "#2d3a18",
+        "quote_color_1": "#faf8f4",
+        "quote_color_2": "#c8a96e",
+        "body_color": "#e8d5b0",
+        "divider_color": "#c8a96e"
       }
     },
     "shop-by-category": {
       "type": "shop-by-category",
       "settings": {
         "eyebrow_text": "// Everything You Need",
-        "heading_text_1": "Shop by ",
-        "heading_text_2": "Category"
-      },
-      "blocks": {
-        "cat-packs": {
-          "type": "category",
-          "settings": {
-            "category_name": "Ruck Packs",
-            "product_count": "24 Products",
-            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(74,92,42,0.35) 60%, transparent 100%)"
-          }
-        },
-        "cat-apparel": {
-          "type": "category",
-          "settings": {
-            "category_name": "Apparel",
-            "product_count": "38 Products",
-            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(80,60,30,0.4) 60%, transparent 100%)"
-          }
-        },
-        "cat-accessories": {
-          "type": "category",
-          "settings": {
-            "category_name": "Accessories",
-            "product_count": "16 Products",
-            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(20,45,20,0.45) 60%, transparent 100%)"
-          }
-        },
-        "cat-community": {
-          "type": "category",
-          "settings": {
-            "category_name": "Community",
-            "product_count": "10K+ Members",
-            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(100,40,15,0.4) 60%, transparent 100%)"
-          }
-        }
-      },
-      "blocks_order": ["cat-packs", "cat-apparel", "cat-accessories", "cat-community"]
+        "heading_text_1": "Shop by",
+        "heading_text_2": "Category",
+        "background_color": "#111009",
+        "eyebrow_color": "#d4622a",
+        "heading_color": "#faf8f4",
+        "accent_color": "#c8a96e",
+        "card_text_color": "#faf8f4"
+      }
     },
     "community": {
       "type": "community",
@@ -105,7 +105,16 @@
         "stat2_number": "52",
         "stat2_label": "Monday Events / Year",
         "cta_text": "Join the Community",
-        "badge_text": "Monday is for Rucking"
+        "cta_url": "",
+        "badge_text": "Monday is for Rucking",
+        "background_color": "#1e1e1a",
+        "eyebrow_color": "#d4622a",
+        "heading_color_1": "#faf8f4",
+        "heading_color_2": "#c8a96e",
+        "body_color": "#e8d5b0",
+        "stat_number_color": "#c8a96e",
+        "badge_bg_color": "#d4622a",
+        "badge_text_color": "#faf8f4"
       }
     },
     "newsletter": {
@@ -116,7 +125,15 @@
         "input_placeholder": "Enter your email address",
         "button_text": "Subscribe",
         "success_message": "You're in. Welcome to the movement.",
-        "disclaimer": "No spam. Unsubscribe anytime. We ruck, we don't spam."
+        "disclaimer": "No spam. Unsubscribe anytime. We ruck, we don't spam.",
+        "background_color": "#2d3a18",
+        "top_border_color": "#c8a96e",
+        "title_color": "#faf8f4",
+        "subtitle_color": "#e8d5b0",
+        "input_bg_color": "#111009",
+        "input_border_color": "#c8a96e",
+        "button_bg_color": "#d4622a",
+        "button_text_color": "#faf8f4"
       }
     }
   },
