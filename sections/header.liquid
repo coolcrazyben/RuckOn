@@ -16,15 +16,18 @@
     <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name }}">
       {%- if section.settings.logo_image -%}
         {%- assign logo_2x = section.settings.logo_max_width | times: 2 -%}
+        {%- assign logo_widths = section.settings.logo_max_width | append: ', ' | append: logo_2x -%}
+        {%- assign logo_sizes = section.settings.logo_max_width | append: 'px' -%}
+        {%- assign logo_alt = section.settings.logo_image.alt | default: shop.name -%}
         {{
           section.settings.logo_image
           | image_url: width: logo_2x
           | image_tag:
             class: 'site-header__logo-img',
-            alt: section.settings.logo_image.alt | default: shop.name,
+            alt: logo_alt,
             loading: 'eager',
-            widths: section.settings.logo_max_width | append: ', ' | append: logo_2x,
-            sizes: section.settings.logo_max_width | append: 'px'
+            widths: logo_widths,
+            sizes: logo_sizes
         }}
       {%- else -%}
         <span class="logo-word-1">{{ section.settings.logo_text_1 }}</span>
