@@ -1,10 +1,11 @@
 {% style %}
   #shopify-section-{{ section.id }} .site-header {
-    --header-bg:        {{ section.settings.background_color }};
-    --header-link:      {{ section.settings.link_color }};
-    --header-logo1:     {{ section.settings.logo_color_1 }};
-    --header-logo2:     {{ section.settings.logo_color_2 }};
-    --header-cart:      {{ section.settings.cart_color }};
+    --header-bg:         {{ section.settings.background_color }};
+    --header-link:       {{ section.settings.link_color }};
+    --header-logo1:      {{ section.settings.logo_color_1 }};
+    --header-logo2:      {{ section.settings.logo_color_2 }};
+    --header-cart:       {{ section.settings.cart_color }};
+    --header-logo-width: {{ section.settings.logo_max_width }}px;
   }
 {% endstyle %}
 
@@ -13,8 +14,22 @@
 
     {%- comment -%} Logo {%- endcomment -%}
     <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name }}">
-      <span class="logo-word-1">{{ section.settings.logo_text_1 }}</span>
-      <span class="logo-word-2">{{ section.settings.logo_text_2 }}</span>
+      {%- if section.settings.logo_image -%}
+        {%- assign logo_2x = section.settings.logo_max_width | times: 2 -%}
+        {{
+          section.settings.logo_image
+          | image_url: width: logo_2x
+          | image_tag:
+            class: 'site-header__logo-img',
+            alt: section.settings.logo_image.alt | default: shop.name,
+            loading: 'eager',
+            widths: section.settings.logo_max_width | append: ', ' | append: logo_2x,
+            sizes: section.settings.logo_max_width | append: 'px'
+        }}
+      {%- else -%}
+        <span class="logo-word-1">{{ section.settings.logo_text_1 }}</span>
+        <span class="logo-word-2">{{ section.settings.logo_text_2 }}</span>
+      {%- endif -%}
     </a>
 
     {%- comment -%} Desktop navigation {%- endcomment -%}
@@ -93,6 +108,21 @@
 
   .logo-word-1 { color: var(--header-logo1, #c8a96e); }
   .logo-word-2 { color: var(--header-logo2, #faf8f4); }
+
+  .site-header__logo-img {
+    display: block;
+    width: auto;
+    max-width: var(--header-logo-width, 150px);
+    max-height: calc(var(--nav-height, 72px) - 24px);
+    height: auto;
+    object-fit: contain;
+  }
+
+  @media (max-width: 768px) {
+    .site-header__logo-img {
+      max-width: calc(var(--header-logo-width, 150px) * 0.85);
+    }
+  }
 
   /* Nav links */
   .site-header__nav {
@@ -226,18 +256,34 @@
       "content": "Logo"
     },
     {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo image",
+      "info": "When set, replaces the text logo. Use a PNG with transparent background for best results."
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "label": "Logo max-width",
+      "min": 60,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 150
+    },
+    {
       "type": "text",
       "id": "logo_text_1",
-      "label": "Logo — first word",
+      "label": "Logo — first word (fallback)",
       "default": "RUCK",
-      "info": "Displays in the tan/gold accent color"
+      "info": "Shown when no logo image is uploaded"
     },
     {
       "type": "text",
       "id": "logo_text_2",
-      "label": "Logo — second word",
+      "label": "Logo — second word (fallback)",
       "default": "ON",
-      "info": "Displays in white"
+      "info": "Shown when no logo image is uploaded"
     },
     {
       "type": "header",
