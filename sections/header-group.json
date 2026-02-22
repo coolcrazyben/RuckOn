@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "header",
   "name": "Header group",
@@ -7,6 +16,7 @@
       "settings": {
         "show_bar": true,
         "announcement_text": "Free shipping on orders over $75 | Use code RUCKON10 for 10% off your first order",
+        "link_url": "",
         "background_color": "#2d3a18",
         "text_color": "#e8d5b0",
         "border_color": "#4a5c2a"
@@ -15,10 +25,13 @@
     "header": {
       "type": "header",
       "settings": {
+        "logo_image": "shopify://shop_images/ChatGPT_Image_Feb_22_2026_12_42_04_AM.png",
+        "logo_max_width": 600,
         "logo_text_1": "RUCK",
         "logo_text_2": "ON",
         "menu": "main-menu",
         "cart_label": "Cart",
+        "background_color": "#111009",
         "link_color": "#e8d5b0",
         "logo_color_1": "#c8a96e",
         "logo_color_2": "#faf8f4",
