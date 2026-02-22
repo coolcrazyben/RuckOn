@@ -1,0 +1,292 @@
+{% style %}
+  #shopify-section-{{ section.id }} .newsletter {
+    --nl-bg:           {{ section.settings.background_color }};
+    --nl-border:       {{ section.settings.top_border_color }};
+    --nl-title:        {{ section.settings.title_color }};
+    --nl-subtitle:     {{ section.settings.subtitle_color }};
+    --nl-input-bg:     {{ section.settings.input_bg_color }};
+    --nl-input-border: {{ section.settings.input_border_color }};
+    --nl-btn-bg:       {{ section.settings.button_bg_color }};
+    --nl-btn-text:     {{ section.settings.button_text_color }};
+  }
+{% endstyle %}
+
+<div class="newsletter full-width">
+  <div class="newsletter__inner">
+    {%- if section.settings.title != blank -%}
+      <h2 class="newsletter__title fade-up" data-delay="1">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subtitle != blank -%}
+      <p class="newsletter__subtitle fade-up" data-delay="2">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+
+    <div class="newsletter__form-wrap fade-up" data-delay="3">
+      {%- form 'customer', id: 'newsletter-form', class: 'newsletter__form' -%}
+        {{ form.errors | default_errors }}
+
+        {%- if form.posted_successfully? -%}
+          <p class="newsletter__success">
+            {{ section.settings.success_message }}
+          </p>
+        {%- else -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+
+          <div class="newsletter__row">
+            <label for="newsletter-email" class="visually-hidden">
+              {{ section.settings.input_placeholder }}
+            </label>
+            <input
+              type="email"
+              id="newsletter-email"
+              name="contact[email]"
+              class="newsletter__input"
+              placeholder="{{ section.settings.input_placeholder }}"
+              autocomplete="email"
+              autocorrect="off"
+              autocapitalize="off"
+              aria-required="true"
+              required
+            >
+            <button type="submit" class="newsletter__btn btn btn--primary">
+              {{ section.settings.button_text }}
+            </button>
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+    {%- if section.settings.disclaimer != blank -%}
+      <p class="newsletter__disclaimer fade-up" data-delay="4">{{ section.settings.disclaimer }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+{% stylesheet %}
+  .newsletter {
+    background-color: var(--nl-bg, #2d3a18);
+    border-top: 2px solid var(--nl-border, #c8a96e);
+    padding: 80px var(--page-margin);
+  }
+
+  .newsletter__inner {
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  .newsletter__title {
+    font-family: var(--font-heading);
+    font-size: clamp(30px, 4vw, 52px);
+    line-height: 1.05;
+    color: var(--nl-title, #faf8f4);
+  }
+
+  .newsletter__subtitle {
+    font-family: var(--font-body);
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--nl-subtitle, #e8d5b0);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .newsletter__form-wrap {
+    width: 100%;
+  }
+
+  .newsletter__row {
+    display: flex;
+    gap: 0;
+    width: 100%;
+  }
+
+  .newsletter__input {
+    flex: 1;
+    padding: 14px 20px;
+    background: var(--nl-input-bg, rgba(17, 16, 9, 0.6));
+    border: 1px solid var(--nl-input-border, #c8a96e);
+    border-right: none;
+    color: var(--color-white);
+    font-family: var(--font-body);
+    font-size: 15px;
+    outline: none;
+    min-width: 0;
+    border-radius: 0;
+  }
+
+  .newsletter__input::placeholder {
+    color: rgba(232, 213, 176, 0.5);
+  }
+
+  .newsletter__input:focus {
+    border-color: var(--color-tan);
+    background: rgba(17, 16, 9, 0.8);
+  }
+
+  .newsletter__btn {
+    flex-shrink: 0;
+    background: var(--nl-btn-bg, #d4622a);
+    color: var(--nl-btn-text, #faf8f4);
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    border: none;
+    cursor: pointer;
+    clip-path: none;
+    border-radius: 0;
+    transition: background 0.2s ease;
+  }
+
+  .newsletter__btn:hover {
+    background: var(--color-tan);
+    color: var(--color-black);
+  }
+
+  .newsletter__success {
+    font-family: var(--font-label);
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-tan);
+    padding: 16px;
+    border: 1px solid var(--color-tan);
+  }
+
+  .newsletter__disclaimer {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: rgba(232, 213, 176, 0.45);
+    line-height: 1.5;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 768px) {
+    .newsletter { padding: 60px var(--page-margin); }
+    .newsletter__row { flex-direction: column; gap: 0; }
+    .newsletter__input { border-right: 1px solid var(--nl-input-border, #c8a96e); border-bottom: none; }
+    .newsletter__btn { width: 100%; clip-path: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Ruck On. Stay Informed."
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Drop updates, training tips, and gear drops delivered to your inbox."
+    },
+    {
+      "type": "text",
+      "id": "input_placeholder",
+      "label": "Email input placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Subscribe button text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "You're in. Welcome to the movement."
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Disclaimer text (optional)",
+      "default": "No spam. Unsubscribe anytime. We ruck, we don't spam."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#2d3a18"
+    },
+    {
+      "type": "color",
+      "id": "top_border_color",
+      "label": "Top border color",
+      "default": "#c8a96e"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#faf8f4"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle color",
+      "default": "#e8d5b0"
+    },
+    {
+      "type": "color",
+      "id": "input_bg_color",
+      "label": "Input background",
+      "default": "#111009"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border color",
+      "default": "#c8a96e"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button background",
+      "default": "#d4622a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#faf8f4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

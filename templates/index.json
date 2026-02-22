@@ -1,0 +1,132 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow_text": "// Tactical Gear & Apparel",
+        "headline_line1": "Carry",
+        "headline_line2": "the Weight.",
+        "subtext": "Gear built for those who don't put the ruck down. Built to last. Built to perform. Built to Ruck On.",
+        "btn_primary_text": "Shop Now",
+        "btn_secondary_text": "Our Story",
+        "show_scroll_indicator": true,
+        "eyebrow_color": "#d4622a",
+        "headline1_color": "#faf8f4",
+        "headline2_color": "#c8a96e",
+        "subtext_color": "#e8d5b0"
+      }
+    },
+    "stats-bar": {
+      "type": "stats-bar",
+      "settings": {
+        "stat_1_number": "10K+",
+        "stat_1_label": "Ruckers Strong",
+        "stat_2_number": "500+",
+        "stat_2_label": "Miles Tested",
+        "stat_3_number": "100%",
+        "stat_3_label": "No Quit Guarantee",
+        "stat_4_number": "5\u2605",
+        "stat_4_label": "Avg. Rating"
+      }
+    },
+    "best-sellers": {
+      "type": "best-sellers",
+      "settings": {
+        "eyebrow_text": "// Drop 01",
+        "heading_text_1": "Best ",
+        "heading_text_2": "Sellers",
+        "view_all_text": "View All",
+        "product_limit": 6,
+        "show_badge": true,
+        "card_cta_text": "Add to Cart"
+      }
+    },
+    "manifesto": {
+      "type": "manifesto",
+      "settings": {
+        "quote_line1": "Don't Just Rock On.",
+        "quote_line2": "Ruck On.",
+        "body_text": "We don't make gear for the gym. We make gear for the grind — the 20-mile ruck, the 4am alarm, the weight that never comes off. Built by ruckers. Tested in the field. Made to last a lifetime.",
+        "cta_text": "Read Our Story"
+      }
+    },
+    "shop-by-category": {
+      "type": "shop-by-category",
+      "settings": {
+        "eyebrow_text": "// Everything You Need",
+        "heading_text_1": "Shop by ",
+        "heading_text_2": "Category"
+      },
+      "blocks": {
+        "cat-packs": {
+          "type": "category",
+          "settings": {
+            "category_name": "Ruck Packs",
+            "product_count": "24 Products",
+            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(74,92,42,0.35) 60%, transparent 100%)"
+          }
+        },
+        "cat-apparel": {
+          "type": "category",
+          "settings": {
+            "category_name": "Apparel",
+            "product_count": "38 Products",
+            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(80,60,30,0.4) 60%, transparent 100%)"
+          }
+        },
+        "cat-accessories": {
+          "type": "category",
+          "settings": {
+            "category_name": "Accessories",
+            "product_count": "16 Products",
+            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(20,45,20,0.45) 60%, transparent 100%)"
+          }
+        },
+        "cat-community": {
+          "type": "category",
+          "settings": {
+            "category_name": "Community",
+            "product_count": "10K+ Members",
+            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(100,40,15,0.4) 60%, transparent 100%)"
+          }
+        }
+      },
+      "blocks_order": ["cat-packs", "cat-apparel", "cat-accessories", "cat-community"]
+    },
+    "community": {
+      "type": "community",
+      "settings": {
+        "eyebrow_text": "// The Movement",
+        "heading_line1": "Built for Ruckers.",
+        "heading_line2": "By Ruckers.",
+        "body_text": "Monday is for rucking. The Ruck On community shows up every week — rain, cold, heat, or dark. 10,000 strong and growing. Join the movement that never puts the ruck down.",
+        "stat1_number": "10K+",
+        "stat1_label": "Community Members",
+        "stat2_number": "52",
+        "stat2_label": "Monday Events / Year",
+        "cta_text": "Join the Community",
+        "badge_text": "Monday is for Rucking"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "title": "Ruck On. Stay Informed.",
+        "subtitle": "Drop updates, training tips, and gear drops delivered to your inbox.",
+        "input_placeholder": "Enter your email address",
+        "button_text": "Subscribe",
+        "success_message": "You're in. Welcome to the movement.",
+        "disclaimer": "No spam. Unsubscribe anytime. We ruck, we don't spam."
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "stats-bar",
+    "best-sellers",
+    "manifesto",
+    "shop-by-category",
+    "community",
+    "newsletter"
+  ]
+}

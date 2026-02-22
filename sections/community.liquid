@@ -1,0 +1,425 @@
+{% style %}
+  #shopify-section-{{ section.id }} .community {
+    --com-bg:          {{ section.settings.background_color }};
+    --com-eyebrow:     {{ section.settings.eyebrow_color }};
+    --com-heading1:    {{ section.settings.heading_color_1 }};
+    --com-heading2:    {{ section.settings.heading_color_2 }};
+    --com-body:        {{ section.settings.body_color }};
+    --com-stat:        {{ section.settings.stat_number_color }};
+    --com-badge-bg:    {{ section.settings.badge_bg_color }};
+    --com-badge-text:  {{ section.settings.badge_text_color }};
+  }
+{% endstyle %}
+
+<div class="community full-width">
+  <div class="community__inner">
+
+    {%- comment -%} Left: Text content {%- endcomment -%}
+    <div class="community__text">
+      {%- if section.settings.eyebrow_text != blank -%}
+        <span class="eyebrow community__eyebrow">{{ section.settings.eyebrow_text }}</span>
+      {%- endif -%}
+
+      <h2 class="community__title fade-up" data-delay="1">
+        {{ section.settings.heading_line1 }}
+        {%- if section.settings.heading_line2 != blank -%}
+          <span>{{ section.settings.heading_line2 }}</span>
+        {%- endif -%}
+      </h2>
+
+      {%- if section.settings.body_text != blank -%}
+        <p class="community__body fade-up" data-delay="2">
+          {{ section.settings.body_text }}
+        </p>
+      {%- endif -%}
+
+      <div class="community__stats fade-up" data-delay="3">
+        {%- if section.settings.stat1_number != blank -%}
+          <div class="community__stat">
+            <span class="community__stat-number">{{ section.settings.stat1_number }}</span>
+            <span class="community__stat-label">{{ section.settings.stat1_label }}</span>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.stat2_number != blank -%}
+          <div class="community__stat">
+            <span class="community__stat-number">{{ section.settings.stat2_number }}</span>
+            <span class="community__stat-label">{{ section.settings.stat2_label }}</span>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.cta_text != blank -%}
+        <div class="community__cta fade-up" data-delay="4">
+          <a href="{{ section.settings.cta_url | default: '#' }}" class="btn btn--primary">
+            {{ section.settings.cta_text }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Right: Visual / images {%- endcomment -%}
+    <div class="community__visual fade-up" data-delay="2">
+      <div class="community__images">
+        {%- if section.settings.image_1 != blank -%}
+          <div class="community__img community__img--back">
+            {{
+              section.settings.image_1
+              | image_url: width: 600
+              | image_tag:
+                loading: 'lazy',
+                alt: section.settings.image_1.alt | default: 'Community image 1'
+            }}
+          </div>
+        {%- else -%}
+          <div class="community__img community__img--back community__img--placeholder">
+            {{ 'lifestyle-1' | placeholder_svg_tag }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.image_2 != blank -%}
+          <div class="community__img community__img--front">
+            {{
+              section.settings.image_2
+              | image_url: width: 500
+              | image_tag:
+                loading: 'lazy',
+                alt: section.settings.image_2.alt | default: 'Community image 2'
+            }}
+          </div>
+        {%- else -%}
+          <div class="community__img community__img--front community__img--placeholder">
+            {{ 'lifestyle-2' | placeholder_svg_tag }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.badge_text != blank -%}
+        <div class="community__badge">
+          {{ section.settings.badge_text }}
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+{% stylesheet %}
+  .community {
+    background-color: var(--com-bg, #1e1e1a);
+    padding: 80px var(--page-margin);
+  }
+
+  .community__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+
+  /* Left: text */
+  .community__eyebrow {
+    color: var(--com-eyebrow, #d4622a);
+  }
+
+  .community__title {
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 4.5vw, 58px);
+    line-height: 1.05;
+    color: var(--com-heading1, #faf8f4);
+    margin-bottom: 1.5rem;
+  }
+
+  .community__title span {
+    color: var(--com-heading2, #c8a96e);
+  }
+
+  .community__body {
+    font-family: var(--font-body);
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--com-body, #e8d5b0);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    max-width: 480px;
+  }
+
+  .community__stats {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 2.5rem;
+    padding: 24px 0;
+    border-top: 1px solid rgba(200, 169, 110, 0.2);
+    border-bottom: 1px solid rgba(200, 169, 110, 0.2);
+  }
+
+  .community__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .community__stat-number {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    line-height: 1;
+    color: var(--com-stat, #c8a96e);
+  }
+
+  .community__stat-label {
+    font-family: var(--font-label);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(232, 213, 176, 0.65);
+  }
+
+  /* Right: visual */
+  .community__visual {
+    position: relative;
+  }
+
+  .community__images {
+    position: relative;
+    height: 500px;
+  }
+
+  .community__img {
+    position: absolute;
+    overflow: hidden;
+  }
+
+  .community__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .community__img--back {
+    top: 0;
+    right: 0;
+    width: 80%;
+    height: 85%;
+    z-index: 1;
+  }
+
+  .community__img--front {
+    bottom: 0;
+    left: 0;
+    width: 55%;
+    height: 60%;
+    z-index: 2;
+    border: 3px solid var(--color-charcoal);
+  }
+
+  .community__img--placeholder {
+    background: var(--color-charcoal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .community__img--placeholder svg {
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+    fill: var(--color-tan);
+  }
+
+  /* Badge */
+  .community__badge {
+    position: absolute;
+    bottom: 20px;
+    right: -10px;
+    z-index: 3;
+    background: var(--com-badge-bg, #d4622a);
+    color: var(--com-badge-text, #faf8f4);
+    font-family: var(--font-heading);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 16px 20px;
+    max-width: 160px;
+    text-align: center;
+    line-height: 1.4;
+    transform: rotate(-3deg);
+  }
+
+  @media (max-width: 1024px) {
+    .community__inner {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .community__images { height: 380px; }
+    .community__badge { right: 10px; }
+  }
+
+  @media (max-width: 768px) {
+    .community { padding: 60px var(--page-margin); }
+    .community__stats { flex-direction: column; gap: 20px; }
+    .community__images { height: 300px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Community",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow label",
+      "default": "// The Movement"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading — line 1 (white)",
+      "default": "Built for Ruckers."
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading — line 2 (tan)",
+      "default": "By Ruckers."
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Body paragraph",
+      "default": "Monday is for rucking. The Ruck On community shows up every week — rain, cold, heat, or dark. 10,000 strong and growing. Join the movement that never puts the ruck down."
+    },
+    {
+      "type": "header",
+      "content": "Stats"
+    },
+    {
+      "type": "text",
+      "id": "stat1_number",
+      "label": "Stat 1 — number",
+      "default": "10K+"
+    },
+    {
+      "type": "text",
+      "id": "stat1_label",
+      "label": "Stat 1 — label",
+      "default": "Community Members"
+    },
+    {
+      "type": "text",
+      "id": "stat2_number",
+      "label": "Stat 2 — number",
+      "default": "52"
+    },
+    {
+      "type": "text",
+      "id": "stat2_label",
+      "label": "Stat 2 — label",
+      "default": "Monday Events / Year"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button label",
+      "default": "Join the Community"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Background image (larger)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Foreground image (smaller, overlapping)"
+    },
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Monday is for Rucking"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#1e1e1a"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#d4622a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color_1",
+      "label": "Heading line 1 color",
+      "default": "#faf8f4"
+    },
+    {
+      "type": "color",
+      "id": "heading_color_2",
+      "label": "Heading line 2 color",
+      "default": "#c8a96e"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body text color",
+      "default": "#e8d5b0"
+    },
+    {
+      "type": "color",
+      "id": "stat_number_color",
+      "label": "Stat number color",
+      "default": "#c8a96e"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge background",
+      "default": "#d4622a"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text color",
+      "default": "#faf8f4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Community"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,23 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "logo_text_1": "RUCK",
+        "logo_text_2": "ON",
+        "tagline": "Tactical gear and apparel for those who never put the ruck down.",
+        "show_payment_icons": true,
+        "col1_title": "Shop",
+        "col2_title": "Company",
+        "col3_title": "Support",
+        "copyright_suffix": "All rights reserved.",
+        "footer_tagline": "Made for Ruckers. By Ruckers."
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

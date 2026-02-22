@@ -1,0 +1,299 @@
+{% style %}
+  #shopify-section-{{ section.id }} .site-header {
+    --header-bg:        {{ section.settings.background_color }};
+    --header-link:      {{ section.settings.link_color }};
+    --header-logo1:     {{ section.settings.logo_color_1 }};
+    --header-logo2:     {{ section.settings.logo_color_2 }};
+    --header-cart:      {{ section.settings.cart_color }};
+  }
+{% endstyle %}
+
+<div class="site-header-wrapper" id="site-header-wrapper">
+  <header class="site-header" role="banner">
+
+    {%- comment -%} Logo {%- endcomment -%}
+    <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name }}">
+      <span class="logo-word-1">{{ section.settings.logo_text_1 }}</span>
+      <span class="logo-word-2">{{ section.settings.logo_text_2 }}</span>
+    </a>
+
+    {%- comment -%} Desktop navigation {%- endcomment -%}
+    <nav class="site-header__nav" aria-label="Main navigation">
+      {% for link in section.settings.menu.links %}
+        <a
+          href="{{ link.url }}"
+          class="site-header__nav-link{% if link.active %} is-active{% endif %}"
+          {% if link.current %}aria-current="page"{% endif %}
+        >
+          {{ link.title }}
+        </a>
+      {% endfor %}
+    </nav>
+
+    {%- comment -%} Icons: account + cart {%- endcomment -%}
+    <div class="site-header__icons">
+      {% if shop.customer_accounts_enabled %}
+        <a href="{{ routes.account_url }}" class="site-header__icon-link" aria-label="Account">
+          {{ 'icon-account.svg' | inline_asset_content }}
+        </a>
+      {% endif %}
+
+      <a href="{{ routes.cart_url }}" class="site-header__cart-btn" aria-label="Cart, {{ cart.item_count }} items">
+        <span class="cart-btn__label">{{ section.settings.cart_label }}</span>
+        <span class="cart-btn__count{% if cart.item_count == 0 %} is-hidden{% endif %}" aria-live="polite">
+          {{ cart.item_count }}
+        </span>
+      </a>
+    </div>
+
+  </header>
+</div>
+
+{% stylesheet %}
+  .site-header-wrapper {
+    background: linear-gradient(
+      to bottom,
+      rgba(17, 16, 9, 0.93) 0%,
+      rgba(17, 16, 9, 0.80) 100%
+    );
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(200, 169, 110, 0.12);
+    transition: background 0.35s ease, border-color 0.35s ease;
+    height: var(--nav-height, 72px);
+  }
+
+  .site-header-wrapper.is-scrolled {
+    background: rgba(17, 16, 9, 0.97);
+    border-bottom-color: rgba(200, 169, 110, 0.25);
+  }
+
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 0 var(--page-margin);
+  }
+
+  /* Logo */
+  .site-header__logo {
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 28px;
+    letter-spacing: 3px;
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .logo-word-1 { color: var(--header-logo1, #c8a96e); }
+  .logo-word-2 { color: var(--header-logo2, #faf8f4); }
+
+  /* Nav links */
+  .site-header__nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .site-header__nav-link {
+    font-family: var(--font-label);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--header-link, #e8d5b0);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.2s ease;
+  }
+
+  .site-header__nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--color-tan);
+    transition: width 0.25s ease;
+  }
+
+  .site-header__nav-link:hover,
+  .site-header__nav-link.is-active {
+    color: var(--color-tan);
+  }
+
+  .site-header__nav-link:hover::after,
+  .site-header__nav-link.is-active::after {
+    width: 100%;
+  }
+
+  /* Icons */
+  .site-header__icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+  }
+
+  .site-header__icon-link {
+    color: var(--header-link, #e8d5b0);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease;
+  }
+
+  .site-header__icon-link:hover { color: var(--color-tan); }
+
+  .site-header__icon-link svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
+  /* Cart button */
+  .site-header__cart-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--header-cart, #c8a96e);
+    text-decoration: none;
+    border: 1px solid var(--header-cart, #c8a96e);
+    padding: 7px 18px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .site-header__cart-btn:hover {
+    background: var(--header-cart, #c8a96e);
+    color: var(--color-black);
+  }
+
+  .cart-btn__count {
+    background: var(--color-orange);
+    color: var(--color-white);
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+  }
+
+  .cart-btn__count.is-hidden { display: none; }
+
+  /* Mobile: hide nav links, keep logo + cart */
+  @media (max-width: 1024px) {
+    .site-header__nav { display: none; }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+(function () {
+  var wrapper = document.getElementById('site-header-wrapper');
+  if (!wrapper) return;
+
+  var announcementBar = document.querySelector('.announcement-bar');
+  var abHeight = announcementBar ? announcementBar.offsetHeight : 42;
+
+  window.addEventListener('scroll', function () {
+    wrapper.classList.toggle('is-scrolled', window.scrollY > abHeight);
+  }, { passive: true });
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "logo_text_1",
+      "label": "Logo — first word",
+      "default": "RUCK",
+      "info": "Displays in the tan/gold accent color"
+    },
+    {
+      "type": "text",
+      "id": "logo_text_2",
+      "label": "Logo — second word",
+      "default": "ON",
+      "info": "Displays in white"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Cart"
+    },
+    {
+      "type": "text",
+      "id": "cart_label",
+      "label": "Cart button label",
+      "default": "Cart"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#111009",
+      "info": "Used as backdrop when scrolled"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Navigation link color",
+      "default": "#e8d5b0"
+    },
+    {
+      "type": "color",
+      "id": "logo_color_1",
+      "label": "Logo — first word color",
+      "default": "#c8a96e"
+    },
+    {
+      "type": "color",
+      "id": "logo_color_2",
+      "label": "Logo — second word color",
+      "default": "#faf8f4"
+    },
+    {
+      "type": "color",
+      "id": "cart_color",
+      "label": "Cart button color",
+      "default": "#c8a96e"
+    }
+  ]
+}
+{% endschema %}

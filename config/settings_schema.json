@@ -1,0 +1,84 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Ruck On",
+    "theme_version": "1.0.0",
+    "theme_author": "Ruck On",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Fonts",
+        "info": "Ruck On uses Black Ops One, Barlow Condensed, and Barlow loaded from Google Fonts. The font picker below is used as a fallback system font reference only."
+      },
+      {
+        "type": "font_picker",
+        "id": "type_primary_font",
+        "default": "work_sans_n4",
+        "label": "Fallback system font"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "select",
+        "id": "max_page_width",
+        "label": "Max page width",
+        "options": [
+          { "value": "90rem",  "label": "Narrow (1440px)" },
+          { "value": "100rem", "label": "Standard (1600px)" },
+          { "value": "110rem", "label": "Wide (1760px)" }
+        ],
+        "default": "100rem"
+      },
+      {
+        "type": "range",
+        "id": "min_page_margin",
+        "min": 16,
+        "max": 80,
+        "step": 4,
+        "unit": "px",
+        "label": "Page side margin",
+        "default": 24
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Global theme colors",
+        "info": "These set the base background and text color for all pages."
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "default": "#111009",
+        "label": "Page background"
+      },
+      {
+        "type": "color",
+        "id": "foreground_color",
+        "default": "#faf8f4",
+        "label": "Page text"
+      },
+      {
+        "type": "range",
+        "id": "input_corner_radius",
+        "min": 0,
+        "max": 8,
+        "step": 1,
+        "unit": "px",
+        "label": "Input corner radius",
+        "default": 0
+      }
+    ]
+  }
+]

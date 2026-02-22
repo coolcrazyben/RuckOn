@@ -1,0 +1,171 @@
+/** Critical CSS for Ruck On theme. Loaded on every page. */
+
+/* === Reset === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; }
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  scroll-behavior: smooth;
+}
+
+html:has(dialog[scroll-lock][open], details[scroll-lock][open]) { overflow: hidden; }
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input, textarea, select {
+  font: inherit;
+  border-radius: var(--style-border-radius-inputs);
+}
+
+select {
+  background-color: var(--color-background);
+  color: currentcolor;
+}
+
+dialog {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+p { text-wrap: pretty; }
+
+p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
+
+p:empty { display: none; }
+
+:is(p,h1,h2,h3,h4,h5,h6):first-child,
+:empty:first-child + :where(p,h1,h2,h3,h4,h5,h6) { margin-block-start: 0; }
+
+:is(p,h1,h2,h3,h4,h5,h6):last-child,
+:where(p,h1,h2,h3,h4,h5,h6) + :has(+ :empty:last-child) { margin-block-end: 0; }
+
+/* === Section Grid Layout === */
+.shopify-section {
+  --content-width: min(
+    calc(var(--page-width) - var(--page-margin) * 2),
+    calc(100% - var(--page-margin) * 2)
+  );
+  --content-margin: minmax(var(--page-margin), 1fr);
+  --content-grid: var(--content-margin) var(--content-width) var(--content-margin);
+
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--content-grid);
+  width: 100%;
+}
+
+.shopify-section > * { grid-column: 2; }
+.shopify-section > .full-width { grid-column: 1 / -1; }
+
+/* === Global Header Group Sticky === */
+#shopify-section-group-header-group {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+}
+
+/* === Global Typography === */
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
+
+/* === Global Buttons === */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-label);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 32px;
+  clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+  border: none;
+  line-height: 1;
+}
+
+.btn--primary {
+  background: var(--color-orange);
+  color: var(--color-white);
+}
+
+.btn--primary:hover {
+  background: var(--color-tan);
+  color: var(--color-black);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--color-tan);
+  clip-path: none;
+  border: 1px solid var(--color-tan);
+  padding: 13px 32px;
+}
+
+.btn--secondary:hover {
+  background: rgba(200, 169, 110, 0.1);
+}
+
+/* === Scroll Animation Classes === */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.fade-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger helpers */
+.fade-up[data-delay="1"] { transition-delay: 0.1s; }
+.fade-up[data-delay="2"] { transition-delay: 0.2s; }
+.fade-up[data-delay="3"] { transition-delay: 0.3s; }
+.fade-up[data-delay="4"] { transition-delay: 0.4s; }
+.fade-up[data-delay="5"] { transition-delay: 0.5s; }
+.fade-up[data-delay="6"] { transition-delay: 0.6s; }
+
+/* === Eyebrow Label === */
+.eyebrow {
+  font-family: var(--font-label);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/* === Section Heading Utility === */
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1;
+  color: var(--color-white);
+}
+
+.section-title span { color: var(--color-tan); }
+
+/* === Divider line === */
+.divider-line {
+  display: block;
+  width: 80px;
+  height: 2px;
+  background: var(--color-tan);
+}
+
+/* === Page padding for non-hero pages === */
+#main-content { flex: 1; }

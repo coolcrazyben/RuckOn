@@ -1,0 +1,338 @@
+{% style %}
+  #shopify-section-{{ section.id }} .categories {
+    --cat-bg:          {{ section.settings.background_color }};
+    --cat-eyebrow:     {{ section.settings.eyebrow_color }};
+    --cat-heading:     {{ section.settings.heading_color }};
+    --cat-accent:      {{ section.settings.accent_color }};
+    --cat-card-text:   {{ section.settings.card_text_color }};
+  }
+{% endstyle %}
+
+<div class="categories">
+  <div class="categories__header">
+    {%- if section.settings.eyebrow_text != blank -%}
+      <span class="eyebrow">{{ section.settings.eyebrow_text }}</span>
+    {%- endif -%}
+    <h2 class="categories__title">
+      {{ section.settings.heading_text_1 }}
+      {%- if section.settings.heading_text_2 != blank -%}
+        <span>{{ section.settings.heading_text_2 }}</span>
+      {%- endif -%}
+    </h2>
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="categories__grid">
+      {%- for block in section.blocks -%}
+        {%- assign cat_url = block.settings.link_url | default: '#' -%}
+        {%- if block.settings.collection != blank -%}
+          {%- assign linked_collection = collections[block.settings.collection] -%}
+          {%- if linked_collection != empty -%}
+            {%- assign cat_url = linked_collection.url -%}
+          {%- endif -%}
+        {%- endif -%}
+
+        <a
+          href="{{ cat_url }}"
+          class="category-card fade-up"
+          data-delay="{{ forloop.index }}"
+          {{ block.shopify_attributes }}
+        >
+          <div class="category-card__media">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 800
+                | image_tag:
+                  loading: 'lazy',
+                  sizes: '(max-width: 768px) 50vw, 25vw',
+                  alt: block.settings.category_name
+              }}
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: 'category-card__placeholder' }}
+            {%- endif -%}
+          </div>
+
+          <div class="category-card__overlay" style="--card-gradient: {{ block.settings.gradient_overlay }};"></div>
+
+          <span class="category-card__arrow" aria-hidden="true">↗</span>
+
+          <div class="category-card__info">
+            {%- if block.settings.category_name != blank -%}
+              <h3 class="category-card__name">{{ block.settings.category_name }}</h3>
+            {%- endif -%}
+            {%- if block.settings.product_count != blank -%}
+              <p class="category-card__count">{{ block.settings.product_count }}</p>
+            {%- endif -%}
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .categories {
+    background-color: var(--cat-bg, #111009);
+    padding: 80px var(--page-margin);
+    max-width: var(--page-width);
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .categories__header {
+    margin-bottom: 40px;
+  }
+
+  .categories__title {
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1;
+    color: var(--cat-heading, #faf8f4);
+  }
+
+  .categories__title span {
+    color: var(--cat-accent, #c8a96e);
+  }
+
+  /* Grid */
+  .categories__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+  }
+
+  /* Card */
+  .category-card {
+    position: relative;
+    height: 420px;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    background-color: var(--color-charcoal);
+  }
+
+  .category-card__media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .category-card__media img,
+  .category-card__media .category-card__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+
+  .category-card:hover .category-card__media img { transform: scale(1.06); }
+
+  .category-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--card-gradient, linear-gradient(to top, rgba(17,16,9,0.85) 0%, rgba(17,16,9,0.2) 60%, transparent 100%));
+    z-index: 1;
+  }
+
+  /* Arrow icon top-right */
+  .category-card__arrow {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 2;
+    font-size: 22px;
+    color: var(--color-tan);
+    opacity: 0;
+    transform: rotate(0deg) translateY(6px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .category-card:hover .category-card__arrow {
+    opacity: 1;
+    transform: rotate(45deg) translateY(0);
+  }
+
+  .category-card__info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .category-card__name {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    line-height: 1;
+    color: var(--cat-card-text, #faf8f4);
+  }
+
+  .category-card__count {
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--cat-accent, #c8a96e);
+  }
+
+  @media (max-width: 1024px) {
+    .categories__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .categories { padding: 60px var(--page-margin); }
+    .categories__grid { grid-template-columns: repeat(2, 1fr); }
+    .category-card { height: 280px; }
+    .category-card__name { font-size: 22px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Shop by Category",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow label",
+      "default": "// Everything You Need"
+    },
+    {
+      "type": "text",
+      "id": "heading_text_1",
+      "label": "Heading — first part (white)",
+      "default": "Shop by "
+    },
+    {
+      "type": "text",
+      "id": "heading_text_2",
+      "label": "Heading — second part (tan accent)",
+      "default": "Category"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#111009"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#d4622a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#faf8f4"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#c8a96e"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card text color",
+      "default": "#faf8f4"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category_name",
+          "label": "Category name",
+          "default": "Ruck Packs"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Category image"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Link to collection",
+          "info": "Takes priority over the URL field below"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Fallback URL"
+        },
+        {
+          "type": "text",
+          "id": "product_count",
+          "label": "Product count label",
+          "default": "24 Products",
+          "info": "Displayed below the category name"
+        },
+        {
+          "type": "textarea",
+          "id": "gradient_overlay",
+          "label": "Card gradient overlay (CSS)",
+          "default": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)",
+          "info": "Paste a CSS gradient value for the card's color overlay"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by Category",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Ruck Packs",
+            "product_count": "24 Products",
+            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(74,92,42,0.35) 60%, transparent 100%)"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Apparel",
+            "product_count": "38 Products",
+            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(80,60,30,0.4) 60%, transparent 100%)"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Accessories",
+            "product_count": "16 Products",
+            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(20,45,20,0.45) 60%, transparent 100%)"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Community",
+            "product_count": "10K+ Members",
+            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(100,40,15,0.4) 60%, transparent 100%)"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

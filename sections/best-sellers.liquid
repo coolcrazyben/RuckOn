@@ -1,0 +1,408 @@
+{% style %}
+  #shopify-section-{{ section.id }} .best-sellers {
+    --bs-bg:           {{ section.settings.background_color }};
+    --bs-eyebrow:      {{ section.settings.eyebrow_color }};
+    --bs-heading:      {{ section.settings.heading_color }};
+    --bs-accent:       {{ section.settings.accent_color }};
+    --bs-badge-bg:     {{ section.settings.badge_bg_color }};
+    --bs-badge-text:   {{ section.settings.badge_text_color }};
+  }
+{% endstyle %}
+
+{%- liquid
+  assign featured_collection = collections[section.settings.collection]
+  if featured_collection == empty or featured_collection == nil
+    assign featured_collection = collections.frontpage
+  endif
+  assign product_limit = section.settings.product_limit | default: 6
+-%}
+
+<div class="best-sellers">
+  <div class="best-sellers__header">
+    <div class="best-sellers__header-left">
+      {%- if section.settings.eyebrow_text != blank -%}
+        <span class="eyebrow">{{ section.settings.eyebrow_text }}</span>
+      {%- endif -%}
+      <h2 class="best-sellers__title">
+        {{ section.settings.heading_text_1 }}
+        {%- if section.settings.heading_text_2 != blank -%}
+          <span>{{ section.settings.heading_text_2 }}</span>
+        {%- endif -%}
+      </h2>
+    </div>
+    {%- if section.settings.view_all_text != blank and featured_collection != empty -%}
+      <a href="{{ featured_collection.url }}" class="best-sellers__view-all">
+        {{ section.settings.view_all_text }} &rarr;
+      </a>
+    {%- endif -%}
+  </div>
+
+  {%- if featured_collection != empty and featured_collection.products.size > 0 -%}
+    <div class="best-sellers__grid">
+      {%- for product in featured_collection.products limit: product_limit -%}
+        <article
+          class="product-card fade-up{% if forloop.first %} product-card--tall{% endif %}"
+          data-delay="{{ forloop.index }}"
+        >
+          <a href="{{ product.url }}" class="product-card__link" aria-label="{{ product.title }}">
+            <div class="product-card__media">
+              {%- if product.featured_image -%}
+                {{
+                  product.featured_image
+                  | image_url: width: 800
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '(max-width: 768px) 50vw, 33vw',
+                    alt: product.featured_image.alt | default: product.title
+                }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'product-card__placeholder' }}
+              {%- endif -%}
+            </div>
+
+            <div class="product-card__overlay"></div>
+
+            <div class="product-card__info">
+              {%- if section.settings.show_badge and product.type != blank -%}
+                <span class="product-card__badge">{{ product.type }}</span>
+              {%- endif -%}
+
+              <h3 class="product-card__title">{{ product.title }}</h3>
+
+              <p class="product-card__price">
+                {%- if product.compare_at_price > product.price -%}
+                  <s class="product-card__compare">{{ product.compare_at_price | money }}</s>
+                {%- endif -%}
+                {{ product.price | money }}
+              </p>
+
+              <span class="product-card__cta" aria-hidden="true">
+                {{ section.settings.card_cta_text }} &rarr;
+              </span>
+            </div>
+          </a>
+        </article>
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    <p class="best-sellers__empty">{{ section.settings.empty_text }}</p>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .best-sellers {
+    background-color: var(--bs-bg, #111009);
+    padding: 80px var(--page-margin);
+    max-width: var(--page-width);
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* Section header */
+  .best-sellers__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .best-sellers__title {
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1;
+    color: var(--bs-heading, #faf8f4);
+  }
+
+  .best-sellers__title span {
+    color: var(--bs-accent, #c8a96e);
+  }
+
+  .best-sellers__view-all {
+    font-family: var(--font-label);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--bs-accent, #c8a96e);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+
+  .best-sellers__view-all:hover { opacity: 0.7; }
+
+  /* Product grid */
+  .best-sellers__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 3px;
+  }
+
+  /* First card spans 2 rows */
+  .product-card--tall {
+    grid-row: span 2;
+  }
+
+  /* Product card */
+  .product-card {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-charcoal);
+    min-height: 320px;
+  }
+
+  .product-card--tall { min-height: 643px; }
+
+  .product-card__link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .product-card__media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .product-card__media img,
+  .product-card__media .product-card__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .product-card:hover .product-card__media img { transform: scale(1.05); }
+
+  .product-card__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(17, 16, 9, 0.88) 0%,
+      rgba(17, 16, 9, 0.3)  45%,
+      transparent           75%
+    );
+    z-index: 1;
+  }
+
+  /* Card info */
+  .product-card__info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .product-card__badge {
+    display: inline-block;
+    background: var(--bs-badge-bg, #d4622a);
+    color: var(--bs-badge-text, #faf8f4);
+    font-family: var(--font-label);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    align-self: flex-start;
+  }
+
+  .product-card__title {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    line-height: 1.1;
+    color: var(--color-white);
+  }
+
+  .product-card__price {
+    font-family: var(--font-label);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: var(--bs-accent, #c8a96e);
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+
+  .product-card__compare {
+    font-size: 12px;
+    opacity: 0.6;
+    text-decoration: line-through;
+  }
+
+  .product-card__cta {
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-orange);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    display: block;
+  }
+
+  .product-card:hover .product-card__cta {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .best-sellers__empty {
+    font-family: var(--font-label);
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-tan);
+    text-align: center;
+    padding: 60px 0;
+  }
+
+  @media (max-width: 1024px) {
+    .best-sellers__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .product-card--tall { grid-row: span 1; min-height: 320px; }
+  }
+
+  @media (max-width: 768px) {
+    .best-sellers {
+      padding: 60px var(--page-margin);
+    }
+    .best-sellers__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .product-card { min-height: 260px; }
+    .product-card__title { font-size: 16px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Best Sellers",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow label",
+      "default": "// Drop 01"
+    },
+    {
+      "type": "text",
+      "id": "heading_text_1",
+      "label": "Heading — first part (white)",
+      "default": "Best "
+    },
+    {
+      "type": "text",
+      "id": "heading_text_2",
+      "label": "Heading — second part (tan accent)",
+      "default": "Sellers"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View all link text",
+      "default": "View All"
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection to display",
+      "info": "If empty, falls back to the frontpage collection"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Number of products",
+      "min": 3,
+      "max": 9,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show product type badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_cta_text",
+      "label": "Card hover CTA text",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Text when no products found",
+      "default": "No products found — add some to this collection."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#111009"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#d4622a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#faf8f4"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent / price color",
+      "default": "#c8a96e"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge background",
+      "default": "#d4622a"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text color",
+      "default": "#faf8f4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Best Sellers"
+    }
+  ]
+}
+{% endschema %}

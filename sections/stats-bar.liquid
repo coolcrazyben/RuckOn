@@ -1,0 +1,208 @@
+{% style %}
+  #shopify-section-{{ section.id }} .stats-bar {
+    --stats-bg:          {{ section.settings.background_color }};
+    --stats-number:      {{ section.settings.number_color }};
+    --stats-label:       {{ section.settings.label_color }};
+    --stats-divider:     {{ section.settings.divider_color }};
+  }
+{% endstyle %}
+
+<div class="stats-bar full-width">
+  <div class="stats-bar__inner">
+    {% assign stat_keys = '1,2,3,4' | split: ',' %}
+    {% for key in stat_keys %}
+      {% assign number_key = 'stat_' | append: key | append: '_number' %}
+      {% assign label_key  = 'stat_' | append: key | append: '_label'  %}
+      {% assign number_val = section.settings[number_key] %}
+      {% assign label_val  = section.settings[label_key]  %}
+
+      {% if number_val != blank or label_val != blank %}
+        <div class="stats-bar__item fade-up" data-delay="{{ key }}">
+          {%- if number_val != blank -%}
+            <span class="stats-bar__number">{{ number_val }}</span>
+          {%- endif -%}
+          {%- if label_val != blank -%}
+            <span class="stats-bar__label">{{ label_val }}</span>
+          {%- endif -%}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .stats-bar {
+    background-color: var(--stats-bg, #2d3a18);
+    border-top: 1px solid rgba(74, 92, 42, 0.4);
+    border-bottom: 1px solid rgba(74, 92, 42, 0.4);
+    padding: 40px var(--page-margin);
+  }
+
+  .stats-bar__inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+
+  .stats-bar__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 24px;
+    gap: 8px;
+  }
+
+  .stats-bar__item + .stats-bar__item {
+    border-left: 1px solid var(--stats-divider, rgba(200, 169, 110, 0.2));
+  }
+
+  .stats-bar__number {
+    font-family: var(--font-heading);
+    font-size: 42px;
+    line-height: 1;
+    color: var(--stats-number, #c8a96e);
+    letter-spacing: 1px;
+  }
+
+  .stats-bar__label {
+    font-family: var(--font-label);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--stats-label, rgba(232, 213, 176, 0.6));
+    max-width: 160px;
+  }
+
+  @media (max-width: 768px) {
+    .stats-bar__inner {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px 0;
+    }
+
+    .stats-bar__item:nth-child(2) {
+      border-left: 1px solid var(--stats-divider, rgba(200, 169, 110, 0.2));
+    }
+
+    .stats-bar__item:nth-child(3) {
+      border-left: none;
+      border-top: 1px solid var(--stats-divider, rgba(200, 169, 110, 0.2));
+      padding-top: 32px;
+    }
+
+    .stats-bar__item:nth-child(4) {
+      border-left: 1px solid var(--stats-divider, rgba(200, 169, 110, 0.2));
+      border-top: 1px solid var(--stats-divider, rgba(200, 169, 110, 0.2));
+      padding-top: 32px;
+    }
+
+    .stats-bar__number { font-size: 34px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Stats Bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Stat 1"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_number",
+      "label": "Number / headline",
+      "default": "10K+"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Label",
+      "default": "Ruckers Strong"
+    },
+    {
+      "type": "header",
+      "content": "Stat 2"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_number",
+      "label": "Number / headline",
+      "default": "500+"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Label",
+      "default": "Miles Tested"
+    },
+    {
+      "type": "header",
+      "content": "Stat 3"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_number",
+      "label": "Number / headline",
+      "default": "100%"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_label",
+      "label": "Label",
+      "default": "No Quit Guarantee"
+    },
+    {
+      "type": "header",
+      "content": "Stat 4"
+    },
+    {
+      "type": "text",
+      "id": "stat_4_number",
+      "label": "Number / headline",
+      "default": "5★"
+    },
+    {
+      "type": "text",
+      "id": "stat_4_label",
+      "label": "Label",
+      "default": "Avg. Rating"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#2d3a18"
+    },
+    {
+      "type": "color",
+      "id": "number_color",
+      "label": "Number color",
+      "default": "#c8a96e"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label color",
+      "default": "#e8d5b0"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#4a5c2a"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stats Bar"
+    }
+  ]
+}
+{% endschema %}

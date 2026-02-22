@@ -1,0 +1,356 @@
+{% style %}
+  #shopify-section-{{ section.id }} {
+    --hero-eyebrow-color:   {{ section.settings.eyebrow_color }};
+    --hero-headline1-color: {{ section.settings.headline1_color }};
+    --hero-headline2-color: {{ section.settings.headline2_color }};
+    --hero-subtext-color:   {{ section.settings.subtext_color }};
+    --hero-min-height:      {{ section.settings.min_height }}px;
+  }
+{% endstyle %}
+
+<div class="hero full-width">
+  {%- if section.settings.background_image != blank -%}
+    <div class="hero__bg">
+      {{
+        section.settings.background_image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          sizes: '100vw',
+          alt: section.settings.background_image.alt
+      }}
+    </div>
+  {%- endif -%}
+
+  <div class="hero__overlay"></div>
+  <div class="hero__grid"></div>
+
+  <div class="hero__content">
+    {%- if section.settings.eyebrow_text != blank -%}
+      <p class="hero__eyebrow fade-up" data-delay="1">
+        {{ section.settings.eyebrow_text }}
+      </p>
+    {%- endif -%}
+
+    <h1 class="hero__headline">
+      {%- if section.settings.headline_line1 != blank -%}
+        <span class="hero__headline-1 fade-up" data-delay="2">
+          {{- section.settings.headline_line1 -}}
+        </span>
+      {%- endif -%}
+      {%- if section.settings.headline_line2 != blank -%}
+        <span class="hero__headline-2 fade-up" data-delay="3">
+          {{- section.settings.headline_line2 -}}
+        </span>
+      {%- endif -%}
+    </h1>
+
+    {%- if section.settings.subtext != blank -%}
+      <p class="hero__subtext fade-up" data-delay="4">
+        {{ section.settings.subtext }}
+      </p>
+    {%- endif -%}
+
+    <div class="hero__buttons fade-up" data-delay="5">
+      {%- if section.settings.btn_primary_text != blank -%}
+        <a href="{{ section.settings.btn_primary_url | default: '#' }}" class="btn btn--primary">
+          {{ section.settings.btn_primary_text }}
+        </a>
+      {%- endif -%}
+      {%- if section.settings.btn_secondary_text != blank -%}
+        <a href="{{ section.settings.btn_secondary_url | default: '#' }}" class="btn btn--secondary">
+          {{ section.settings.btn_secondary_text }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section.settings.show_scroll_indicator -%}
+    <div class="hero__scroll" aria-hidden="true">
+      <span class="hero__scroll-line"></span>
+      <span class="hero__scroll-label">Scroll</span>
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .hero {
+    position: relative;
+    min-height: max(100svh, var(--hero-min-height, 700px));
+    background-color: var(--color-charcoal);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  /* Background image */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Gradient + color overlays */
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      radial-gradient(ellipse at 15% 55%, rgba(74, 92, 42, 0.38) 0%, transparent 58%),
+      radial-gradient(ellipse at 85% 15%, rgba(212, 98, 42, 0.18) 0%, transparent 50%),
+      linear-gradient(to top,
+        rgba(17, 16, 9, 0.95) 0%,
+        rgba(17, 16, 9, 0.55) 40%,
+        rgba(17, 16, 9, 0.45) 100%
+      );
+  }
+
+  /* Tactical grid */
+  .hero__grid {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background-image:
+      linear-gradient(rgba(74, 92, 42, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74, 92, 42, 0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: grid-pulse 7s ease-in-out infinite;
+  }
+
+  @keyframes grid-pulse {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 1;   }
+  }
+
+  /* Content */
+  .hero__content {
+    position: relative;
+    z-index: 3;
+    padding: 0 clamp(24px, 5vw, 80px) clamp(64px, 8vh, 120px);
+    max-width: 960px;
+    width: 100%;
+  }
+
+  .hero__eyebrow {
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--hero-eyebrow-color, #d4622a);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero__headline {
+    font-family: var(--font-heading);
+    font-size: clamp(68px, 9.5vw, 134px);
+    line-height: 0.93;
+    letter-spacing: -1px;
+    margin-bottom: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.08em;
+  }
+
+  .hero__headline-1 { color: var(--hero-headline1-color, #faf8f4); display: block; }
+  .hero__headline-2 { color: var(--hero-headline2-color, #c8a96e); display: block; }
+
+  .hero__subtext {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--hero-subtext-color, #e8d5b0);
+    max-width: 520px;
+    line-height: 1.65;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero__buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* Scroll indicator */
+  .hero__scroll {
+    position: absolute;
+    bottom: 44px;
+    right: clamp(20px, 4vw, 60px);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero__scroll-line {
+    display: block;
+    width: 1px;
+    height: 64px;
+    background: linear-gradient(to bottom, transparent, #c8a96e);
+    animation: scroll-pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes scroll-pulse {
+    0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
+    50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+  }
+
+  .hero__scroll-label {
+    font-family: var(--font-label);
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--color-tan);
+    writing-mode: vertical-rl;
+  }
+
+  @media (max-width: 768px) {
+    .hero__scroll { display: none; }
+
+    .hero__headline {
+      font-size: clamp(52px, 14vw, 90px);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Minimum section height",
+      "min": 500,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "default": 700
+    },
+    {
+      "type": "header",
+      "content": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow text",
+      "default": "// Tactical Gear & Apparel"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#d4622a"
+    },
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "headline_line1",
+      "label": "Headline — line 1 (white)",
+      "default": "Carry"
+    },
+    {
+      "type": "color",
+      "id": "headline1_color",
+      "label": "Headline line 1 color",
+      "default": "#faf8f4"
+    },
+    {
+      "type": "text",
+      "id": "headline_line2",
+      "label": "Headline — line 2 (tan)",
+      "default": "the Weight."
+    },
+    {
+      "type": "color",
+      "id": "headline2_color",
+      "label": "Headline line 2 color",
+      "default": "#c8a96e"
+    },
+    {
+      "type": "header",
+      "content": "Subtext"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext paragraph",
+      "default": "Gear built for those who don't put the ruck down. Built to last. Built to perform. Built to Ruck On."
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext color",
+      "default": "#e8d5b0"
+    },
+    {
+      "type": "header",
+      "content": "Primary button"
+    },
+    {
+      "type": "text",
+      "id": "btn_primary_text",
+      "label": "Primary button label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "btn_primary_url",
+      "label": "Primary button URL"
+    },
+    {
+      "type": "header",
+      "content": "Secondary button"
+    },
+    {
+      "type": "text",
+      "id": "btn_secondary_text",
+      "label": "Secondary button label",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "btn_secondary_url",
+      "label": "Secondary button URL"
+    },
+    {
+      "type": "header",
+      "content": "Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_indicator",
+      "label": "Show scroll indicator",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,33 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "show_bar": true,
+        "announcement_text": "Free shipping on orders over $75 | Use code RUCKON10 for 10% off your first order",
+        "background_color": "#2d3a18",
+        "text_color": "#e8d5b0",
+        "border_color": "#4a5c2a"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo_text_1": "RUCK",
+        "logo_text_2": "ON",
+        "menu": "main-menu",
+        "cart_label": "Cart",
+        "link_color": "#e8d5b0",
+        "logo_color_1": "#c8a96e",
+        "logo_color_2": "#faf8f4",
+        "cart_color": "#c8a96e"
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
+}

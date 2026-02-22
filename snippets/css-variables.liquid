@@ -1,0 +1,35 @@
+{% style %}
+  :root {
+    /* === Ruck On Brand Colors === */
+    --color-olive:       #4a5c2a;
+    --color-olive-dark:  #2d3a18;
+    --color-olive-light: #6b7f3e;
+    --color-tan:         #c8a96e;
+    --color-tan-light:   #e8d5b0;
+    --color-cream:       #f5f0e8;
+    --color-black:       #111009;
+    --color-charcoal:    #1e1e1a;
+    --color-white:       #faf8f4;
+    --color-orange:      #d4622a;
+
+    /* === Semantic Aliases === */
+    --color-background: {{ settings.background_color | default: '#111009' }};
+    --color-foreground: {{ settings.foreground_color | default: '#faf8f4' }};
+
+    /* === Typography === */
+    --font-heading:  'Black Ops One', cursive;
+    --font-label:    'Barlow Condensed', sans-serif;
+    --font-body:     'Barlow', sans-serif;
+    --font-primary--family: var(--font-body);
+
+    /* === Layout === */
+    --page-width:   {{ settings.max_page_width }};
+    --page-margin:  {{ settings.min_page_margin }}px;
+    --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
+
+    /* === Header Heights === */
+    --announcement-bar-height: 42px;
+    --nav-height:              72px;
+    --header-total-height:     calc(var(--announcement-bar-height) + var(--nav-height));
+  }
+{% endstyle %}
