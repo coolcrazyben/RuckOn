@@ -8,6 +8,17 @@
     "theme_support_url": "https://support.shopify.com/"
   },
   {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "Upload a 32×32px or 512×512px PNG. Appears in browser tabs and bookmarks."
+      }
+    ]
+  },
+  {
     "name": "Typography",
     "settings": [
       {
