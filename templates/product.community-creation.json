@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "product",
+      "settings": {
+        "show_community_name_field": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
