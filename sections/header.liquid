@@ -9,6 +9,14 @@
   }
 {% endstyle %}
 
+{%- comment -%}
+  Split nav evenly around the logo.
+  Odd totals get the extra link on the left.
+{%- endcomment -%}
+{%- assign nav_links     = section.settings.menu.links -%}
+{%- assign nav_link_count = nav_links.size -%}
+{%- assign left_count    = nav_link_count | plus: 1 | divided_by: 2 -%}
+
 <div class="site-header-wrapper" id="site-header-wrapper">
   <header class="site-header" role="banner">
 
@@ -17,7 +25,7 @@
 
       {%- comment -%} Desktop navigation {%- endcomment -%}
       <nav class="site-header__nav" aria-label="Main navigation">
-        {% for link in section.settings.menu.links %}
+        {% for link in nav_links limit: left_count %}
           <a
             href="{{ link.url }}"
             class="site-header__nav-link{% if link.active %} is-active{% endif %}"
@@ -76,30 +84,47 @@
       {%- endif -%}
     </a>
 
-    {%- comment -%} Right zone: Search (desktop) + Account + Cart icons {%- endcomment -%}
+    {%- comment -%} Right zone: second-half nav (desktop) + Search (desktop) + Account + Cart {%- endcomment -%}
     <div class="site-header__right">
-      {%- comment -%} Search — desktop only (mobile search is in left zone) {%- endcomment -%}
-      <a href="{{ routes.search_url }}" class="site-header__icon-link site-header__search-desktop" aria-label="Search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
-          <circle cx="10.5" cy="10.5" r="6.5"/>
-          <path stroke-linecap="round" d="M16.5 16.5L22 22"/>
-        </svg>
-      </a>
 
-      {% if shop.customer_accounts_enabled %}
-        <a href="{{ routes.account_url }}" class="site-header__icon-link" aria-label="Account">
-          {{ 'icon-account.svg' | inline_asset_content }}
+      {%- comment -%} Right nav — desktop only, hidden on mobile via .site-header__nav rule {%- endcomment -%}
+      <nav class="site-header__nav site-header__nav--right" aria-label="Main navigation secondary">
+        {% for link in nav_links offset: left_count %}
+          <a
+            href="{{ link.url }}"
+            class="site-header__nav-link{% if link.active %} is-active{% endif %}"
+            {% if link.current %}aria-current="page"{% endif %}
+          >
+            {{ link.title }}
+          </a>
+        {% endfor %}
+      </nav>
+
+      {%- comment -%} Icons group — always visible on desktop; search hidden on mobile {%- endcomment -%}
+      <div class="site-header__icons">
+        <a href="{{ routes.search_url }}" class="site-header__icon-link site-header__search-desktop" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
+            <circle cx="10.5" cy="10.5" r="6.5"/>
+            <path stroke-linecap="round" d="M16.5 16.5L22 22"/>
+          </svg>
         </a>
-      {% endif %}
 
-      <a href="{{ routes.cart_url }}" class="site-header__icon-link site-header__cart-icon" aria-label="Cart, {{ cart.item_count }} items">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z"/>
-        </svg>
-        <span class="cart-icon__count{% if cart.item_count == 0 %} is-hidden{% endif %}" aria-live="polite">
-          {{ cart.item_count }}
-        </span>
-      </a>
+        {% if shop.customer_accounts_enabled %}
+          <a href="{{ routes.account_url }}" class="site-header__icon-link" aria-label="Account">
+            {{ 'icon-account.svg' | inline_asset_content }}
+          </a>
+        {% endif %}
+
+        <a href="{{ routes.cart_url }}" class="site-header__icon-link site-header__cart-icon" aria-label="Cart, {{ cart.item_count }} items">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z"/>
+          </svg>
+          <span class="cart-icon__count{% if cart.item_count == 0 %} is-hidden{% endif %}" aria-live="polite">
+            {{ cart.item_count }}
+          </span>
+        </a>
+      </div>
+
     </div>
 
   </header>
@@ -578,6 +603,40 @@
   /* Only show on mobile */
   @media (min-width: 1025px) {
     .mobile-nav { display: none; }
+  }
+
+  /* =====================
+     Icons group wrapper
+     ===================== */
+  .site-header__icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+  }
+
+  /* =====================
+     Desktop split-nav
+     ===================== */
+  @media (min-width: 1025px) {
+    /* Left nav: stretch to fill column, spread links evenly */
+    .site-header__left .site-header__nav {
+      width: 100%;
+      justify-content: space-evenly;
+      gap: 0;
+    }
+
+    /* Right zone: gap between right-nav block and icons group */
+    .site-header__right {
+      gap: 1.5rem;
+    }
+
+    /* Right nav: fill remaining space in the right column */
+    .site-header__nav--right {
+      flex: 1;
+      justify-content: space-evenly;
+      gap: 0;
+    }
   }
 {% endstylesheet %}
 
