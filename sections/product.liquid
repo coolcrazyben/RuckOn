@@ -124,6 +124,56 @@
           {%- endfor -%}
         {%- endunless -%}
 
+        {%- comment -%}
+          Basic membership product — show community selector.
+          Tag your product with the value in section.settings.basic_membership_tag
+          (default: "basic-membership") to enable this dropdown.
+        {%- endcomment -%}
+        {%- if section.settings.basic_membership_tag != blank -%}
+          {%- if product.tags contains section.settings.basic_membership_tag -%}
+            <div class="product-community">
+              <label class="product-option__label" for="community-select-input">
+                {{ section.settings.community_label }}
+              </label>
+              <select
+                id="community-select-input"
+                name="properties[Community]"
+                class="form-input product-community__select"
+              >
+                {% render 'community-list' %}
+              </select>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- comment -%}
+          Community subscription product — show patch text field.
+          Tag your product with the value set in section.settings.subscription_product_tag
+          (default: "community-subscription") to enable this field.
+        {%- endcomment -%}
+        {%- if section.settings.subscription_product_tag != blank -%}
+          {%- if product.tags contains section.settings.subscription_product_tag -%}
+          <div class="product-patch-text">
+            <label class="product-option__label" for="patch-text-input">
+              {{ section.settings.patch_text_label }}
+            </label>
+            <input
+              type="text"
+              id="patch-text-input"
+              name="properties[Patch Text]"
+              class="form-input product-patch-text__input"
+              placeholder="{{ section.settings.patch_text_placeholder }}"
+              maxlength="{{ section.settings.patch_text_maxlength }}"
+              autocomplete="off"
+              aria-describedby="patch-text-note"
+            >
+            <p class="product-patch-text__note" id="patch-text-note">
+              {{ section.settings.patch_text_note }}
+            </p>
+          </div>
+          {%- endif -%}
+        {%- endif -%}
+
         <!-- Quantity -->
         <div class="product-qty-row">
           <label class="product-option__label" for="product-qty">{{ section.settings.qty_label }}</label>
@@ -499,6 +549,43 @@
     background: var(--pd-olive-sel, var(--color-olive));
     border-color: var(--pd-olive-sel, var(--color-olive));
     color: var(--color-white);
+  }
+
+  /* Community dropdown (basic membership) */
+  .product-community {
+    margin-bottom: 20px;
+  }
+
+  .product-community__select {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c8a96e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+  }
+
+  /* Patch text (gym owner / community subscription) */
+  .product-patch-text {
+    margin-bottom: 20px;
+  }
+
+  .product-patch-text__input {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px;
+  }
+
+  .product-patch-text__note {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: rgba(200, 169, 110, 0.5);
+    margin-top: 8px;
+    line-height: 1.5;
   }
 
   /* Quantity */
@@ -1005,6 +1092,57 @@
       "max": 6,
       "step": 1,
       "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Community & Membership"
+    },
+    {
+      "type": "text",
+      "id": "basic_membership_tag",
+      "label": "Basic membership product tag",
+      "default": "basic-membership",
+      "info": "Tag your basic membership product with this value to show the community selector dropdown."
+    },
+    {
+      "type": "text",
+      "id": "community_label",
+      "label": "Community dropdown label",
+      "default": "Select Your Community"
+    },
+    {
+      "type": "text",
+      "id": "subscription_product_tag",
+      "label": "Community subscription product tag",
+      "default": "community-subscription",
+      "info": "Tag your community subscription product with this value to show the patch text field."
+    },
+    {
+      "type": "text",
+      "id": "patch_text_label",
+      "label": "Patch text field label",
+      "default": "What should appear on your patch?"
+    },
+    {
+      "type": "text",
+      "id": "patch_text_placeholder",
+      "label": "Patch text field placeholder",
+      "default": "e.g. CrossFit Gold"
+    },
+    {
+      "type": "text",
+      "id": "patch_text_note",
+      "label": "Patch text helper note",
+      "default": "This name will be printed on all member patches for your community."
+    },
+    {
+      "type": "range",
+      "id": "patch_text_maxlength",
+      "label": "Max characters for patch text",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 40
     },
     {
       "type": "header",
