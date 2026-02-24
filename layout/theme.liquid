@@ -15,6 +15,15 @@
 
     {% render 'meta-tags' %}
 
+    {%- comment -%}
+      Favicon — upload your image in Shopify admin:
+      Online Store → Themes → Customize → Theme settings → Favicon
+      Recommended size: 32×32px or 512×512px PNG
+    {%- endcomment -%}
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
     {{ content_for_header }}
   </head>
 
