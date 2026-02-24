@@ -1,3 +1,18 @@
+{%- comment -%}
+  Detect if a patch-subscription product is in the cart.
+  We grab its line item key and any Community property already set.
+{%- endcomment -%}
+{%- assign has_patch_sub    = false -%}
+{%- assign patch_sub_key    = '' -%}
+{%- assign patch_sub_community = '' -%}
+{%- for item in cart.items -%}
+  {%- if item.product.tags contains section.settings.patch_subscription_tag -%}
+    {%- assign has_patch_sub    = true -%}
+    {%- assign patch_sub_key    = item.key -%}
+    {%- assign patch_sub_community = item.properties['Community'] -%}
+  {%- endif -%}
+{%- endfor -%}
+
 <div class="cart-page">
   <div class="cart-page__inner">
     <h1 class="cart-page__title">{{ section.settings.page_title }}</h1>
@@ -85,6 +100,31 @@
                 </div>
               </div>
             {%- endfor -%}
+
+            {%- comment -%} Community selector — appears when patch subscription is in cart {%- endcomment -%}
+            {%- if has_patch_sub -%}
+              <div class="cart-community" id="cart-community-selector">
+                <div class="cart-community__inner">
+                  <label class="cart-community__label" for="cart-community-select">
+                    {{ section.settings.community_selector_label }}
+                  </label>
+                  <div class="cart-community__field">
+                    <select
+                      id="cart-community-select"
+                      class="form-input cart-community__select"
+                      data-item-key="{{ patch_sub_key }}"
+                      aria-describedby="cart-community-note"
+                    >
+                      {% render 'community-list', selected: patch_sub_community %}
+                    </select>
+                    <span class="cart-community__status" id="cart-community-status" aria-live="polite"></span>
+                  </div>
+                  <p class="cart-community__note" id="cart-community-note">
+                    {{ section.settings.community_selector_note }}
+                  </p>
+                </div>
+              </div>
+            {%- endif -%}
 
             {%- if section.settings.show_note -%}
               <div class="cart-note">
@@ -507,6 +547,69 @@
       padding: 16px;
     }
   }
+
+  /* === Community selector === */
+  .cart-community {
+    margin-top: 2px;
+    background: var(--color-charcoal);
+    border-left: 3px solid var(--color-olive);
+  }
+
+  .cart-community__inner {
+    padding: 20px 24px;
+  }
+
+  .cart-community__label {
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--color-tan);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .cart-community__field {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cart-community__select {
+    max-width: 320px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c8a96e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .cart-community__status {
+    font-family: var(--font-label);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--color-olive-light);
+    flex-shrink: 0;
+    min-width: 60px;
+    transition: opacity 0.3s;
+  }
+
+  .cart-community__status--error {
+    color: var(--color-orange);
+  }
+
+  .cart-community__note {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: rgba(200, 169, 110, 0.5);
+    margin-top: 10px;
+    line-height: 1.5;
+  }
 {% endstylesheet %}
 
 {% javascript %}
@@ -529,6 +632,49 @@
         input.value = Math.max(0, current - 1);
       }
     });
+
+    // Community selector — save selection as a line item property via AJAX
+    var communitySelect = document.getElementById('cart-community-select');
+    var communityStatus = document.getElementById('cart-community-status');
+
+    if (communitySelect) {
+      communitySelect.addEventListener('change', function() {
+        var itemKey   = communitySelect.dataset.itemKey;
+        var community = communitySelect.value;
+
+        if (communityStatus) {
+          communityStatus.textContent = 'Saving\u2026';
+          communityStatus.classList.remove('cart-community__status--error');
+        }
+
+        fetch('/cart/change.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: itemKey,
+            properties: { 'Community': community }
+          })
+        })
+        .then(function(res) {
+          if (!res.ok) throw new Error('Cart update failed');
+          return res.json();
+        })
+        .then(function() {
+          if (communityStatus) {
+            communityStatus.textContent = 'Saved';
+            setTimeout(function() {
+              communityStatus.textContent = '';
+            }, 2000);
+          }
+        })
+        .catch(function() {
+          if (communityStatus) {
+            communityStatus.textContent = 'Error — try again';
+            communityStatus.classList.add('cart-community__status--error');
+          }
+        });
+      });
+    }
   })();
 {% endjavascript %}
 
@@ -609,6 +755,29 @@
       "id": "note_placeholder",
       "label": "Note field placeholder",
       "default": "Any special requests or notes for your order..."
+    },
+    {
+      "type": "header",
+      "content": "Community selector"
+    },
+    {
+      "type": "text",
+      "id": "patch_subscription_tag",
+      "label": "Patch subscription product tag",
+      "default": "patch-subscription",
+      "info": "Tag your patch subscription product with this value. When it's in the cart, the community selector appears."
+    },
+    {
+      "type": "text",
+      "id": "community_selector_label",
+      "label": "Community selector label",
+      "default": "Select Your Community"
+    },
+    {
+      "type": "text",
+      "id": "community_selector_note",
+      "label": "Note below community selector",
+      "default": "Your selection tells us which gym to route your patch to. Leave blank if you don't belong to a community yet."
     },
     {
       "type": "header",

@@ -1,0 +1,26 @@
+{% doc %}
+  Renders <option> elements for the community selection dropdown.
+
+  To add a community: append  |New Community Name  to the assign string below.
+  To remove a community: delete that name (and its surrounding pipes) from the string.
+  Names are rendered in the order they appear in the list.
+
+  @param {string} [selected] - The currently selected community value (pre-selects that option)
+
+  @example
+  <select>
+    {% render 'community-list', selected: 'CrossFit Gold' %}
+  </select>
+{% enddoc %}
+
+{%- comment -%}
+  ======================================================================
+  COMMUNITY LIST — Edit below. One pipe ( | ) separates each community.
+  ======================================================================
+{%- endcomment -%}
+{%- assign community_names = "CrossFit Gold|Iron Brotherhood|Alpha Company|Bravo Squad|Charlie Platoon|Delta Company|Echo Team|Foxtrot Unit|GORUCK Chicago|GORUCK Atlanta|GORUCK Austin|GORUCK Seattle|Ruck Nation" | split: "|" -%}
+
+<option value="">No community / Individual</option>
+{%- for community in community_names -%}
+  <option value="{{ community | escape }}"{% if selected == community %} selected{% endif %}>{{ community }}</option>
+{%- endfor -%}
