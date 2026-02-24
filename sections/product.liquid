@@ -204,31 +204,30 @@
           </div>
         </div>
 
-        <!-- Community name field (Community Creation Membership product only) -->
-        {%- if section.settings.community_creation_handle != blank -%}
-          {%- if product.handle == section.settings.community_creation_handle -%}
-            <div class="product-community-name">
-              <label class="product-option__label" for="community-name-input">
-                {{ section.settings.community_name_label }}
-              </label>
-              <input
-                type="text"
-                id="community-name-input"
-                name="properties[Community Name]"
-                class="form-input product-community-name__input"
-                placeholder="{{ section.settings.community_name_placeholder }}"
-                autocomplete="off"
-                aria-describedby="community-name-note community-name-error"
-                aria-required="true"
-              >
-              <p class="product-community-name__note" id="community-name-note">
-                {{ section.settings.community_name_note }}
-              </p>
-              <p class="product-community-name__error" id="community-name-error" aria-live="polite" hidden>
-                {{ section.settings.community_name_error_text }}
-              </p>
-            </div>
-          {%- endif -%}
+        <!-- Community name field — only renders when show_community_name_field is true.
+             Enable this via the product.community-creation template, not the default one. -->
+        {%- if section.settings.show_community_name_field -%}
+          <div class="product-community-name">
+            <label class="product-option__label" for="community-name-input">
+              {{ section.settings.community_name_label }}
+            </label>
+            <input
+              type="text"
+              id="community-name-input"
+              name="properties[Community Name]"
+              class="form-input product-community-name__input"
+              placeholder="{{ section.settings.community_name_placeholder }}"
+              autocomplete="off"
+              aria-describedby="community-name-note community-name-error"
+              aria-required="true"
+            >
+            <p class="product-community-name__note" id="community-name-note">
+              {{ section.settings.community_name_note }}
+            </p>
+            <p class="product-community-name__error" id="community-name-error" aria-live="polite" hidden>
+              {{ section.settings.community_name_error_text }}
+            </p>
+          </div>
         {%- endif -%}
 
         <!-- Add to cart + payment -->
@@ -1192,11 +1191,11 @@
       "content": "Community & Membership"
     },
     {
-      "type": "text",
-      "id": "community_creation_handle",
-      "label": "Community creation product handle",
-      "default": "community-creation-membership",
-      "info": "Exact URL handle of the gym-owner product. The community name field only appears on this product."
+      "type": "checkbox",
+      "id": "show_community_name_field",
+      "label": "Show community name field",
+      "default": false,
+      "info": "Enable this only on the Community Creation Membership product template. Leave off on all other product templates."
     },
     {
       "type": "text",
