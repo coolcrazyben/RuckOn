@@ -11,7 +11,43 @@
   "sections": {
     "main": {
       "type": "product",
-      "settings": {}
+      "settings": {
+        "eyebrow_text": "// Tactical Gear",
+        "add_to_cart_text": "Add to Cart",
+        "sold_out_text": "Sold Out",
+        "unavailable_text": "This variant is currently unavailable.",
+        "qty_label": "Quantity",
+        "sale_badge_text": "Sale",
+        "show_payment_button": true,
+        "tab_description": "Description",
+        "tab_shipping": "Shipping & Returns",
+        "shipping_content": "<p>Free shipping on orders over $75. Returns accepted within 30 days of delivery.</p>",
+        "show_reviews_tab": false,
+        "tab_reviews": "Reviews",
+        "reviews_content": "<p>Customer reviews coming soon.</p>",
+        "no_description_text": "Product details coming soon.",
+        "show_related": true,
+        "related_eyebrow": "// You May Also Like",
+        "related_heading_1": "Load Up On",
+        "related_heading_2": "More Gear",
+        "related_cta_text": "View",
+        "related_limit": 4,
+        "show_community_name_field": true,
+        "community_name_label": "Community / Gym Name",
+        "community_name_placeholder": "e.g. CrossFit Starkville",
+        "community_name_note": "This is what will appear on your members' patches each month.",
+        "community_name_error_text": "Please enter your community name",
+        "basic_membership_tag": "basic-membership",
+        "community_label": "Select Your Community",
+        "subscription_product_tag": "community-creator",
+        "patch_text_label": "What should appear on your patch?",
+        "patch_text_placeholder": "e.g. CrossFit Gold",
+        "patch_text_note": "This name will be printed on all member patches for your community.",
+        "patch_text_maxlength": 40,
+        "accent_color": "#c8a96e",
+        "sale_color": "#d4622a",
+        "selected_pill_bg": "#4a5c2a"
+      }
     }
   },
   "order": [
