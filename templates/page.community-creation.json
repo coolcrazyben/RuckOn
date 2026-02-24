@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "community-creation-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
