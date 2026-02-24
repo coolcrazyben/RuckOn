@@ -176,33 +176,14 @@
           {%- endif -%}
         {%- endif -%}
 
-        <!-- Selling plan selector (subscription products only) -->
+        <!-- Auto-attach first selling plan (invisible — no customer UI) -->
         {%- if product.selling_plan_groups.size > 0 -%}
-          {%- assign sp_first_plan = true -%}
-          <div class="product-selling-plan">
-            <label class="product-option__label">
-              {{ section.settings.selling_plan_label }}
-            </label>
-            <div class="product-selling-plan__options">
-              {%- for group in product.selling_plan_groups -%}
-                {%- for plan in group.selling_plans -%}
-                  <button
-                    type="button"
-                    class="product-pill{% if sp_first_plan %} product-pill--active{% endif %}"
-                    data-selling-plan="{{ plan.id }}"
-                    aria-pressed="{% if sp_first_plan %}true{% else %}false{% endif %}"
-                  >{{ plan.name }}</button>
-                  {%- assign sp_first_plan = false -%}
-                {%- endfor -%}
-              {%- endfor -%}
-            </div>
-            <input
-              type="hidden"
-              name="selling_plan"
-              id="selling-plan-id"
-              value="{{ product.selling_plan_groups.first.selling_plans.first.id }}"
-            >
-          </div>
+          <input
+            type="hidden"
+            name="selling_plan"
+            id="selling-plan-id"
+            value="{{ product.selling_plan_groups.first.selling_plans.first.id }}"
+          >
         {%- endif -%}
 
         <!-- Quantity -->
@@ -582,18 +563,6 @@
     color: var(--color-white);
   }
 
-  /* Selling plan selector */
-  .product-selling-plan {
-    margin-bottom: 20px;
-  }
-
-  .product-selling-plan__options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
-  }
-
   /* Community dropdown (basic membership) */
   .product-community {
     margin-bottom: 20px;
@@ -860,26 +829,9 @@
       selectedOptions.push(active ? active.dataset.value : (group.querySelector('.product-pill') || {}).dataset && group.querySelector('.product-pill').dataset.value);
     });
 
-    // Selling plan pill click
-    document.querySelectorAll('[data-selling-plan]').forEach(function(pill) {
-      pill.addEventListener('click', function() {
-        var planId = this.dataset.sellingPlan;
-        var input = document.getElementById('selling-plan-id');
-        if (input) input.value = planId;
-
-        document.querySelectorAll('[data-selling-plan]').forEach(function(p) {
-          p.classList.toggle('product-pill--active', p.dataset.sellingPlan === planId);
-          p.setAttribute('aria-pressed', p.dataset.sellingPlan === planId ? 'true' : 'false');
-        });
-      });
-    });
-
     // Variant pill click
     document.querySelectorAll('.product-pill').forEach(function(pill) {
       pill.addEventListener('click', function() {
-        // Skip selling plan pills — handled above
-        if (this.dataset.sellingPlan !== undefined) return;
-
         var optIndex = parseInt(this.dataset.option, 10);
         var val = this.dataset.value;
         selectedOptions[optIndex] = val;
@@ -1152,16 +1104,6 @@
       "max": 6,
       "step": 1,
       "default": 4
-    },
-    {
-      "type": "header",
-      "content": "Subscriptions & Selling Plans"
-    },
-    {
-      "type": "text",
-      "id": "selling_plan_label",
-      "label": "Subscription plan selector label",
-      "default": "Subscription Plan"
     },
     {
       "type": "header",
