@@ -9,10 +9,12 @@
  */
 {
   "current": {
-    "background_color": "#111009",
-    "foreground_color": "#faf8f4",
+    "favicon": "shopify://shop_images/ChatGPT_Image_Feb_22_2026_12_42_04_AM.png",
     "max_page_width": "100rem",
     "min_page_margin": 24,
-    "input_corner_radius": 0
+    "background_color": "#111009",
+    "foreground_color": "#faf8f4",
+    "input_corner_radius": 0,
+    "content_for_index": []
   }
 }
