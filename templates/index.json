@@ -94,6 +94,16 @@
             "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)"
           }
         },
+        "category_Vxmmpz": {
+          "type": "category",
+          "settings": {
+            "category_name": "Ruck Packs",
+            "collection": "",
+            "link_url": "",
+            "product_count": "1 Product",
+            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)"
+          }
+        },
         "category_jq6CfC": {
           "type": "category",
           "settings": {
@@ -108,6 +118,7 @@
       },
       "block_order": [
         "category_FcjVjU",
+        "category_Vxmmpz",
         "category_jq6CfC"
       ],
       "settings": {
