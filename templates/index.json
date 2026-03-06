@@ -97,8 +97,9 @@
         "category_Vxmmpz": {
           "type": "category",
           "settings": {
-            "category_name": "Ruck Packs",
-            "collection": "",
+            "category_name": "Communities",
+            "image": "shopify://shop_images/ChatGPTImageMar5_2026_08_02_26PM.png",
+            "collection": "communities",
             "link_url": "",
             "product_count": "1 Product",
             "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)"
