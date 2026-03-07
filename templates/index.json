@@ -25,7 +25,7 @@
         "btn_primary_text": "Shop Now",
         "btn_primary_url": "shopify://collections/all",
         "btn_secondary_text": "Our Story",
-        "btn_secondary_url": "",
+        "btn_secondary_url": "shopify://pages/about-us",
         "show_scroll_indicator": true
       }
     },
@@ -73,7 +73,7 @@
         "quote_line2": "Ruck On.",
         "body_text": "We don't make gear for the gym. We make gear for the grind — the 20-mile ruck, the 4am alarm, the weight that never comes off. Built by ruckers. Tested in the field. Made to last a lifetime.",
         "cta_text": "Read Our Story",
-        "cta_url": "",
+        "cta_url": "shopify://pages/about-us",
         "background_color": "#2d3a18",
         "quote_color_1": "#faf8f4",
         "quote_color_2": "#c8a96e",
@@ -83,6 +83,34 @@
     },
     "shop-by-category": {
       "type": "shop-by-category",
+      "blocks": {
+        "category_Vxmmpz": {
+          "type": "category",
+          "settings": {
+            "category_name": "Communities",
+            "image": "shopify://shop_images/ChatGPTImageMar5_2026_08_02_26PM.png",
+            "collection": "communities",
+            "link_url": "",
+            "product_count": "1 Product",
+            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)"
+          }
+        },
+        "category_jq6CfC": {
+          "type": "category",
+          "settings": {
+            "category_name": "Subscriptions",
+            "image": "shopify://shop_images/ChatGPTImageMar5_2026_08_02_26PM.png",
+            "collection": "subscriptions",
+            "link_url": "",
+            "product_count": "2 Products",
+            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)"
+          }
+        }
+      },
+      "block_order": [
+        "category_Vxmmpz",
+        "category_jq6CfC"
+      ],
       "settings": {
         "eyebrow_text": "// Everything You Need",
         "heading_text_1": "Shop by",
@@ -106,7 +134,7 @@
         "stat2_number": "52",
         "stat2_label": "Monday Events / Year",
         "cta_text": "Join the Community",
-        "cta_url": "",
+        "cta_url": "shopify://products/agora-rucking-monthly-workout-patch-subscription",
         "image_1": "shopify://shop_images/607645220_1446767074117449_283894495600907984_n.jpg",
         "image_2": "shopify://shop_images/543414701_1342223241238500_1508051128177641398_n.jpg",
         "badge_text": "Monday is for Rucking",
