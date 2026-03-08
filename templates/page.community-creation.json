@@ -1,8 +1,77 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "community-creation-page",
-      "settings": {}
+      "settings": {
+        "hero_eyebrow": "// Community Program",
+        "hero_headline_line1": "Build Your Rucking",
+        "hero_headline_line2": "Community",
+        "hero_subheadline": "Get your gym a custom patch. Your members get it every month.",
+        "hero_cta_text": "Start Your Community — $25/mo",
+        "hero_cta_url": "",
+        "hero_bg_color": "#111009",
+        "hero_eyebrow_color": "#d4622a",
+        "hero_headline1_color": "#faf8f4",
+        "hero_headline2_color": "#c8a96e",
+        "hero_subtext_color": "#e8d5b0",
+        "steps_eyebrow": "// How It Works",
+        "steps_heading": "Three Steps to Launch",
+        "placeholder_label": "Image Coming Soon",
+        "step1_title": "Subscribe",
+        "step1_description": "Sign up for the Community Creation Membership at $25/month. No contracts. Cancel anytime.",
+        "step1_image": "shopify://shop_images/ChatGPT_Image_Mar_7_2026_03_09_15_PM.png",
+        "step2_title": "Get Your Link",
+        "step2_description": "We email you a private product link branded to your community. Share it with your members — that's it.",
+        "step2_image": "shopify://shop_images/ChatGPT_Image_Mar_7_2026_08_16_39_PM.png",
+        "step3_title": "Your Members Get Patched",
+        "step3_description": "Every month your members receive a custom patch with your gym's name on it. A monthly touchpoint that builds identity.",
+        "step3_image": "shopify://shop_images/ChatGPT_Image_Mar_7_2026_08_16_40_PM.png",
+        "steps_bg_color": "#1e1e1a",
+        "steps_label_color": "#d4622a",
+        "steps_number_color": "#2d3a18",
+        "steps_title_color": "#faf8f4",
+        "steps_body_color": "#e8d5b0",
+        "steps_placeholder_bg": "#18180e",
+        "steps_placeholder_border": "#2d3a18",
+        "why_eyebrow": "// Why It Works",
+        "why_heading": "Built for Communities That Carry",
+        "prop1_icon": "◈",
+        "prop1_title": "Custom Branding",
+        "prop1_body": "Every patch carries your gym's name. Your community gets a physical symbol of belonging — something they actually earn.",
+        "prop2_icon": "◎",
+        "prop2_title": "Monthly Touchpoint",
+        "prop2_body": "A recurring moment every month that keeps your members connected to your gym, even outside the box.",
+        "prop3_icon": "◐",
+        "prop3_title": "Zero Overhead",
+        "prop3_body": "No inventory, no fulfillment, no logistics. You share a link — we handle everything else.",
+        "prop4_icon": "◆",
+        "prop4_title": "Builds Identity",
+        "prop4_body": "Patches create belonging. When members see the same patch across the gym floor, they feel it — that's your community.",
+        "why_bg_color": "#111009",
+        "why_label_color": "#d4622a",
+        "why_section_title_color": "#faf8f4",
+        "why_card_bg": "#1e1e1a",
+        "why_card_border": "#2d3a18",
+        "why_icon_color": "#c8a96e",
+        "why_prop_title_color": "#faf8f4",
+        "why_prop_body_color": "#e8d5b0",
+        "cta_eyebrow": "// Ready to Launch",
+        "cta_heading": "Ready to Build Your Community?",
+        "cta_subtext": "Join the Community Creation Membership and start building something your members will carry with pride.",
+        "cta_btn_text": "Get Started — $25/month",
+        "cta_btn_url": "",
+        "cta_bg_color": "#2d3a18",
+        "cta_title_color": "#faf8f4"
+      }
     }
   },
   "order": [
