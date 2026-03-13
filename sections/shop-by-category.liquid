@@ -170,6 +170,8 @@
     font-size: 28px;
     line-height: 1;
     color: var(--cat-card-text, #faf8f4);
+    overflow-wrap: normal;
+    word-break: normal;
   }
 
   .category-card__count {
@@ -189,7 +191,7 @@
     .categories { padding: 60px var(--page-margin); }
     .categories__grid { grid-template-columns: repeat(2, 1fr); }
     .category-card { height: 280px; }
-    .category-card__name { font-size: 22px; }
+    .category-card__name { font-size: clamp(14px, 4vw, 20px); }
   }
 {% endstylesheet %}
 
