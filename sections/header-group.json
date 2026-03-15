@@ -15,7 +15,7 @@
       "type": "announcement-bar",
       "settings": {
         "show_bar": true,
-        "announcement_text": "Free shipping on orders over $75 | Use code RUCKON10 for 10% off your first order",
+        "announcement_text": "Join The Community Now | Ruck On",
         "link_url": "",
         "background_color": "#2d3a18",
         "text_color": "#e8d5b0",
@@ -31,6 +31,7 @@
         "logo_text_2": "ON",
         "menu": "main-menu",
         "cart_label": "Cart",
+        "account_label": "Account",
         "background_color": "#111009",
         "link_color": "#e8d5b0",
         "logo_color_1": "#c8a96e",
