@@ -84,6 +84,17 @@
     "shop-by-category": {
       "type": "shop-by-category",
       "blocks": {
+        "category_e6TDiC": {
+          "type": "category",
+          "settings": {
+            "category_name": "Ruck Packs",
+            "image": "shopify://shop_images/ChatGPTImageApr18_2026_09_08_47PM.png",
+            "collection": "shirts",
+            "link_url": "",
+            "product_count": "24 Products",
+            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)"
+          }
+        },
         "category_Vxmmpz": {
           "type": "category",
           "settings": {
@@ -108,6 +119,7 @@
         }
       },
       "block_order": [
+        "category_e6TDiC",
         "category_Vxmmpz",
         "category_jq6CfC"
       ],
