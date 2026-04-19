@@ -53,7 +53,7 @@
         "heading_text_1": "Best",
         "heading_text_2": "Sellers",
         "view_all_text": "View All",
-        "collection": "",
+        "collection": "best-sellers",
         "product_limit": 6,
         "show_badge": true,
         "card_cta_text": "Add to Cart",
