@@ -87,11 +87,11 @@
         "category_e6TDiC": {
           "type": "category",
           "settings": {
-            "category_name": "Ruck Packs",
+            "category_name": "Shirts",
             "image": "shopify://shop_images/ChatGPTImageApr18_2026_09_08_47PM.png",
             "collection": "shirts",
-            "link_url": "",
-            "product_count": "24 Products",
+            "link_url": "shopify://collections/shirts",
+            "product_count": "1 Product",
             "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)"
           }
         },
