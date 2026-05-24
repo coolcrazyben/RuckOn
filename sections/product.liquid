@@ -955,12 +955,16 @@
 
       // Swap image if variant has one
       if (matched.featured_image && mainImg) {
-        var newSrc = matched.featured_image.src;
-        mainImg.src = newSrc;
+        var thumbIndex = matched.featured_image.position - 1;
+        var thumbEls = document.querySelectorAll('.product-gallery__thumb');
+        var targetThumb = thumbEls[thumbIndex];
+
+        // Use the pre-sized URL from the thumbnail button if available, else fall back to raw src
+        mainImg.removeAttribute('srcset');
+        mainImg.src = targetThumb ? targetThumb.dataset.src : matched.featured_image.src;
 
         // Sync thumbnail active state
-        var thumbIndex = matched.featured_image.position - 1;
-        document.querySelectorAll('.product-gallery__thumb').forEach(function(t, idx) {
+        thumbEls.forEach(function(t, idx) {
           t.classList.toggle('product-gallery__thumb--active', idx === thumbIndex);
         });
       }
@@ -995,7 +999,10 @@
     // Thumbnail gallery
     document.querySelectorAll('.product-gallery__thumb').forEach(function(thumb) {
       thumb.addEventListener('click', function() {
-        if (mainImg) mainImg.src = this.dataset.src;
+        if (mainImg) {
+          mainImg.removeAttribute('srcset');
+          mainImg.src = this.dataset.src;
+        }
         document.querySelectorAll('.product-gallery__thumb').forEach(function(t) {
           t.classList.remove('product-gallery__thumb--active');
         });
