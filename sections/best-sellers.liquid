@@ -15,18 +15,6 @@
     assign featured_collection = collections.frontpage
   endif
   assign product_limit = section.settings.product_limit | default: 6
-  assign product_count = featured_collection.products.size | at_most: product_limit
-
-  assign orphan_last = false
-  assign orphan_row = nil
-  if product_count > 5
-    assign overflow = product_count | minus: 5
-    assign leftover = overflow | modulo: 3
-    if leftover == 1
-      assign orphan_last = true
-      assign orphan_row = overflow | minus: 1 | divided_by: 3 | plus: 3
-    endif
-  endif
 -%}
 
 <div class="best-sellers">
@@ -53,9 +41,8 @@
     <div class="best-sellers__grid">
       {%- for product in featured_collection.products limit: product_limit -%}
         <article
-          class="product-card fade-up{% if forloop.first %} product-card--tall{% elsif orphan_last and forloop.last %} product-card--orphan{% endif %}"
+          class="product-card fade-up"
           data-delay="{{ forloop.index }}"
-          {% if orphan_last and forloop.last %}style="--orphan-row: {{ orphan_row }};"{% endif %}
         >
           <a href="{{ product.url }}" class="product-card__link" aria-label="{{ product.title }}">
             <div class="product-card__media">
@@ -154,20 +141,8 @@
     gap: 3px;
   }
 
-  /* First card: explicitly placed so auto-placement works around it */
-  .best-sellers__grid .product-card--tall {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-  }
-
-  /* Lone last card: center it in the middle column */
-  .best-sellers__grid .product-card--orphan {
-    grid-column: 2;
-    grid-row: var(--orphan-row);
-  }
-
-  /* Prevent non-tall cards from stretching vertically */
-  .best-sellers__grid .product-card:not(.product-card--tall) {
+  /* All cards uniform size — no spanning */
+  .best-sellers__grid .product-card {
     align-self: start;
   }
 
@@ -186,13 +161,6 @@
   @media (max-width: 1024px) {
     .best-sellers__grid {
       grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* All cards uniform on tablet/mobile — remove explicit placement */
-    .best-sellers__grid .product-card--tall,
-    .best-sellers__grid .product-card--orphan {
-      grid-column: auto;
-      grid-row: auto;
     }
   }
 

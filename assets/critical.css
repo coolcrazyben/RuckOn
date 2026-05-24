@@ -192,12 +192,6 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
   flex-shrink: 0;
 }
 
-/* Tall featured card (best-sellers grid): image fills the extra row height */
-.product-card--tall .product-card__media {
-  aspect-ratio: unset;
-  flex: 1;
-  min-height: 300px;
-}
 
 .product-card__media img,
 .product-card__media .product-card__placeholder {
@@ -277,15 +271,6 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 .product-card:hover .product-card__cta {
   opacity: 1;
   transform: translateY(0);
-}
-
-@media (max-width: 1024px) {
-  /* On tablet/mobile, tall card collapses to single row — image uses default aspect ratio */
-  .product-card--tall .product-card__media {
-    aspect-ratio: 4 / 5;
-    flex: unset;
-    min-height: unset;
-  }
 }
 
 @media (max-width: 768px) {
