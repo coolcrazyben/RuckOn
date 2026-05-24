@@ -279,14 +279,17 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
   transform: translateY(0);
 }
 
-@media (max-width: 768px) {
-  .product-card__title { font-size: 16px; }
-  /* On mobile, tall card collapses to single row — image uses default aspect ratio */
+@media (max-width: 1024px) {
+  /* On tablet/mobile, tall card collapses to single row — image uses default aspect ratio */
   .product-card--tall .product-card__media {
     aspect-ratio: 4 / 5;
     flex: unset;
     min-height: unset;
   }
+}
+
+@media (max-width: 768px) {
+  .product-card__title { font-size: 16px; }
 }
 
 /* === Shared Pagination === */

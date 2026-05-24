@@ -167,6 +167,11 @@
     .best-sellers__grid {
       grid-template-columns: repeat(2, 1fr);
     }
+
+    /* Remove tall card row span on tablet/mobile so all cards are uniform */
+    .best-sellers__grid .product-card--tall {
+      grid-row: auto;
+    }
   }
 
   @media (max-width: 768px) {
