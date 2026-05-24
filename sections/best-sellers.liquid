@@ -146,6 +146,11 @@
     grid-row: span 2;
   }
 
+  /* Prevent non-tall cards from stretching vertically when alone in a row */
+  .best-sellers__grid .product-card:not(.product-card--tall) {
+    align-self: start;
+  }
+
   /* product-card base styles live in critical.css */
 
   .best-sellers__empty {
