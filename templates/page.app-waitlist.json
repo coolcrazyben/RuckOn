@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -7,7 +16,7 @@
           "type": "feature",
           "settings": {
             "icon": "🎯",
-            "title": "Mission Tracking",
+            "title": "Ruck Tracking",
             "description": "Log every ruck, run, and lift. Your mission history, always on hand."
           }
         },
@@ -15,22 +24,61 @@
           "type": "feature",
           "settings": {
             "icon": "⚡",
-            "title": "Ruck Training Plans",
-            "description": "Structured programs built for ruckers — beginner to elite."
+            "title": "Community Creation",
+            "description": "Join Communities and host challenges with other Ruckers in your community"
           }
         },
         "feature-3": {
           "type": "feature",
           "settings": {
-            "icon": "🛒",
-            "title": "Gear Integration",
-            "description": "Shop, track, and manage your Ruck On kit directly from the app."
+            "icon": "↩️",
+            "title": "Share Your Rucks",
+            "description": "Share your rucks with others inside and outside of the app."
           }
         }
       },
-      "block_order": ["feature-1", "feature-2", "feature-3"],
+      "block_order": [
+        "feature-1",
+        "feature-2",
+        "feature-3"
+      ],
+      "custom_css": [],
+      "settings": {
+        "badge_text": "// Coming Soon",
+        "badge_bg_color": "#1e1e1a",
+        "badge_text_color": "#d4622a",
+        "headline_line1": "The Ruck On App",
+        "headline1_color": "#faf8f4",
+        "headline_line2": "Is Coming.",
+        "headline2_color": "#c8a96e",
+        "subtext": "Train. Track. Ruck. The app built for those who carry the weight — every rep, every mile, every mission.",
+        "subtext_color": "#e8d5b0",
+        "feature_title_color": "#faf8f4",
+        "feature_body_color": "#e8d5b0",
+        "input_placeholder": "Enter your email address",
+        "button_text": "Get Early Access",
+        "success_message": "You're on the list. We'll be in touch.",
+        "disclaimer": "Early access only. No spam. Unsubscribe anytime."
+      }
+    },
+    "1780266410161f1e16": {
+      "type": "apps",
+      "blocks": {
+        "klaviyo_email_marketing_sms_form_embed_block_CU98hn": {
+          "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/form-embed-block/2632fe16-c075-4321-a88b-50b567f42507",
+          "settings": {
+            "formId": "Up7J9q"
+          }
+        }
+      },
+      "block_order": [
+        "klaviyo_email_marketing_sms_form_embed_block_CU98hn"
+      ],
       "settings": {}
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "1780266410161f1e16"
+  ]
 }
