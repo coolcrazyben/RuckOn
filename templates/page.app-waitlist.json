@@ -31,9 +31,9 @@
         "feature-3": {
           "type": "feature",
           "settings": {
-            "icon": "🛒",
-            "title": "Gear Integration",
-            "description": "Shop, track, and manage your Ruck On kit directly from the app."
+            "icon": "↩️",
+            "title": "Share Your Rucks",
+            "description": "Share your rucks with others inside and outside of the app."
           }
         }
       },
