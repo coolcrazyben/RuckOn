@@ -84,43 +84,11 @@
         </ul>
       {%- endif -%}
 
-      <div class="aw__form-wrap fade-up" data-delay="6">
-        <form
-          id="app-waitlist-form"
-          class="aw__form"
-          data-klaviyo-key="{{ section.settings.klaviyo_api_key }}"
-          data-klaviyo-list="{{ section.settings.klaviyo_list_id }}"
-          data-success="{{ section.settings.success_message }}"
-          novalidate
-        >
-          <div class="aw__row">
-            <label for="aw-email" class="visually-hidden">{{ section.settings.input_placeholder }}</label>
-            <input
-              type="email"
-              id="aw-email"
-              name="email"
-              class="aw__input"
-              placeholder="{{ section.settings.input_placeholder }}"
-              autocomplete="email"
-              autocorrect="off"
-              autocapitalize="off"
-              aria-required="true"
-              required
-            >
-            <button type="submit" class="aw__btn btn btn--primary">
-              <span class="aw__btn-text">{{ section.settings.button_text }}</span>
-              <span class="aw__btn-loading" aria-hidden="true" style="display:none">...</span>
-            </button>
-          </div>
-          <p class="aw__error" role="alert" style="display:none"></p>
-        </form>
-
-        <p class="aw__success" style="display:none">{{ section.settings.success_message }}</p>
-
-        {%- if section.settings.disclaimer != blank -%}
-          <p class="aw__disclaimer">{{ section.settings.disclaimer }}</p>
-        {%- endif -%}
-      </div>
+      {%- if section.settings.klaviyo_form_id != blank -%}
+        <div class="aw__form-wrap fade-up" data-delay="6">
+          <div class="klaviyo-form-{{ section.settings.klaviyo_form_id }}"></div>
+        </div>
+      {%- endif -%}
 
     </div>
   </div>
@@ -307,177 +275,11 @@
     width: 100%;
   }
 
-  .aw__form {
-    width: 100%;
-  }
-
-  .aw__row {
-    display: flex;
-    width: 100%;
-    gap: 0;
-  }
-
-  .aw__input {
-    flex: 1;
-    padding: 16px 20px;
-    background: rgba(17, 16, 9, 0.7);
-    border: 1px solid rgba(200, 169, 110, 0.5);
-    border-right: none;
-    color: var(--color-white);
-    font-family: var(--font-body);
-    font-size: 15px;
-    outline: none;
-    min-width: 0;
-    border-radius: 0;
-    transition: border-color 0.2s ease, background 0.2s ease;
-  }
-
-  .aw__input::placeholder {
-    color: rgba(232, 213, 176, 0.45);
-  }
-
-  .aw__input:focus {
-    border-color: var(--color-tan);
-    background: rgba(17, 16, 9, 0.9);
-  }
-
-  .aw__btn {
-    flex-shrink: 0;
-    background: var(--color-orange);
-    color: var(--color-white);
-    font-family: var(--font-label);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    padding: 16px 28px;
-    border: none;
-    cursor: pointer;
-    clip-path: none;
-    border-radius: 0;
-    transition: background 0.2s ease, color 0.2s ease;
-    white-space: nowrap;
-  }
-
-  .aw__btn:hover {
-    background: var(--color-tan);
-    color: var(--color-black);
-  }
-
-  .aw__success {
-    font-family: var(--font-label);
-    font-size: 13px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--color-tan);
-    padding: 18px;
-    border: 1px solid rgba(200, 169, 110, 0.4);
-    text-align: center;
-  }
-
-  .aw__disclaimer {
-    font-family: var(--font-body);
-    font-size: 12px;
-    color: rgba(232, 213, 176, 0.4);
-    line-height: 1.5;
-    margin-top: 12px;
-    text-align: center;
-  }
-
-  .aw__error {
-    font-family: var(--font-body);
-    font-size: 13px;
-    color: #d4622a;
-    margin-top: 10px;
-    text-align: left;
-  }
-
   @media (max-width: 768px) {
     .aw__body { padding: 100px var(--page-margin) 80px; }
-
     .aw__headline { font-size: clamp(44px, 12vw, 80px); }
-
-    .aw__row { flex-direction: column; }
-    .aw__input { border-right: 1px solid rgba(200, 169, 110, 0.5); border-bottom: none; }
-    .aw__btn { width: 100%; padding: 16px; }
   }
 {% endstylesheet %}
-
-{% javascript %}
-  (function () {
-    var form = document.getElementById('app-waitlist-form');
-    if (!form) return;
-
-    var apiKey  = form.dataset.klaviyoKey;
-    var listId  = form.dataset.klaviyoList;
-    var successEl = form.nextElementSibling;
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      var emailInput = form.querySelector('input[name="email"]');
-      var btnText    = form.querySelector('.aw__btn-text');
-      var btnLoading = form.querySelector('.aw__btn-loading');
-      var errorEl    = form.querySelector('.aw__error');
-      var email      = emailInput.value.trim();
-
-      errorEl.style.display = 'none';
-
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        errorEl.textContent = 'Please enter a valid email address.';
-        errorEl.style.display = 'block';
-        return;
-      }
-
-      if (!apiKey || !listId) {
-        errorEl.textContent = 'Form is not configured yet. Check Klaviyo settings in the theme editor.';
-        errorEl.style.display = 'block';
-        return;
-      }
-
-      btnText.style.display    = 'none';
-      btnLoading.style.display = 'inline';
-      form.querySelector('button').disabled = true;
-
-      fetch('https://a.klaviyo.com/client/subscriptions/?company_id=' + apiKey, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json', 'revision': '2023-12-15' },
-        body: JSON.stringify({
-          data: {
-            type: 'subscription',
-            attributes: {
-              list_id: listId,
-              custom_source: 'App Waitlist',
-              profile: {
-                data: {
-                  type: 'profile',
-                  attributes: { email: email }
-                }
-              }
-            }
-          }
-        })
-      })
-      .then(function (res) {
-        if (res.ok || res.status === 202) {
-          form.style.display = 'none';
-          successEl.style.display = 'block';
-        } else {
-          return res.json().then(function (data) {
-            throw new Error((data.errors && data.errors[0] && data.errors[0].detail) || 'Something went wrong. Please try again.');
-          });
-        }
-      })
-      .catch(function (err) {
-        errorEl.textContent = err.message;
-        errorEl.style.display = 'block';
-        btnText.style.display    = 'inline';
-        btnLoading.style.display = 'none';
-        form.querySelector('button').disabled = false;
-      });
-    });
-  })();
-{% endjavascript %}
 
 {% schema %}
 {
@@ -581,47 +383,14 @@
     },
     {
       "type": "header",
-      "content": "Klaviyo"
+      "content": "Klaviyo form"
     },
     {
       "type": "text",
-      "id": "klaviyo_api_key",
-      "label": "Klaviyo Public API Key",
-      "info": "Found in Klaviyo → Settings → API Keys (Public Key / Site ID)"
-    },
-    {
-      "type": "text",
-      "id": "klaviyo_list_id",
-      "label": "Klaviyo List ID",
-      "info": "Found in Klaviyo → Lists & Segments → your list → Settings"
-    },
-    {
-      "type": "header",
-      "content": "Email form"
-    },
-    {
-      "type": "text",
-      "id": "input_placeholder",
-      "label": "Email placeholder",
-      "default": "Enter your email address"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button label",
-      "default": "Get Early Access"
-    },
-    {
-      "type": "text",
-      "id": "success_message",
-      "label": "Success message",
-      "default": "You're on the list. We'll be in touch."
-    },
-    {
-      "type": "text",
-      "id": "disclaimer",
-      "label": "Disclaimer (optional)",
-      "default": "Early access only. No spam. Unsubscribe anytime."
+      "id": "klaviyo_form_id",
+      "label": "Klaviyo Form ID",
+      "default": "Yedgdt",
+      "info": "The ID at the end of your Klaviyo embed code, e.g. klaviyo-form-Yedgdt"
     }
   ],
   "blocks": [
