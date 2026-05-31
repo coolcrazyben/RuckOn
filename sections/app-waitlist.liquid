@@ -85,34 +85,37 @@
       {%- endif -%}
 
       <div class="aw__form-wrap fade-up" data-delay="6">
-        {%- form 'customer', id: 'app-waitlist-form', class: 'aw__form' -%}
-          {{ form.errors | default_errors }}
+        <form
+          id="app-waitlist-form"
+          class="aw__form"
+          data-klaviyo-key="{{ section.settings.klaviyo_api_key }}"
+          data-klaviyo-list="{{ section.settings.klaviyo_list_id }}"
+          data-success="{{ section.settings.success_message }}"
+          novalidate
+        >
+          <div class="aw__row">
+            <label for="aw-email" class="visually-hidden">{{ section.settings.input_placeholder }}</label>
+            <input
+              type="email"
+              id="aw-email"
+              name="email"
+              class="aw__input"
+              placeholder="{{ section.settings.input_placeholder }}"
+              autocomplete="email"
+              autocorrect="off"
+              autocapitalize="off"
+              aria-required="true"
+              required
+            >
+            <button type="submit" class="aw__btn btn btn--primary">
+              <span class="aw__btn-text">{{ section.settings.button_text }}</span>
+              <span class="aw__btn-loading" aria-hidden="true" style="display:none">...</span>
+            </button>
+          </div>
+          <p class="aw__error" role="alert" style="display:none"></p>
+        </form>
 
-          {%- if form.posted_successfully? -%}
-            <p class="aw__success">{{ section.settings.success_message }}</p>
-          {%- else -%}
-            <input type="hidden" name="contact[tags]" value="app-waitlist">
-
-            <div class="aw__row">
-              <label for="aw-email" class="visually-hidden">{{ section.settings.input_placeholder }}</label>
-              <input
-                type="email"
-                id="aw-email"
-                name="contact[email]"
-                class="aw__input"
-                placeholder="{{ section.settings.input_placeholder }}"
-                autocomplete="email"
-                autocorrect="off"
-                autocapitalize="off"
-                aria-required="true"
-                required
-              >
-              <button type="submit" class="aw__btn btn btn--primary">
-                {{ section.settings.button_text }}
-              </button>
-            </div>
-          {%- endif -%}
-        {%- endform -%}
+        <p class="aw__success" style="display:none">{{ section.settings.success_message }}</p>
 
         {%- if section.settings.disclaimer != blank -%}
           <p class="aw__disclaimer">{{ section.settings.disclaimer }}</p>
@@ -381,6 +384,14 @@
     text-align: center;
   }
 
+  .aw__error {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: #d4622a;
+    margin-top: 10px;
+    text-align: left;
+  }
+
   @media (max-width: 768px) {
     .aw__body { padding: 100px var(--page-margin) 80px; }
 
@@ -391,6 +402,82 @@
     .aw__btn { width: 100%; padding: 16px; }
   }
 {% endstylesheet %}
+
+{% javascript %}
+  (function () {
+    var form = document.getElementById('app-waitlist-form');
+    if (!form) return;
+
+    var apiKey  = form.dataset.klaviyoKey;
+    var listId  = form.dataset.klaviyoList;
+    var successEl = form.nextElementSibling;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var emailInput = form.querySelector('input[name="email"]');
+      var btnText    = form.querySelector('.aw__btn-text');
+      var btnLoading = form.querySelector('.aw__btn-loading');
+      var errorEl    = form.querySelector('.aw__error');
+      var email      = emailInput.value.trim();
+
+      errorEl.style.display = 'none';
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errorEl.textContent = 'Please enter a valid email address.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      if (!apiKey || !listId) {
+        errorEl.textContent = 'Form is not configured yet. Check Klaviyo settings in the theme editor.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      btnText.style.display    = 'none';
+      btnLoading.style.display = 'inline';
+      form.querySelector('button').disabled = true;
+
+      fetch('https://a.klaviyo.com/client/subscriptions/?company_id=' + apiKey, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'revision': '2023-12-15' },
+        body: JSON.stringify({
+          data: {
+            type: 'subscription',
+            attributes: {
+              list_id: listId,
+              custom_source: 'App Waitlist',
+              profile: {
+                data: {
+                  type: 'profile',
+                  attributes: { email: email }
+                }
+              }
+            }
+          }
+        })
+      })
+      .then(function (res) {
+        if (res.ok || res.status === 202) {
+          form.style.display = 'none';
+          successEl.style.display = 'block';
+        } else {
+          return res.json().then(function (data) {
+            throw new Error((data.errors && data.errors[0] && data.errors[0].detail) || 'Something went wrong. Please try again.');
+          });
+        }
+      })
+      .catch(function (err) {
+        errorEl.textContent = err.message;
+        errorEl.style.display = 'block';
+        btnText.style.display    = 'inline';
+        btnLoading.style.display = 'none';
+        form.querySelector('button').disabled = false;
+      });
+    });
+  })();
+{% endjavascript %}
 
 {% schema %}
 {
@@ -491,6 +578,22 @@
       "id": "feature_body_color",
       "label": "Feature description color",
       "default": "#e8d5b0"
+    },
+    {
+      "type": "header",
+      "content": "Klaviyo"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_api_key",
+      "label": "Klaviyo Public API Key",
+      "info": "Found in Klaviyo → Settings → API Keys (Public Key / Site ID)"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_list_id",
+      "label": "Klaviyo List ID",
+      "info": "Found in Klaviyo → Lists & Segments → your list → Settings"
     },
     {
       "type": "header",
