@@ -1,0 +1,586 @@
+{% style %}
+  #shopify-section-{{ section.id }} .aw {
+    --aw-eyebrow: {{ section.settings.eyebrow_color }};
+    --aw-headline1: {{ section.settings.headline1_color }};
+    --aw-headline2: {{ section.settings.headline2_color }};
+    --aw-subtext: {{ section.settings.subtext_color }};
+    --aw-feature-title: {{ section.settings.feature_title_color }};
+    --aw-feature-body: {{ section.settings.feature_body_color }};
+    --aw-badge-bg: {{ section.settings.badge_bg_color }};
+    --aw-badge-text: {{ section.settings.badge_text_color }};
+  }
+{% endstyle %}
+
+<div class="aw full-width">
+  {%- if section.settings.background_image != blank -%}
+    <div class="aw__bg">
+      {{
+        section.settings.background_image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          sizes: '100vw',
+          alt: section.settings.background_image.alt
+      }}
+    </div>
+  {%- endif -%}
+
+  <div class="aw__overlay"></div>
+  <div class="aw__grid"></div>
+
+  <div class="aw__body">
+    <div class="aw__content">
+
+      {%- if section.settings.badge_text != blank -%}
+        <span class="aw__badge fade-up" data-delay="1">{{ section.settings.badge_text }}</span>
+      {%- endif -%}
+
+      <h1 class="aw__headline fade-up" data-delay="2">
+        {%- if section.settings.headline_line1 != blank -%}
+          <span class="aw__headline-1">{{ section.settings.headline_line1 }}</span>
+        {%- endif -%}
+        {%- if section.settings.headline_line2 != blank -%}
+          <span class="aw__headline-2">{{ section.settings.headline_line2 }}</span>
+        {%- endif -%}
+      </h1>
+
+      {%- if section.settings.subtext != blank -%}
+        <p class="aw__subtext fade-up" data-delay="3">{{ section.settings.subtext }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.app_image != blank -%}
+        <div class="aw__mockup fade-up" data-delay="4">
+          {{
+            section.settings.app_image
+            | image_url: width: 600
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(max-width: 768px) 200px, 280px',
+              alt: section.settings.app_image.alt
+          }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <ul class="aw__features fade-up" data-delay="5">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'feature' -%}
+              <li class="aw__feature" {{ block.shopify_attributes }}>
+                {%- if block.settings.icon != blank -%}
+                  <span class="aw__feature-icon">{{ block.settings.icon }}</span>
+                {%- endif -%}
+                <div class="aw__feature-text">
+                  {%- if block.settings.title != blank -%}
+                    <strong class="aw__feature-title">{{ block.settings.title }}</strong>
+                  {%- endif -%}
+                  {%- if block.settings.description != blank -%}
+                    <span class="aw__feature-desc">{{ block.settings.description }}</span>
+                  {%- endif -%}
+                </div>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      <div class="aw__form-wrap fade-up" data-delay="6">
+        {%- form 'customer', id: 'app-waitlist-form', class: 'aw__form' -%}
+          {{ form.errors | default_errors }}
+
+          {%- if form.posted_successfully? -%}
+            <p class="aw__success">{{ section.settings.success_message }}</p>
+          {%- else -%}
+            <input type="hidden" name="contact[tags]" value="app-waitlist">
+
+            <div class="aw__row">
+              <label for="aw-email" class="visually-hidden">{{ section.settings.input_placeholder }}</label>
+              <input
+                type="email"
+                id="aw-email"
+                name="contact[email]"
+                class="aw__input"
+                placeholder="{{ section.settings.input_placeholder }}"
+                autocomplete="email"
+                autocorrect="off"
+                autocapitalize="off"
+                aria-required="true"
+                required
+              >
+              <button type="submit" class="aw__btn btn btn--primary">
+                {{ section.settings.button_text }}
+              </button>
+            </div>
+          {%- endif -%}
+        {%- endform -%}
+
+        {%- if section.settings.disclaimer != blank -%}
+          <p class="aw__disclaimer">{{ section.settings.disclaimer }}</p>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .aw {
+    position: relative;
+    min-height: 100svh;
+    background: var(--color-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .aw__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .aw__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .aw__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      radial-gradient(ellipse at 20% 60%, rgba(74, 92, 42, 0.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 20%, rgba(212, 98, 42, 0.15) 0%, transparent 50%),
+      linear-gradient(to bottom,
+        rgba(17, 16, 9, 0.75) 0%,
+        rgba(17, 16, 9, 0.88) 50%,
+        rgba(17, 16, 9, 0.97) 100%
+      );
+  }
+
+  .aw__grid {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background-image:
+      linear-gradient(rgba(74, 92, 42, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74, 92, 42, 0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: aw-grid-pulse 7s ease-in-out infinite;
+  }
+
+  @keyframes aw-grid-pulse {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 1; }
+  }
+
+  .aw__body {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    padding: 120px var(--page-margin) 100px;
+  }
+
+  .aw__content {
+    max-width: 680px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0;
+  }
+
+  .aw__badge {
+    display: inline-block;
+    background: var(--aw-badge-bg, rgba(212, 98, 42, 0.15));
+    color: var(--aw-badge-text, #d4622a);
+    border: 1px solid rgba(212, 98, 42, 0.4);
+    font-family: var(--font-label);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    margin-bottom: 28px;
+  }
+
+  .aw__headline {
+    font-family: var(--font-heading);
+    font-size: clamp(52px, 8vw, 110px);
+    line-height: 0.95;
+    letter-spacing: -1px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.06em;
+    margin-bottom: 28px;
+  }
+
+  .aw__headline-1 {
+    display: block;
+    color: var(--aw-headline1, #faf8f4);
+  }
+
+  .aw__headline-2 {
+    display: block;
+    color: var(--aw-headline2, #c8a96e);
+  }
+
+  .aw__subtext {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--aw-subtext, #e8d5b0);
+    line-height: 1.65;
+    max-width: 520px;
+    margin-bottom: 36px;
+  }
+
+  .aw__mockup {
+    margin-bottom: 44px;
+  }
+
+  .aw__mockup img {
+    width: 200px;
+    height: auto;
+    filter: drop-shadow(0 24px 48px rgba(0,0,0,0.6));
+  }
+
+  .aw__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    text-align: left;
+  }
+
+  .aw__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    background: rgba(30, 30, 26, 0.7);
+    border: 1px solid rgba(200, 169, 110, 0.15);
+    border-left: 3px solid var(--color-tan);
+  }
+
+  .aw__feature-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 2px;
+  }
+
+  .aw__feature-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .aw__feature-title {
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--aw-feature-title, #faf8f4);
+  }
+
+  .aw__feature-desc {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--aw-feature-body, #e8d5b0);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .aw__form-wrap {
+    width: 100%;
+  }
+
+  .aw__form {
+    width: 100%;
+  }
+
+  .aw__row {
+    display: flex;
+    width: 100%;
+    gap: 0;
+  }
+
+  .aw__input {
+    flex: 1;
+    padding: 16px 20px;
+    background: rgba(17, 16, 9, 0.7);
+    border: 1px solid rgba(200, 169, 110, 0.5);
+    border-right: none;
+    color: var(--color-white);
+    font-family: var(--font-body);
+    font-size: 15px;
+    outline: none;
+    min-width: 0;
+    border-radius: 0;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .aw__input::placeholder {
+    color: rgba(232, 213, 176, 0.45);
+  }
+
+  .aw__input:focus {
+    border-color: var(--color-tan);
+    background: rgba(17, 16, 9, 0.9);
+  }
+
+  .aw__btn {
+    flex-shrink: 0;
+    background: var(--color-orange);
+    color: var(--color-white);
+    font-family: var(--font-label);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 16px 28px;
+    border: none;
+    cursor: pointer;
+    clip-path: none;
+    border-radius: 0;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .aw__btn:hover {
+    background: var(--color-tan);
+    color: var(--color-black);
+  }
+
+  .aw__success {
+    font-family: var(--font-label);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-tan);
+    padding: 18px;
+    border: 1px solid rgba(200, 169, 110, 0.4);
+    text-align: center;
+  }
+
+  .aw__disclaimer {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: rgba(232, 213, 176, 0.4);
+    line-height: 1.5;
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .aw__body { padding: 100px var(--page-margin) 80px; }
+
+    .aw__headline { font-size: clamp(44px, 12vw, 80px); }
+
+    .aw__row { flex-direction: column; }
+    .aw__input { border-right: 1px solid rgba(200, 169, 110, 0.5); border-bottom: none; }
+    .aw__btn { width: 100%; padding: 16px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "App Waitlist",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "header",
+      "content": "Badge"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge label",
+      "default": "// Coming Soon"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge background",
+      "default": "#1e1e1a"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge text color",
+      "default": "#d4622a"
+    },
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "headline_line1",
+      "label": "Headline — line 1",
+      "default": "The Ruck On App"
+    },
+    {
+      "type": "color",
+      "id": "headline1_color",
+      "label": "Line 1 color",
+      "default": "#faf8f4"
+    },
+    {
+      "type": "text",
+      "id": "headline_line2",
+      "label": "Headline — line 2",
+      "default": "Is Coming."
+    },
+    {
+      "type": "color",
+      "id": "headline2_color",
+      "label": "Line 2 color",
+      "default": "#c8a96e"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Train. Track. Ruck. The app built for those who carry the weight — every rep, every mile, every mission."
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext color",
+      "default": "#e8d5b0"
+    },
+    {
+      "type": "header",
+      "content": "App mockup image"
+    },
+    {
+      "type": "image_picker",
+      "id": "app_image",
+      "label": "App screenshot / mockup (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Feature colors"
+    },
+    {
+      "type": "color",
+      "id": "feature_title_color",
+      "label": "Feature title color",
+      "default": "#faf8f4"
+    },
+    {
+      "type": "color",
+      "id": "feature_body_color",
+      "label": "Feature description color",
+      "default": "#e8d5b0"
+    },
+    {
+      "type": "header",
+      "content": "Email form"
+    },
+    {
+      "type": "text",
+      "id": "input_placeholder",
+      "label": "Email placeholder",
+      "default": "Enter your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button label",
+      "default": "Get Early Access"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "You're on the list. We'll be in touch."
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Disclaimer (optional)",
+      "default": "Early access only. No spam. Unsubscribe anytime."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon (emoji)",
+          "default": "🎯"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature title",
+          "default": "Mission Tracking"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Feature description",
+          "default": "Log every ruck, run, and lift. Your mission history, always on hand."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "App Waitlist",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "🎯",
+            "title": "Mission Tracking",
+            "description": "Log every ruck, run, and lift. Your mission history, always on hand."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "⚡",
+            "title": "Ruck Training Plans",
+            "description": "Structured programs built for ruckers — beginner to elite."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "🛒",
+            "title": "Gear Integration",
+            "description": "Shop, track, and manage your Ruck On kit directly from the app."
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}

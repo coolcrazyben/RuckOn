@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "main": {
+      "type": "app-waitlist",
+      "blocks": {
+        "feature-1": {
+          "type": "feature",
+          "settings": {
+            "icon": "🎯",
+            "title": "Mission Tracking",
+            "description": "Log every ruck, run, and lift. Your mission history, always on hand."
+          }
+        },
+        "feature-2": {
+          "type": "feature",
+          "settings": {
+            "icon": "⚡",
+            "title": "Ruck Training Plans",
+            "description": "Structured programs built for ruckers — beginner to elite."
+          }
+        },
+        "feature-3": {
+          "type": "feature",
+          "settings": {
+            "icon": "🛒",
+            "title": "Gear Integration",
+            "description": "Shop, track, and manage your Ruck On kit directly from the app."
+          }
+        }
+      },
+      "block_order": ["feature-1", "feature-2", "feature-3"],
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
