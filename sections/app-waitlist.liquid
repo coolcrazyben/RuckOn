@@ -85,34 +85,35 @@
       {%- endif -%}
 
       <div class="aw__form-wrap fade-up" data-delay="6">
-        {%- form 'customer', id: 'app-waitlist-form', class: 'aw__form' -%}
-          {{ form.errors | default_errors }}
+        <form
+          id="app-waitlist-form"
+          class="aw__form"
+          method="post"
+          action="/contact#app-waitlist-form"
+        >
+          <input type="hidden" name="form_type" value="customer">
+          <input type="hidden" name="utf8" value="✓">
+          <input type="hidden" name="contact[tags]" value="app-waitlist">
 
-          {%- if form.posted_successfully? -%}
-            <p class="aw__success">{{ section.settings.success_message }}</p>
-          {%- else -%}
-            <input type="hidden" name="contact[tags]" value="app-waitlist">
-
-            <div class="aw__row">
-              <label for="aw-email" class="visually-hidden">{{ section.settings.input_placeholder }}</label>
-              <input
-                type="email"
-                id="aw-email"
-                name="contact[email]"
-                class="aw__input"
-                placeholder="{{ section.settings.input_placeholder }}"
-                autocomplete="email"
-                autocorrect="off"
-                autocapitalize="off"
-                aria-required="true"
-                required
-              >
-              <button type="submit" class="aw__btn btn btn--primary">
-                {{ section.settings.button_text }}
-              </button>
-            </div>
-          {%- endif -%}
-        {%- endform -%}
+          <div class="aw__row">
+            <label for="aw-email" class="visually-hidden">{{ section.settings.input_placeholder }}</label>
+            <input
+              type="email"
+              id="aw-email"
+              name="contact[email]"
+              class="aw__input"
+              placeholder="{{ section.settings.input_placeholder }}"
+              autocomplete="email"
+              autocorrect="off"
+              autocapitalize="off"
+              aria-required="true"
+              required
+            >
+            <button type="submit" class="aw__btn btn btn--primary">
+              {{ section.settings.button_text }}
+            </button>
+          </div>
+        </form>
 
         {%- if section.settings.disclaimer != blank -%}
           <p class="aw__disclaimer">{{ section.settings.disclaimer }}</p>
