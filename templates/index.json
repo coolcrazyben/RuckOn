@@ -32,7 +32,7 @@
     "stats-bar": {
       "type": "stats-bar",
       "settings": {
-        "stat_1_number": "10K+",
+        "stat_1_number": "20+",
         "stat_1_label": "Ruckers Strong",
         "stat_2_number": "500+",
         "stat_2_label": "Miles Tested",
