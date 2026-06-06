@@ -84,6 +84,17 @@
     "shop-by-category": {
       "type": "shop-by-category",
       "blocks": {
+        "category_gpENHf": {
+          "type": "category",
+          "settings": {
+            "category_name": "Hats",
+            "image": "shopify://shop_images/IMG_5682.jpg",
+            "collection": "hats",
+            "link_url": "",
+            "product_count": "3 Products",
+            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)"
+          }
+        },
         "category_e6TDiC": {
           "type": "category",
           "settings": {
@@ -119,6 +130,7 @@
         }
       },
       "block_order": [
+        "category_gpENHf",
         "category_e6TDiC",
         "category_Vxmmpz",
         "category_jq6CfC"
