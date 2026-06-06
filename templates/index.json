@@ -54,7 +54,7 @@
         "heading_text_2": "Sellers",
         "view_all_text": "View All",
         "collection": "best-sellers",
-        "product_limit": 6,
+        "product_limit": 7,
         "show_badge": true,
         "card_cta_text": "Add to Cart",
         "empty_text": "No products found — add some to this collection.",
