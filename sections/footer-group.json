@@ -21,7 +21,7 @@
         "col1_title": "Shop",
         "col1_menu": "footer",
         "col2_title": "Company",
-        "col2_menu": "",
+        "col2_menu": "footer-company",
         "col3_title": "Support",
         "col3_menu": "footer-support",
         "copyright_suffix": "All rights reserved.",
