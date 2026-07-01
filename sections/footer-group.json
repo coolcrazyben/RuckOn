@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Footer group",
@@ -10,10 +19,21 @@
         "tagline": "Tactical gear and apparel for those who never put the ruck down.",
         "show_payment_icons": true,
         "col1_title": "Shop",
+        "col1_menu": "footer",
         "col2_title": "Company",
+        "col2_menu": "",
         "col3_title": "Support",
+        "col3_menu": "footer-support",
         "copyright_suffix": "All rights reserved.",
-        "footer_tagline": "Made for Ruckers. By Ruckers."
+        "footer_tagline": "Made for Ruckers. By Ruckers.",
+        "background_color": "#111009",
+        "top_border_color": "#c8a96e",
+        "logo_color_1": "#c8a96e",
+        "logo_color_2": "#faf8f4",
+        "tagline_color": "#e8d5b0",
+        "column_title_color": "#c8a96e",
+        "link_color": "#e8d5b0",
+        "bottom_text_color": "#e8d5b0"
       }
     }
   },
