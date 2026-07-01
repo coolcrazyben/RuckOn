@@ -27,7 +27,7 @@
         "steps_heading": "Three Steps to Launch",
         "placeholder_label": "Image Coming Soon",
         "step1_title": "Subscribe",
-        "step1_description": "Sign up for the Community Creation Membership at $25/month. No contracts. Cancel anytime.",
+        "step1_description": "Sign up for the Community Creation Membership at $0/month. No contracts. Cancel anytime.",
         "step1_image": "shopify://shop_images/ChatGPT_Image_Mar_7_2026_03_09_15_PM.png",
         "step2_title": "Get Your Link",
         "step2_description": "We email you a private product link branded to your community. Share it with your members — that's it.",
@@ -67,7 +67,7 @@
         "cta_eyebrow": "// Ready to Launch",
         "cta_heading": "Ready to Build Your Community?",
         "cta_subtext": "Join the Community Creation Membership and start building something your members will carry with pride.",
-        "cta_btn_text": "Get Started — $25/month",
+        "cta_btn_text": "Get Started for Free",
         "cta_btn_url": "shopify://products/agora-community-membership",
         "cta_bg_color": "#2d3a18",
         "cta_title_color": "#faf8f4"
