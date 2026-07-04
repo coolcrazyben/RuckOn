@@ -46,6 +46,27 @@
         "divider_color": "#4a5c2a"
       }
     },
+    "best_sellers_CWJUVA": {
+      "type": "best-sellers",
+      "name": "Best Sellers",
+      "settings": {
+        "eyebrow_text": "July 4th Sale",
+        "heading_text_1": "Shop the",
+        "heading_text_2": "July 4th Sale",
+        "view_all_text": "View All",
+        "collection": "shirt-and-hat",
+        "product_limit": 6,
+        "show_badge": true,
+        "card_cta_text": "Add to Cart",
+        "empty_text": "No products found — add some to this collection.",
+        "background_color": "#111009",
+        "eyebrow_color": "#d4622a",
+        "heading_color": "#faf8f4",
+        "accent_color": "#c8a96e",
+        "badge_bg_color": "#d4622a",
+        "badge_text_color": "#faf8f4"
+      }
+    },
     "best-sellers": {
       "type": "best-sellers",
       "settings": {
@@ -195,6 +216,7 @@
   "order": [
     "hero",
     "stats-bar",
+    "best_sellers_CWJUVA",
     "best-sellers",
     "manifesto",
     "shop-by-category",
