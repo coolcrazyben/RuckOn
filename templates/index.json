@@ -46,26 +46,20 @@
         "divider_color": "#4a5c2a"
       }
     },
-    "app_waitlist_zWjxXX": {
-      "type": "app-waitlist",
-      "name": "App Waitlist",
+    "manifesto_niEbeg": {
+      "type": "manifesto",
+      "name": "Manifesto",
       "settings": {
-        "badge_text": "Download NOw",
-        "badge_bg_color": "#1e1e1a",
-        "badge_text_color": "#d4622a",
-        "headline_line1": "The Ruck On App",
-        "headline1_color": "#faf8f4",
-        "headline_line2": "Is Live.",
-        "headline2_color": "#c8a96e",
-        "subtext": "Train. Track. Ruck. The app built for those who carry the weight — every rep, every mile, every mission.",
-        "subtext_color": "#e8d5b0",
-        "app_image": "shopify://shop_images/Untitled_design_1_-Photoroom_1.png",
-        "feature_title_color": "#faf8f4",
-        "feature_body_color": "#e8d5b0",
-        "input_placeholder": "",
-        "button_text": "",
-        "success_message": "You're on the list. We'll be in touch.",
-        "disclaimer": "Early access only. No spam. Unsubscribe anytime."
+        "quote_line1": "The Ruck On App",
+        "quote_line2": "IS LIVE",
+        "body_text": "We don't make gear for the gym. We make gear for the grind — the 20-mile ruck, the 4am alarm, the weight that never comes off. Built by ruckers. Tested in the field. Made to last a lifetime.",
+        "cta_text": "Read Our Story",
+        "cta_url": "",
+        "background_color": "#2d3a18",
+        "quote_color_1": "#faf8f4",
+        "quote_color_2": "#c8a96e",
+        "body_color": "#e8d5b0",
+        "divider_color": "#c8a96e"
       }
     },
     "best-sellers": {
@@ -217,7 +211,7 @@
   "order": [
     "hero",
     "stats-bar",
-    "app_waitlist_zWjxXX",
+    "manifesto_niEbeg",
     "best-sellers",
     "manifesto",
     "shop-by-category",
