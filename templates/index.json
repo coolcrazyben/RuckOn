@@ -48,37 +48,6 @@
     },
     "app_waitlist_zWjxXX": {
       "type": "app-waitlist",
-      "blocks": {
-        "feature_6CPLKt": {
-          "type": "feature",
-          "settings": {
-            "icon": "🎯",
-            "title": "Mission Tracking",
-            "description": "Log every ruck, run, and lift. Your mission history, always on hand."
-          }
-        },
-        "feature_KiYX79": {
-          "type": "feature",
-          "settings": {
-            "icon": "⚡",
-            "title": "Ruck Training Plans",
-            "description": "Structured programs built for ruckers — beginner to elite."
-          }
-        },
-        "feature_XqU7ip": {
-          "type": "feature",
-          "settings": {
-            "icon": "🛒",
-            "title": "Gear Integration",
-            "description": "Shop, track, and manage your Ruck On kit directly from the app."
-          }
-        }
-      },
-      "block_order": [
-        "feature_6CPLKt",
-        "feature_KiYX79",
-        "feature_XqU7ip"
-      ],
       "name": "App Waitlist",
       "settings": {
         "badge_text": "Download NOw",
@@ -86,7 +55,7 @@
         "badge_text_color": "#d4622a",
         "headline_line1": "The Ruck On App",
         "headline1_color": "#faf8f4",
-        "headline_line2": "Is Coming.",
+        "headline_line2": "Is Live.",
         "headline2_color": "#c8a96e",
         "subtext": "Train. Track. Ruck. The app built for those who carry the weight — every rep, every mile, every mission.",
         "subtext_color": "#e8d5b0",
