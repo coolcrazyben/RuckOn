@@ -62,8 +62,8 @@
         "app_image": "shopify://shop_images/Untitled_design_1_-Photoroom_1.png",
         "feature_title_color": "#faf8f4",
         "feature_body_color": "#e8d5b0",
-        "input_placeholder": "Enter your email address",
-        "button_text": "Get Early Access",
+        "input_placeholder": "",
+        "button_text": "",
         "success_message": "You're on the list. We'll be in touch.",
         "disclaimer": "Early access only. No spam. Unsubscribe anytime."
       }
