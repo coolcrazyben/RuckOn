@@ -1,0 +1,25 @@
+{% doc %}
+  Product eyebrow / breadcrumb label. Shows the product type, or a fallback
+  label from the block settings when the product has no type.
+{% enddoc %}
+
+{%- if product.type != blank -%}
+  <span class="eyebrow" {{ block.shopify_attributes }}>{{ product.type }}</span>
+{%- elsif block.settings.eyebrow_text != blank -%}
+  <span class="eyebrow" {{ block.shopify_attributes }}>{{ block.settings.eyebrow_text }}</span>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Eyebrow label",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow label (fallback if no product type)",
+      "default": "// Tactical Gear"
+    }
+  ],
+  "presets": [{ "name": "Eyebrow label" }]
+}
+{% endschema %}

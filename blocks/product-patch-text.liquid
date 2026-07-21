@@ -1,0 +1,74 @@
+{% doc %}
+  Community creator patch-text field.
+
+  Self-guards: only renders when the product is tagged with the creator tag
+  (default "community-creator"). Safe to include on the shared default product
+  template — it stays hidden on other products.
+{% enddoc %}
+
+{%- if block.settings.creator_tag != blank -%}
+  {%- if product.tags contains block.settings.creator_tag -%}
+    <div class="product-patch-text" {{ block.shopify_attributes }}>
+      <label class="product-option__label" for="patch-text-input">
+        {{ block.settings.patch_text_label }}
+      </label>
+      <input
+        type="text"
+        id="patch-text-input"
+        name="properties[Patch Text]"
+        class="form-input product-patch-text__input"
+        placeholder="{{ block.settings.patch_text_placeholder }}"
+        maxlength="{{ block.settings.patch_text_maxlength }}"
+        autocomplete="off"
+        aria-describedby="patch-text-note"
+        form="product-form"
+      >
+      <p class="product-patch-text__note" id="patch-text-note">
+        {{ block.settings.patch_text_note }}
+      </p>
+    </div>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Patch text field",
+  "settings": [
+    {
+      "type": "text",
+      "id": "creator_tag",
+      "label": "Community creator product tag",
+      "default": "community-creator",
+      "info": "The field shows only on products carrying this tag."
+    },
+    {
+      "type": "text",
+      "id": "patch_text_label",
+      "label": "Patch text field label",
+      "default": "What should appear on your patch?"
+    },
+    {
+      "type": "text",
+      "id": "patch_text_placeholder",
+      "label": "Patch text field placeholder",
+      "default": "e.g. CrossFit Gold"
+    },
+    {
+      "type": "text",
+      "id": "patch_text_note",
+      "label": "Patch text helper note",
+      "default": "This name will be printed on all member patches for your community."
+    },
+    {
+      "type": "range",
+      "id": "patch_text_maxlength",
+      "label": "Max characters for patch text",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 40
+    }
+  ],
+  "presets": [{ "name": "Patch text field" }]
+}
+{% endschema %}

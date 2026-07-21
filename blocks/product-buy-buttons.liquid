@@ -1,0 +1,85 @@
+{% doc %}
+  Add-to-cart form and buttons. This block OWNS the product form
+  (id="product-form"). Other product blocks (quantity, community selector,
+  patch text, community name) associate their inputs with it via the HTML
+  form="product-form" attribute, so they work no matter where they sit.
+{% enddoc %}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<div {{ block.shopify_attributes }}>
+  {%- form 'product', product, id: 'product-form', novalidate: 'novalidate' -%}
+    <input type="hidden" name="id" id="product-variant-id" value="{{ current_variant.id }}">
+
+    {%- comment -%} Auto-attach first selling plan (invisible — no customer UI) {%- endcomment -%}
+    {%- if product.selling_plan_groups.size > 0 -%}
+      <input
+        type="hidden"
+        name="selling_plan"
+        id="selling-plan-id"
+        value="{{ product.selling_plan_groups.first.selling_plans.first.id }}"
+      >
+    {%- endif -%}
+
+    <div class="product-actions">
+      <button
+        type="submit"
+        name="add"
+        id="product-add-btn"
+        class="btn btn--primary product-actions__add"
+        data-add-text="{{ block.settings.add_to_cart_text | escape }}"
+        data-sold-text="{{ block.settings.sold_out_text | escape }}"
+        {%- unless current_variant.available -%}disabled{%- endunless -%}
+      >
+        {%- if current_variant.available -%}
+          {{ block.settings.add_to_cart_text }}
+        {%- else -%}
+          {{ block.settings.sold_out_text }}
+        {%- endif -%}
+      </button>
+
+      {%- if block.settings.show_payment_button -%}
+        {{ form | payment_button }}
+      {%- endif -%}
+    </div>
+
+    {%- unless current_variant.available -%}
+      <p class="product-info__unavailable" id="product-unavailable">
+        {{ block.settings.unavailable_text }}
+      </p>
+    {%- endunless -%}
+  {%- endform -%}
+</div>
+
+{% schema %}
+{
+  "name": "Buy buttons",
+  "settings": [
+    {
+      "type": "text",
+      "id": "add_to_cart_text",
+      "label": "Add to cart button text",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_text",
+      "label": "Sold out button text",
+      "default": "Sold Out"
+    },
+    {
+      "type": "text",
+      "id": "unavailable_text",
+      "label": "Unavailable variant text",
+      "default": "This variant is currently unavailable."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_button",
+      "label": "Show dynamic payment button (Buy Now)",
+      "default": true
+    }
+  ],
+  "presets": [{ "name": "Buy buttons" }]
+}
+{% endschema %}

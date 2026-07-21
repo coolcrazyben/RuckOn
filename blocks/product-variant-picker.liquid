@@ -1,0 +1,45 @@
+{% doc %}
+  Variant option pills. Renders one group of pills per product option.
+  The pills drive the section JavaScript, which writes the matched variant id
+  into the hidden #product-variant-id input inside the buy-buttons block.
+{% enddoc %}
+
+{%- unless product.has_only_default_variant -%}
+  <div {{ block.shopify_attributes }}>
+    {%- for option in product.options_with_values -%}
+      {%- assign option_index = forloop.index0 -%}
+      <div class="product-option">
+        <label class="product-option__label">
+          {{ option.name }}
+          <span class="product-option__selected" id="option-selected-{{ option_index }}">
+            {{ option.selected_value }}
+          </span>
+        </label>
+        <div
+          class="product-option__pills"
+          data-option-position="{{ option_index }}"
+          role="group"
+          aria-label="{{ option.name }}"
+        >
+          {%- for value in option.values -%}
+            <button
+              type="button"
+              class="product-pill{% if option.selected_value == value %} product-pill--active{% endif %}"
+              data-value="{{ value | escape }}"
+              data-option="{{ option_index }}"
+              aria-pressed="{%- if option.selected_value == value -%}true{%- else -%}false{%- endif -%}"
+            >{{ value }}</button>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "Variant picker",
+  "settings": [],
+  "presets": [{ "name": "Variant picker" }]
+}
+{% endschema %}

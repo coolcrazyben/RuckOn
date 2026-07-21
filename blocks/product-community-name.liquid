@@ -1,0 +1,61 @@
+{% doc %}
+  Required community-name field for the community-creation membership product.
+  Add this block only to the community-creation product template. The section
+  JavaScript enforces the required validation on submit.
+{% enddoc %}
+
+<div class="product-community-name" {{ block.shopify_attributes }}>
+  <label class="product-option__label" for="community-name-input">
+    {{ block.settings.community_name_label }}
+  </label>
+  <input
+    type="text"
+    id="community-name-input"
+    name="properties[Community Name]"
+    class="form-input product-community-name__input"
+    placeholder="{{ block.settings.community_name_placeholder }}"
+    autocomplete="off"
+    aria-describedby="community-name-note community-name-error"
+    aria-required="true"
+    form="product-form"
+  >
+  <p class="product-community-name__note" id="community-name-note">
+    {{ block.settings.community_name_note }}
+  </p>
+  <p class="product-community-name__error" id="community-name-error" aria-live="polite" hidden>
+    {{ block.settings.community_name_error_text }}
+  </p>
+</div>
+
+{% schema %}
+{
+  "name": "Community name field",
+  "settings": [
+    {
+      "type": "text",
+      "id": "community_name_label",
+      "label": "Community name field label",
+      "default": "Community / Gym Name"
+    },
+    {
+      "type": "text",
+      "id": "community_name_placeholder",
+      "label": "Community name placeholder",
+      "default": "e.g. CrossFit Starkville"
+    },
+    {
+      "type": "text",
+      "id": "community_name_note",
+      "label": "Community name helper text",
+      "default": "This is what will appear on your members' patches each month."
+    },
+    {
+      "type": "text",
+      "id": "community_name_error_text",
+      "label": "Community name validation error",
+      "default": "Please enter your community name"
+    }
+  ],
+  "presets": [{ "name": "Community name field" }]
+}
+{% endschema %}

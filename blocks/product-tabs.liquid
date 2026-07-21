@@ -1,0 +1,124 @@
+{% doc %}
+  Description / Shipping / Reviews tabs. Tab switching is handled by the
+  section JavaScript, keyed off the .product-tabs__* classes.
+{% enddoc %}
+
+<div class="product-tabs" {{ block.shopify_attributes }}>
+  <div class="product-tabs__nav" role="tablist">
+    <button
+      class="product-tabs__btn product-tabs__btn--active"
+      data-tab="description"
+      role="tab"
+      aria-selected="true"
+      aria-controls="tab-description"
+    >{{ block.settings.tab_description }}</button>
+
+    {%- if block.settings.shipping_content != blank -%}
+      <button
+        class="product-tabs__btn"
+        data-tab="shipping"
+        role="tab"
+        aria-selected="false"
+        aria-controls="tab-shipping"
+      >{{ block.settings.tab_shipping }}</button>
+    {%- endif -%}
+
+    {%- if block.settings.show_reviews_tab -%}
+      <button
+        class="product-tabs__btn"
+        data-tab="reviews"
+        role="tab"
+        aria-selected="false"
+        aria-controls="tab-reviews"
+      >{{ block.settings.tab_reviews }}</button>
+    {%- endif -%}
+  </div>
+
+  <div class="product-tabs__panels">
+    <div
+      class="product-tabs__panel product-tabs__panel--active rte"
+      id="tab-description"
+      role="tabpanel"
+      tabindex="0"
+    >
+      {%- if product.description != blank -%}
+        {{ product.description }}
+      {%- else -%}
+        <p>{{ block.settings.no_description_text }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if block.settings.shipping_content != blank -%}
+      <div
+        class="product-tabs__panel rte"
+        id="tab-shipping"
+        role="tabpanel"
+        tabindex="0"
+      >
+        {{ block.settings.shipping_content }}
+      </div>
+    {%- endif -%}
+
+    {%- if block.settings.show_reviews_tab -%}
+      <div
+        class="product-tabs__panel rte"
+        id="tab-reviews"
+        role="tabpanel"
+        tabindex="0"
+      >
+        {{ block.settings.reviews_content }}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Description tabs",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tab_description",
+      "label": "Description tab label",
+      "default": "Description"
+    },
+    {
+      "type": "text",
+      "id": "no_description_text",
+      "label": "No description fallback text",
+      "default": "Product details coming soon."
+    },
+    {
+      "type": "text",
+      "id": "tab_shipping",
+      "label": "Shipping tab label",
+      "default": "Shipping & Returns"
+    },
+    {
+      "type": "richtext",
+      "id": "shipping_content",
+      "label": "Shipping & Returns content",
+      "default": "<p>Free shipping on orders over $75. Returns accepted within 30 days of delivery.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews_tab",
+      "label": "Show reviews tab",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "tab_reviews",
+      "label": "Reviews tab label",
+      "default": "Reviews"
+    },
+    {
+      "type": "richtext",
+      "id": "reviews_content",
+      "label": "Reviews placeholder content",
+      "default": "<p>Customer reviews coming soon.</p>"
+    }
+  ],
+  "presets": [{ "name": "Description tabs" }]
+}
+{% endschema %}

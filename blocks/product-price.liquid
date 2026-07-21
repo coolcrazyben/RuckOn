@@ -1,0 +1,33 @@
+{% doc %}
+  Product price. Shows regular price, or compare-at + sale price with an
+  optional sale badge. Updated live by the section JavaScript on variant change.
+{% enddoc %}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<div class="product-info__price" id="product-price" {{ block.shopify_attributes }}>
+  {%- if current_variant.compare_at_price > current_variant.price -%}
+    <s class="product-price__compare">{{ current_variant.compare_at_price | money }}</s>
+    <span class="product-price__sale">{{ current_variant.price | money }}</span>
+    {%- if block.settings.sale_badge_text != blank -%}
+      <span class="product-price__badge">{{ block.settings.sale_badge_text }}</span>
+    {%- endif -%}
+  {%- else -%}
+    <span class="product-price__regular">{{ current_variant.price | money }}</span>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Price",
+  "settings": [
+    {
+      "type": "text",
+      "id": "sale_badge_text",
+      "label": "Sale badge label",
+      "default": "Sale"
+    }
+  ],
+  "presets": [{ "name": "Price" }]
+}
+{% endschema %}

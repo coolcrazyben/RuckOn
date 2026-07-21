@@ -1,0 +1,49 @@
+{% doc %}
+  Basic-membership community selector dropdown.
+
+  Self-guards: only renders when the product is tagged with the membership tag
+  (default "basic-membership") and has no selling plan groups. Safe to include
+  on the shared default product template — it stays hidden on other products.
+{% enddoc %}
+
+{%- if block.settings.membership_tag != blank -%}
+  {%- if product.selling_plan_groups.size == 0 -%}
+    {%- if product.tags contains block.settings.membership_tag -%}
+      <div class="product-community" {{ block.shopify_attributes }}>
+        <label class="product-option__label" for="community-select-input">
+          {{ block.settings.community_label }}
+        </label>
+        <select
+          id="community-select-input"
+          name="properties[Community]"
+          class="form-input product-community__select"
+          form="product-form"
+        >
+          {% render 'community-list' %}
+        </select>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Community selector",
+  "settings": [
+    {
+      "type": "text",
+      "id": "membership_tag",
+      "label": "Basic membership product tag",
+      "default": "basic-membership",
+      "info": "The dropdown shows only on products carrying this tag."
+    },
+    {
+      "type": "text",
+      "id": "community_label",
+      "label": "Community dropdown label",
+      "default": "Select Your Community"
+    }
+  ],
+  "presets": [{ "name": "Community selector" }]
+}
+{% endschema %}

@@ -1,0 +1,37 @@
+{% doc %}
+  Quantity stepper. The input associates with the product form via the
+  form="product-form" attribute, so it works regardless of block order.
+{% enddoc %}
+
+<div class="product-qty-row" {{ block.shopify_attributes }}>
+  <label class="product-option__label" for="product-qty">{{ block.settings.qty_label }}</label>
+  <div class="product-qty">
+    <button type="button" class="product-qty__btn" data-action="decrease" aria-label="Decrease quantity">−</button>
+    <input
+      type="number"
+      name="quantity"
+      id="product-qty"
+      value="1"
+      min="1"
+      class="product-qty__input"
+      aria-label="Quantity"
+      form="product-form"
+    >
+    <button type="button" class="product-qty__btn" data-action="increase" aria-label="Increase quantity">+</button>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Quantity selector",
+  "settings": [
+    {
+      "type": "text",
+      "id": "qty_label",
+      "label": "Quantity label",
+      "default": "Quantity"
+    }
+  ],
+  "presets": [{ "name": "Quantity selector" }]
+}
+{% endschema %}
