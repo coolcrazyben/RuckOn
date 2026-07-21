@@ -1,0 +1,28 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "product",
+      "settings": {
+        "show_patch_crosssell": true,
+        "crosssell_eyebrow": "// Complete Your Look",
+        "crosssell_heading_1": "Mix & Match",
+        "crosssell_heading_2": "Your Patch",
+        "crosssell_subtext": "Our hats are built for interchangeable patches — grab a few and switch up your look.",
+        "crosssell_cta_text": "Shop",
+        "crosssell_limit": 4
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
