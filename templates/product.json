@@ -11,10 +11,68 @@
   "sections": {
     "main": {
       "type": "product",
+      "settings": {
+        "eyebrow_text": "// Tactical Gear",
+        "add_to_cart_text": "Add to Cart",
+        "sold_out_text": "Sold Out",
+        "unavailable_text": "This variant is currently unavailable.",
+        "qty_label": "Quantity",
+        "sale_badge_text": "Sale",
+        "show_payment_button": true,
+        "tab_description": "Description",
+        "tab_shipping": "Shipping & Returns",
+        "shipping_content": "<p>Free shipping on orders over $75. Returns accepted within 30 days of delivery.</p>",
+        "show_reviews_tab": false,
+        "tab_reviews": "Reviews",
+        "reviews_content": "<p>Customer reviews coming soon.</p>",
+        "no_description_text": "Product details coming soon.",
+        "show_related": true,
+        "related_eyebrow": "// You May Also Like",
+        "related_heading_1": "Load Up On",
+        "related_heading_2": "More Gear",
+        "related_cta_text": "View",
+        "related_limit": 4,
+        "show_community_name_field": false,
+        "community_name_label": "Community / Gym Name",
+        "community_name_placeholder": "e.g. CrossFit Starkville",
+        "community_name_note": "This is what will appear on your members' patches each month.",
+        "community_name_error_text": "Please enter your community name",
+        "basic_membership_tag": "basic-membership",
+        "community_label": "Select Your Community",
+        "subscription_product_tag": "community-creator",
+        "patch_text_label": "What should appear on your patch?",
+        "patch_text_placeholder": "e.g. CrossFit Gold",
+        "patch_text_note": "This name will be printed on all member patches for your community.",
+        "patch_text_maxlength": 40,
+        "show_patch_crosssell": false,
+        "patch_crosssell_collection": "",
+        "crosssell_eyebrow": "// Complete Your Look",
+        "crosssell_heading_1": "Mix & Match",
+        "crosssell_heading_2": "Your Patch",
+        "crosssell_subtext": "Our hats are built for interchangeable patches — grab a few and switch up your look.",
+        "crosssell_cta_text": "Shop",
+        "crosssell_limit": 4,
+        "accent_color": "#c8a96e",
+        "sale_color": "#d4622a",
+        "selected_pill_bg": "#4a5c2a"
+      }
+    },
+    "1784667318ca6af38c": {
+      "type": "apps",
+      "blocks": {
+        "selleasy_lb_upsell_widget_pac_knMnhM": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pac/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "selleasy_lb_upsell_widget_pac_knMnhM"
+      ],
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "1784667318ca6af38c"
   ]
 }
