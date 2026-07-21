@@ -16,28 +16,33 @@
           "type": "product-eyebrow",
           "settings": {
             "eyebrow_text": "// Tactical Gear"
-          }
+          },
+          "blocks": {}
         },
         "title": {
           "type": "product-title",
-          "settings": {}
+          "settings": {},
+          "blocks": {}
         },
         "price": {
           "type": "product-price",
           "settings": {
             "sale_badge_text": "Sale"
-          }
+          },
+          "blocks": {}
         },
         "variant_picker": {
           "type": "product-variant-picker",
-          "settings": {}
+          "settings": {},
+          "blocks": {}
         },
         "community_selector": {
           "type": "product-community-selector",
           "settings": {
             "membership_tag": "basic-membership",
             "community_label": "Select Your Community"
-          }
+          },
+          "blocks": {}
         },
         "patch_text": {
           "type": "product-patch-text",
@@ -47,13 +52,19 @@
             "patch_text_placeholder": "e.g. CrossFit Gold",
             "patch_text_note": "This name will be printed on all member patches for your community.",
             "patch_text_maxlength": 40
-          }
+          },
+          "blocks": {}
+        },
+        "selleasy_lb_upsell_widget_pac_QEX83Q": {
+          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pac/790c1a03-a71f-4bc1-9869-00dad526d3c2",
+          "settings": {}
         },
         "quantity": {
           "type": "product-quantity",
           "settings": {
             "qty_label": "Quantity"
-          }
+          },
+          "blocks": {}
         },
         "buy_buttons": {
           "type": "product-buy-buttons",
@@ -62,7 +73,8 @@
             "sold_out_text": "Sold Out",
             "unavailable_text": "This variant is currently unavailable.",
             "show_payment_button": true
-          }
+          },
+          "blocks": {}
         },
         "tabs": {
           "type": "product-tabs",
@@ -74,7 +86,8 @@
             "show_reviews_tab": false,
             "tab_reviews": "Reviews",
             "reviews_content": "<p>Customer reviews coming soon.</p>"
-          }
+          },
+          "blocks": {}
         }
       },
       "block_order": [
@@ -84,6 +97,7 @@
         "variant_picker",
         "community_selector",
         "patch_text",
+        "selleasy_lb_upsell_widget_pac_QEX83Q",
         "quantity",
         "buy_buttons",
         "tabs"
@@ -110,15 +124,6 @@
     },
     "1784667318ca6af38c": {
       "type": "apps",
-      "blocks": {
-        "selleasy_lb_upsell_widget_pac_knMnhM": {
-          "type": "shopify://apps/selleasy/blocks/lb-upsell-widget-pac/790c1a03-a71f-4bc1-9869-00dad526d3c2",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "selleasy_lb_upsell_widget_pac_knMnhM"
-      ],
       "settings": {}
     }
   },
