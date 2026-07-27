@@ -153,18 +153,11 @@
               <article class="product-card fade-up" data-delay="{{ crosssell_count }}">
                 <a href="{{ crosssell_product.url }}" class="product-card__link" aria-label="{{ crosssell_product.title | escape }}">
                   <div class="product-card__media">
-                    {%- if crosssell_product.featured_image -%}
-                      {{
-                        crosssell_product.featured_image
-                        | image_url: width: 700
-                        | image_tag:
-                          loading: 'lazy',
-                          sizes: '(max-width: 768px) 50vw, 25vw',
-                          alt: crosssell_product.featured_image.alt | default: crosssell_product.title
-                      }}
-                    {%- else -%}
-                      {{ 'product-1' | placeholder_svg_tag: 'product-card__placeholder' }}
-                    {%- endif -%}
+                    {%- render 'product-card-media',
+                      product: crosssell_product,
+                      image_width: 700,
+                      sizes: '(max-width: 768px) 50vw, 25vw'
+                    -%}
                   </div>
                   <div class="product-card__overlay"></div>
                   <div class="product-card__info">
@@ -214,18 +207,11 @@
                 <article class="product-card fade-up" data-delay="{{ related_count }}">
                   <a href="{{ related_product.url }}" class="product-card__link" aria-label="{{ related_product.title | escape }}">
                     <div class="product-card__media">
-                      {%- if related_product.featured_image -%}
-                        {{
-                          related_product.featured_image
-                          | image_url: width: 700
-                          | image_tag:
-                            loading: 'lazy',
-                            sizes: '(max-width: 768px) 50vw, 25vw',
-                            alt: related_product.featured_image.alt | default: related_product.title
-                        }}
-                      {%- else -%}
-                        {{ 'product-1' | placeholder_svg_tag: 'product-card__placeholder' }}
-                      {%- endif -%}
+                        {%- render 'product-card-media',
+                          product: related_product,
+                          image_width: 700,
+                          sizes: '(max-width: 768px) 50vw, 25vw'
+                        -%}
                     </div>
                     <div class="product-card__overlay"></div>
                     <div class="product-card__info">

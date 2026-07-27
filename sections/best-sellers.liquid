@@ -46,18 +46,11 @@
         >
           <a href="{{ product.url }}" class="product-card__link" aria-label="{{ product.title }}">
             <div class="product-card__media">
-              {%- if product.featured_image -%}
-                {{
-                  product.featured_image
-                  | image_url: width: 800
-                  | image_tag:
-                    loading: 'lazy',
-                    sizes: '(max-width: 768px) 50vw, 33vw',
-                    alt: product.featured_image.alt | default: product.title
-                }}
-              {%- else -%}
-                {{ 'product-1' | placeholder_svg_tag: 'product-card__placeholder' }}
-              {%- endif -%}
+              {%- render 'product-card-media',
+                product: product,
+                image_width: 800,
+                sizes: '(max-width: 768px) 50vw, 33vw'
+              -%}
             </div>
 
             <div class="product-card__overlay"></div>

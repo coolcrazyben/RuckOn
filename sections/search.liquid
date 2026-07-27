@@ -55,22 +55,14 @@
           {% paginate search.results by section.settings.results_per_page %}
             <div class="search-results-grid">
               {%- for result in search.results -%}
-                {%- assign featured_image = result.featured_image | default: result.image -%}
                 <article class="product-card fade-up" data-delay="{{ forloop.index | modulo: 4 | plus: 1 }}">
                   <a href="{{ result.url }}" class="product-card__link" aria-label="{{ result.title | escape }}">
                     <div class="product-card__media">
-                      {%- if featured_image -%}
-                        {{
-                          featured_image
-                          | image_url: width: 600
-                          | image_tag:
-                            loading: 'lazy',
-                            sizes: '(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw',
-                            alt: featured_image.alt | default: result.title
-                        }}
-                      {%- else -%}
-                        {{ 'product-1' | placeholder_svg_tag: 'product-card__placeholder' }}
-                      {%- endif -%}
+                      {%- render 'product-card-media',
+                        product: result,
+                        image_width: 600,
+                        sizes: '(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw'
+                      -%}
                     </div>
                     <div class="product-card__overlay"></div>
                     <div class="product-card__info">

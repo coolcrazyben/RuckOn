@@ -1,0 +1,51 @@
+{% doc %}
+  Renders the cover media for a product card.
+
+  If the product's cover media (`featured_media`) is a video, it is rendered
+  as an autoplaying, muted, looping `<video>` so the video plays directly in
+  collection grids and card rows without the shopper opening the product.
+  Otherwise the featured image is rendered. Falls back to `product.image`
+  (for non-product search results such as articles/pages) and then to a
+  placeholder SVG when there is no media.
+
+  @param product {object} - The product (or search result) whose cover media to render.
+  @param image_width {number} - Target width in px for the image URL and video poster.
+  @param sizes {string} - The responsive `sizes` attribute for the rendered image.
+{% enddoc %}
+
+{%- liquid
+  assign card_media = product.featured_media
+  assign poster_size = image_width | append: 'x'
+-%}
+{%- if card_media and card_media.media_type == 'video' -%}
+  {{
+    card_media
+    | video_tag:
+      image_size: poster_size,
+      class: 'product-card__video',
+      autoplay: true,
+      muted: true,
+      loop: true,
+      controls: false
+  }}
+{%- elsif product.featured_image -%}
+  {{
+    product.featured_image
+    | image_url: width: image_width
+    | image_tag:
+      loading: 'lazy',
+      sizes: sizes,
+      alt: product.featured_image.alt | default: product.title
+  }}
+{%- elsif product.image -%}
+  {{
+    product.image
+    | image_url: width: image_width
+    | image_tag:
+      loading: 'lazy',
+      sizes: sizes,
+      alt: product.image.alt | default: product.title
+  }}
+{%- else -%}
+  {{ 'product-1' | placeholder_svg_tag: 'product-card__placeholder' }}
+{%- endif -%}
