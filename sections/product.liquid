@@ -29,37 +29,83 @@
     <!-- ===== GALLERY ===== -->
     <div class="product-gallery">
       <div class="product-gallery__main" id="product-main-image">
-        {%- if product.featured_image -%}
-          {{
-            product.featured_image
-            | image_url: width: 1400
-            | image_tag:
-              id: 'product-main-img',
-              class: 'product-gallery__main-img',
-              loading: 'eager',
-              sizes: '(max-width: 768px) 100vw, 50vw',
-              alt: product.featured_image.alt | default: product.title
-          }}
+        {%- if product.media.size > 0 -%}
+          {%- for media in product.media -%}
+            {%- assign is_active = false -%}
+            {%- if product.featured_media and media.id == product.featured_media.id -%}
+              {%- assign is_active = true -%}
+            {%- elsif product.featured_media == blank and forloop.first -%}
+              {%- assign is_active = true -%}
+            {%- endif -%}
+            <div
+              class="product-gallery__slide{% if is_active %} product-gallery__slide--active{% endif %}"
+              data-media-id="{{ media.id }}"
+              data-index="{{ forloop.index0 }}"
+              data-media-type="{{ media.media_type }}"
+            >
+              {%- case media.media_type -%}
+                {%- when 'image' -%}
+                  {%- if is_active -%}
+                    {%- assign img_loading = 'eager' -%}
+                  {%- else -%}
+                    {%- assign img_loading = 'lazy' -%}
+                  {%- endif -%}
+                  {{
+                    media
+                    | image_url: width: 1400
+                    | image_tag:
+                      class: 'product-gallery__media',
+                      loading: img_loading,
+                      sizes: '(max-width: 768px) 100vw, 50vw',
+                      alt: media.alt | default: product.title
+                  }}
+                {%- when 'video' -%}
+                  {{
+                    media
+                    | video_tag:
+                      image_size: '1400x',
+                      class: 'product-gallery__media',
+                      autoplay: true,
+                      muted: true,
+                      loop: true,
+                      controls: false
+                  }}
+                {%- when 'external_video' -%}
+                  {{ media | external_video_tag: class: 'product-gallery__media', loading: 'lazy' }}
+                {%- else -%}
+                  {{ media | media_tag: class: 'product-gallery__media' }}
+              {%- endcase -%}
+            </div>
+          {%- endfor -%}
         {%- else -%}
           {{ 'product-1' | placeholder_svg_tag: 'product-gallery__placeholder' }}
         {%- endif -%}
       </div>
 
-      {%- if product.images.size > 1 -%}
+      {%- if product.media.size > 1 -%}
         <div class="product-gallery__thumbs" id="product-thumbs">
-          {%- for image in product.images -%}
+          {%- for media in product.media -%}
+            {%- assign thumb_active = false -%}
+            {%- if product.featured_media and media.id == product.featured_media.id -%}
+              {%- assign thumb_active = true -%}
+            {%- elsif product.featured_media == blank and forloop.first -%}
+              {%- assign thumb_active = true -%}
+            {%- endif -%}
             <button
-              class="product-gallery__thumb{% if forloop.first %} product-gallery__thumb--active{% endif %}"
-              data-src="{{ image | image_url: width: 1400 }}"
+              class="product-gallery__thumb{% if thumb_active %} product-gallery__thumb--active{% endif %}"
+              data-media-id="{{ media.id }}"
               data-index="{{ forloop.index0 }}"
-              aria-label="{{ image.alt | default: product.title | escape }}"
+              aria-label="{{ media.alt | default: product.title | escape }}"
               type="button"
             >
               {{
-                image
+                media.preview_image
                 | image_url: width: 160, height: 160, crop: 'center'
-                | image_tag: loading: 'lazy', alt: image.alt | default: product.title
+                | image_tag: loading: 'lazy', alt: media.alt | default: product.title
               }}
+              {%- if media.media_type != 'image' -%}
+                <span class="product-gallery__thumb-play" aria-hidden="true"></span>
+              {%- endif -%}
             </button>
           {%- endfor -%}
         </div>
@@ -235,17 +281,65 @@
   }
 
   .product-gallery__main {
+    position: relative;
     aspect-ratio: 1;
     overflow: hidden;
     background: var(--color-charcoal);
   }
 
-  .product-gallery__main-img,
   .product-gallery__placeholder {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  /* Each media item is a stacked slide; only the active one is visible.
+     All slides live in the DOM so switching is instant (no fetch) and the
+     opacity transition gives a smooth crossfade. */
+  .product-gallery__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
     transition: opacity 0.3s ease;
+  }
+
+  .product-gallery__slide--active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Target both the applied class and raw media elements so images, videos,
+     iframes, and model viewers all fill the stage regardless of tag output. */
+  .product-gallery__media,
+  .product-gallery__slide > img,
+  .product-gallery__slide > video,
+  .product-gallery__slide > iframe,
+  .product-gallery__slide > model-viewer {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: 0;
+  }
+
+  /* Play badge over non-image thumbnails */
+  .product-gallery__thumb {
+    position: relative;
+  }
+
+  .product-gallery__thumb-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    transform: translate(-40%, -50%);
+    border-style: solid;
+    border-width: 8px 0 8px 13px;
+    border-color: transparent transparent transparent var(--color-white, #fff);
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.6));
+    pointer-events: none;
   }
 
   .product-gallery__thumbs {
@@ -746,7 +840,32 @@
     var variantInput = document.getElementById('product-variant-id');
     var priceEl      = document.getElementById('product-price');
     var addBtn       = document.getElementById('product-add-btn');
-    var mainImg      = document.getElementById('product-main-img');
+
+    // Gallery: all media slides live in the DOM; switching just toggles which
+    // one is active (instant swap + CSS crossfade, no network fetch).
+    var gallerySlides = document.querySelectorAll('.product-gallery__slide');
+    var galleryThumbs = document.querySelectorAll('.product-gallery__thumb');
+
+    function activateMedia(index) {
+      if (index < 0 || index >= gallerySlides.length) return;
+      gallerySlides.forEach(function(slide, idx) {
+        var isActive = idx === index;
+        slide.classList.toggle('product-gallery__slide--active', isActive);
+        // Pause videos we're leaving; play (muted) the one we're showing.
+        var video = slide.querySelector('video');
+        if (video) {
+          if (isActive) {
+            var playPromise = video.play();
+            if (playPromise && playPromise.catch) playPromise.catch(function() {});
+          } else {
+            video.pause();
+          }
+        }
+      });
+      galleryThumbs.forEach(function(thumb, idx) {
+        thumb.classList.toggle('product-gallery__thumb--active', idx === index);
+      });
+    }
 
     // Build initial selectedOptions from active pills
     var selectedOptions = [];
@@ -820,21 +939,21 @@
         }
       }
 
-      // Swap image if variant has one
-      if (matched.featured_image && mainImg) {
-        var thumbIndex = matched.featured_image.position - 1;
-        var thumbEls = document.querySelectorAll('.product-gallery__thumb');
-        var targetThumb = thumbEls[thumbIndex];
-
-        // Use the pre-sized URL from the thumbnail button if available, else fall back to raw src
-        mainImg.removeAttribute('srcset');
-        mainImg.src = targetThumb ? targetThumb.dataset.src : matched.featured_image.src;
-
-        // Sync thumbnail active state
-        thumbEls.forEach(function(t, idx) {
-          t.classList.toggle('product-gallery__thumb--active', idx === thumbIndex);
-        });
+      // Show the variant's media if it has one. Prefer matching by media id
+      // (works for any media type), then fall back to image position.
+      var targetIndex = -1;
+      if (matched.featured_media && matched.featured_media.id) {
+        for (var s = 0; s < gallerySlides.length; s++) {
+          if (String(gallerySlides[s].dataset.mediaId) === String(matched.featured_media.id)) {
+            targetIndex = s;
+            break;
+          }
+        }
       }
+      if (targetIndex === -1 && matched.featured_image) {
+        targetIndex = matched.featured_image.position - 1;
+      }
+      if (targetIndex !== -1) activateMedia(targetIndex);
     }
 
     // Money formatter
@@ -863,17 +982,10 @@
       });
     });
 
-    // Thumbnail gallery
-    document.querySelectorAll('.product-gallery__thumb').forEach(function(thumb) {
+    // Thumbnail gallery — toggle the matching slide (no image fetch).
+    galleryThumbs.forEach(function(thumb) {
       thumb.addEventListener('click', function() {
-        if (mainImg) {
-          mainImg.removeAttribute('srcset');
-          mainImg.src = this.dataset.src;
-        }
-        document.querySelectorAll('.product-gallery__thumb').forEach(function(t) {
-          t.classList.remove('product-gallery__thumb--active');
-        });
-        this.classList.add('product-gallery__thumb--active');
+        activateMedia(parseInt(this.dataset.index, 10));
       });
     });
 
