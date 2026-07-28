@@ -27,13 +27,16 @@
         "price": {
           "type": "product-price",
           "settings": {
-            "sale_badge_text": "Sale"
+            "sale_badge_text": "Sale",
+            "default_highest_price": false
           },
           "blocks": {}
         },
         "variant_picker": {
           "type": "product-variant-picker",
-          "settings": {},
+          "settings": {
+            "default_highest_price": true
+          },
           "blocks": {}
         },
         "community_selector": {
@@ -68,7 +71,8 @@
             "add_to_cart_text": "Add to Cart",
             "sold_out_text": "Sold Out",
             "unavailable_text": "This variant is currently unavailable.",
-            "show_payment_button": true
+            "show_payment_button": true,
+            "default_highest_price": false
           },
           "blocks": {}
         },
@@ -83,6 +87,10 @@
             "no_description_text": "Product details coming soon.",
             "tab_shipping": "Shipping & Returns",
             "shipping_content": "<p>Free shipping on orders over $75. Returns accepted within 30 days of delivery.</p>",
+            "tab_howto": "How It Works",
+            "howto_content": "",
+            "tab_faq": "FAQ",
+            "faq_content": "",
             "show_reviews_tab": false,
             "tab_reviews": "Reviews",
             "reviews_content": "<p>Customer reviews coming soon.</p>"
