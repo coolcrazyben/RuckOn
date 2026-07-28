@@ -1,0 +1,596 @@
+{% style %}
+  #shopify-section-{{ section.id }} .sub {
+    --sub-bg:            {{ section.settings.background_color }};
+    --sub-eyebrow:       {{ section.settings.eyebrow_color }};
+    --sub-heading1:      {{ section.settings.heading_color_1 }};
+    --sub-heading2:      {{ section.settings.heading_color_2 }};
+    --sub-body:          {{ section.settings.body_color }};
+    --sub-card-bg:       {{ section.settings.card_bg_color }};
+    --sub-card-title:    {{ section.settings.card_title_color }};
+    --sub-card-body:     {{ section.settings.card_body_color }};
+    --sub-accent:        {{ section.settings.accent_color }};
+    --sub-price:         {{ section.settings.price_color }};
+    --sub-step-num:      {{ section.settings.step_number_color }};
+    --sub-columns:       {{ section.settings.columns_desktop }};
+    --sub-columns-mobile:{{ section.settings.columns_mobile }};
+  }
+{% endstyle %}
+
+<div class="sub full-width">
+  <div class="sub__inner">
+
+    {%- comment -%} Intro {%- endcomment -%}
+    <div class="sub__intro">
+      {%- if section.settings.eyebrow_text != blank -%}
+        <span class="eyebrow sub__eyebrow">{{ section.settings.eyebrow_text }}</span>
+      {%- endif -%}
+
+      <h2 class="sub__title fade-up" data-delay="1">
+        {{ section.settings.heading_line1 }}
+        {%- if section.settings.heading_line2 != blank -%}
+          <span>{{ section.settings.heading_line2 }}</span>
+        {%- endif -%}
+      </h2>
+
+      {%- if section.settings.body_text != blank -%}
+        <p class="sub__body fade-up" data-delay="2">{{ section.settings.body_text }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.price_amount != blank -%}
+        <div class="sub__price fade-up" data-delay="3">
+          <span class="sub__price-amount">{{ section.settings.price_amount }}</span>
+          {%- if section.settings.price_interval != blank -%}
+            <span class="sub__price-interval">{{ section.settings.price_interval }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.cta_text != blank -%}
+        <div class="sub__cta fade-up" data-delay="4">
+          <a href="{{ section.settings.cta_url | default: '#' }}" class="btn btn--primary">
+            {{ section.settings.cta_text }}
+          </a>
+          {%- if section.settings.cta_note != blank -%}
+            <span class="sub__cta-note">{{ section.settings.cta_note }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Benefit cards + How-it-works steps, sourced from section blocks {%- endcomment -%}
+    {%- assign benefit_blocks = section.blocks | where: 'type', 'benefit' -%}
+    {%- assign step_blocks = section.blocks | where: 'type', 'step' -%}
+
+    {%- if benefit_blocks.size > 0 -%}
+      {%- if section.settings.benefits_heading != blank -%}
+        <h3 class="sub__section-heading fade-up">{{ section.settings.benefits_heading }}</h3>
+      {%- endif -%}
+      <div class="sub__benefits">
+        {%- for block in benefit_blocks -%}
+          {%- assign delay = forloop.index | modulo: 6 -%}
+          <div class="sub__benefit fade-up" data-delay="{{ delay }}" {{ block.shopify_attributes }}>
+            <div class="sub__benefit-icon">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 120 | image_tag: loading: 'lazy', alt: block.settings.title }}
+              {%- elsif block.settings.icon != blank -%}
+                <span class="sub__benefit-emoji">{{ block.settings.icon }}</span>
+              {%- endif -%}
+            </div>
+            {%- if block.settings.title != blank -%}
+              <h4 class="sub__benefit-title">{{ block.settings.title }}</h4>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="sub__benefit-body">{{ block.settings.description }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if step_blocks.size > 0 -%}
+      {%- if section.settings.steps_heading != blank -%}
+        <h3 class="sub__section-heading fade-up">{{ section.settings.steps_heading }}</h3>
+      {%- endif -%}
+      <div class="sub__steps">
+        {%- for block in step_blocks -%}
+          <div class="sub__step fade-up" data-delay="{{ forloop.index }}" {{ block.shopify_attributes }}>
+            <span class="sub__step-num">{{ forloop.index }}</span>
+            <div class="sub__step-text">
+              {%- if block.settings.title != blank -%}
+                <h4 class="sub__step-title">{{ block.settings.title }}</h4>
+              {%- endif -%}
+              {%- if block.settings.description != blank -%}
+                <p class="sub__step-body">{{ block.settings.description }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% stylesheet %}
+  .sub {
+    background-color: var(--sub-bg, #111009);
+    padding: 90px var(--page-margin);
+  }
+
+  .sub__inner {
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+
+  /* Intro */
+  .sub__intro {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 64px;
+  }
+
+  .sub__eyebrow {
+    color: var(--sub-eyebrow, #d4622a);
+  }
+
+  .sub__title {
+    font-family: var(--font-heading);
+    font-size: clamp(34px, 5vw, 64px);
+    line-height: 1.05;
+    color: var(--sub-heading1, #faf8f4);
+    margin-bottom: 1.25rem;
+  }
+
+  .sub__title span { color: var(--sub-heading2, #c8a96e); }
+
+  .sub__body {
+    font-family: var(--font-body);
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--sub-body, #e8d5b0);
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+  }
+
+  .sub__price {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 1.75rem;
+  }
+
+  .sub__price-amount {
+    font-family: var(--font-heading);
+    font-size: clamp(38px, 5vw, 52px);
+    line-height: 1;
+    color: var(--sub-price, #c8a96e);
+  }
+
+  .sub__price-interval {
+    font-family: var(--font-label);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--sub-body, #e8d5b0);
+  }
+
+  .sub__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .sub__cta-note {
+    font-family: var(--font-label);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(232, 213, 176, 0.7);
+  }
+
+  /* Shared sub-heading for benefit / step groups */
+  .sub__section-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(22px, 3vw, 30px);
+    line-height: 1.1;
+    color: var(--sub-heading1, #faf8f4);
+    text-align: center;
+    margin: 0 0 40px;
+  }
+
+  /* Benefit cards */
+  .sub__benefits {
+    display: grid;
+    grid-template-columns: repeat(var(--sub-columns, 3), 1fr);
+    gap: 24px;
+    margin-bottom: 80px;
+  }
+
+  .sub__benefit {
+    background: var(--sub-card-bg, #1e1e1a);
+    padding: 32px 28px;
+    border: 1px solid rgba(200, 169, 110, 0.14);
+    border-top: 3px solid var(--sub-accent, #d4622a);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .sub__benefit-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sub__benefit-icon img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+  }
+
+  .sub__benefit-emoji {
+    font-size: 40px;
+    line-height: 1;
+  }
+
+  .sub__benefit-title {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    line-height: 1.15;
+    color: var(--sub-card-title, #faf8f4);
+  }
+
+  .sub__benefit-body {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--sub-card-body, #e8d5b0);
+  }
+
+  /* How it works steps */
+  .sub__steps {
+    display: grid;
+    gap: 20px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .sub__step {
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(200, 169, 110, 0.16);
+  }
+
+  .sub__step:last-child { border-bottom: none; }
+
+  .sub__step-num {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 22px;
+    color: var(--sub-step-num, #111009);
+    background: var(--sub-accent, #d4622a);
+    clip-path: polygon(0 0, 90% 0, 100% 100%, 10% 100%);
+  }
+
+  .sub__step-title {
+    font-family: var(--font-heading);
+    font-size: 19px;
+    line-height: 1.15;
+    color: var(--sub-heading1, #faf8f4);
+    margin-bottom: 6px;
+  }
+
+  .sub__step-body {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--sub-body, #e8d5b0);
+  }
+
+  @media (max-width: 1024px) {
+    .sub__benefits { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    .sub { padding: 60px var(--page-margin); }
+    .sub__intro { margin-bottom: 48px; }
+    .sub__benefits {
+      grid-template-columns: repeat(var(--sub-columns-mobile, 1), 1fr);
+      margin-bottom: 56px;
+    }
+    .sub__step { gap: 16px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Monthly Subscription",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Intro"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow label",
+      "default": "// Ruck On Membership"
+    },
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading — line 1 (white)",
+      "default": "The Monthly"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading — line 2 (tan)",
+      "default": "Subscription"
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Intro paragraph",
+      "default": "One membership, everything you need to keep the ruck moving. A fresh embroidered patch every month, programmed workouts built for time under load, and a spot in a community that shows up — rain, cold, or dark."
+    },
+    {
+      "type": "text",
+      "id": "price_amount",
+      "label": "Price amount",
+      "default": "$20"
+    },
+    {
+      "type": "text",
+      "id": "price_interval",
+      "label": "Price interval",
+      "default": "/ month"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button label",
+      "default": "Start Your Subscription"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL",
+      "default": "shopify://products/monthly-patch-and-workout-subscription"
+    },
+    {
+      "type": "text",
+      "id": "cta_note",
+      "label": "Button sub-note",
+      "default": "Cancel anytime · Ships free"
+    },
+    {
+      "type": "header",
+      "content": "What You Get"
+    },
+    {
+      "type": "text",
+      "id": "benefits_heading",
+      "label": "Benefits heading",
+      "default": "What's In Every Month"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Benefit columns (desktop)",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Benefit columns (mobile)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "header",
+      "content": "How It Works"
+    },
+    {
+      "type": "text",
+      "id": "steps_heading",
+      "label": "Steps heading",
+      "default": "How It Works"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section background",
+      "default": "#111009"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#d4622a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color_1",
+      "label": "Heading line 1 color",
+      "default": "#faf8f4"
+    },
+    {
+      "type": "color",
+      "id": "heading_color_2",
+      "label": "Heading line 2 color",
+      "default": "#c8a96e"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body text color",
+      "default": "#e8d5b0"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price color",
+      "default": "#c8a96e"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent (card top border, step number)",
+      "default": "#d4622a"
+    },
+    {
+      "type": "color",
+      "id": "step_number_color",
+      "label": "Step number text color",
+      "default": "#111009"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background",
+      "default": "#1e1e1a"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title color",
+      "default": "#faf8f4"
+    },
+    {
+      "type": "color",
+      "id": "card_body_color",
+      "label": "Card body color",
+      "default": "#e8d5b0"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon (emoji)",
+          "info": "Used when no image is set.",
+          "default": "🎖️"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon image (optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Monthly Patch"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "A new limited embroidered patch every month — hook-and-loop backed, built to earn its spot on your ruck."
+        }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "How-it-works step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step title",
+          "default": "Subscribe"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Step description",
+          "default": "Lock in your membership in under a minute. No contracts — cancel whenever."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Monthly Subscription",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "🎖️",
+            "title": "Monthly Patch",
+            "description": "A new limited embroidered patch every month — hook-and-loop backed, built to earn its spot on your ruck."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "💪",
+            "title": "Programmed Workouts",
+            "description": "Fresh ruck-focused training every month — built for real time under load, not the treadmill."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "🤝",
+            "title": "Community Access",
+            "description": "A spot in the Ruck On community — weekly Monday rucks, the leaderboard, and ruckers who show up."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Subscribe",
+            "description": "Lock in your membership in under a minute. No contracts — cancel whenever."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Get Your Drop",
+            "description": "Your patch ships free each month and your new workouts unlock the moment they drop."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Ruck On",
+            "description": "Train the program, rep the patch, and show up with the community. Repeat every month."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

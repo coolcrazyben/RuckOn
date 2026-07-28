@@ -23,6 +23,26 @@
       >{{ block.settings.tab_shipping }}</button>
     {%- endif -%}
 
+    {%- if block.settings.howto_content != blank -%}
+      <button
+        class="product-tabs__btn"
+        data-tab="howto"
+        role="tab"
+        aria-selected="false"
+        aria-controls="tab-howto"
+      >{{ block.settings.tab_howto }}</button>
+    {%- endif -%}
+
+    {%- if block.settings.faq_content != blank -%}
+      <button
+        class="product-tabs__btn"
+        data-tab="faq"
+        role="tab"
+        aria-selected="false"
+        aria-controls="tab-faq"
+      >{{ block.settings.tab_faq }}</button>
+    {%- endif -%}
+
     {%- if block.settings.show_reviews_tab -%}
       <button
         class="product-tabs__btn"
@@ -56,6 +76,28 @@
         tabindex="0"
       >
         {{ block.settings.shipping_content }}
+      </div>
+    {%- endif -%}
+
+    {%- if block.settings.howto_content != blank -%}
+      <div
+        class="product-tabs__panel rte"
+        id="tab-howto"
+        role="tabpanel"
+        tabindex="0"
+      >
+        {{ block.settings.howto_content }}
+      </div>
+    {%- endif -%}
+
+    {%- if block.settings.faq_content != blank -%}
+      <div
+        class="product-tabs__panel rte"
+        id="tab-faq"
+        role="tabpanel"
+        tabindex="0"
+      >
+        {{ block.settings.faq_content }}
       </div>
     {%- endif -%}
 
@@ -99,6 +141,30 @@
       "id": "shipping_content",
       "label": "Shipping & Returns content",
       "default": "<p>Free shipping on orders over $75. Returns accepted within 30 days of delivery.</p>"
+    },
+    {
+      "type": "text",
+      "id": "tab_howto",
+      "label": "How It Works tab label",
+      "default": "How It Works"
+    },
+    {
+      "type": "richtext",
+      "id": "howto_content",
+      "label": "How It Works content",
+      "info": "Leave blank to hide this tab."
+    },
+    {
+      "type": "text",
+      "id": "tab_faq",
+      "label": "FAQ tab label",
+      "default": "FAQ"
+    },
+    {
+      "type": "richtext",
+      "id": "faq_content",
+      "label": "FAQ content",
+      "info": "Leave blank to hide this tab."
     },
     {
       "type": "checkbox",

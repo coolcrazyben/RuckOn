@@ -4,15 +4,25 @@
   into the hidden #product-variant-id input inside the buy-buttons block.
 {% enddoc %}
 
+{%- if block.settings.default_highest_price -%}
+  {%- assign default_variant = product.variants | sort: 'price' | last -%}
+{%- endif -%}
+
 {%- unless product.has_only_default_variant -%}
   <div {{ block.shopify_attributes }}>
     {%- for option in product.options_with_values -%}
       {%- assign option_index = forloop.index0 -%}
+
+      {%- assign active_value = option.selected_value -%}
+      {%- if block.settings.default_highest_price and default_variant != blank -%}
+        {%- assign active_value = default_variant.options[option_index] -%}
+      {%- endif -%}
+
       <div class="product-option">
         <label class="product-option__label">
           {{ option.name }}
           <span class="product-option__selected" id="option-selected-{{ option_index }}">
-            {{ option.selected_value }}
+            {{ active_value }}
           </span>
         </label>
         <div
@@ -24,10 +34,10 @@
           {%- for value in option.values -%}
             <button
               type="button"
-              class="product-pill{% if option.selected_value == value %} product-pill--active{% endif %}"
+              class="product-pill{% if active_value == value %} product-pill--active{% endif %}"
               data-value="{{ value | escape }}"
               data-option="{{ option_index }}"
-              aria-pressed="{%- if option.selected_value == value -%}true{%- else -%}false{%- endif -%}"
+              aria-pressed="{%- if active_value == value -%}true{%- else -%}false{%- endif -%}"
             >{{ value }}</button>
           {%- endfor -%}
         </div>
@@ -39,7 +49,15 @@
 {% schema %}
 {
   "name": "Variant picker",
-  "settings": [],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "default_highest_price",
+      "label": "Default to highest-priced variant",
+      "info": "Pre-select the most expensive variant's options on page load instead of the first available one.",
+      "default": false
+    }
+  ],
   "presets": [{ "name": "Variant picker" }]
 }
 {% endschema %}

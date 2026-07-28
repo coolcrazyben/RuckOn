@@ -4,6 +4,9 @@
 {% enddoc %}
 
 {%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- if block.settings.default_highest_price -%}
+  {%- assign current_variant = product.variants | sort: 'price' | last -%}
+{%- endif -%}
 
 <div class="product-info__price" id="product-price" {{ block.shopify_attributes }}>
   {%- if current_variant.compare_at_price > current_variant.price -%}
@@ -26,6 +29,13 @@
       "id": "sale_badge_text",
       "label": "Sale badge label",
       "default": "Sale"
+    },
+    {
+      "type": "checkbox",
+      "id": "default_highest_price",
+      "label": "Default to highest-priced variant",
+      "info": "Show the most expensive variant's price on page load instead of the first available one.",
+      "default": false
     }
   ],
   "presets": [{ "name": "Price" }]

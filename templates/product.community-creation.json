@@ -25,12 +25,15 @@
         "price": {
           "type": "product-price",
           "settings": {
-            "sale_badge_text": "Sale"
+            "sale_badge_text": "Sale",
+            "default_highest_price": true
           }
         },
         "variant_picker": {
           "type": "product-variant-picker",
-          "settings": {}
+          "settings": {
+            "default_highest_price": true
+          }
         },
         "community_name": {
           "type": "product-community-name",
@@ -64,13 +67,33 @@
             "qty_label": "Quantity"
           }
         },
+        "highlights": {
+          "type": "product-subscription-highlights",
+          "settings": {
+            "heading": "What You Get Each Month",
+            "intro": "One membership, everything you need to keep the ruck moving.",
+            "item_1_title": "A fresh embroidered patch",
+            "item_1_note": "New limited design shipped free every month.",
+            "item_2_title": "Monthly programmed workouts",
+            "item_2_note": "Ruck-focused training built for time under load.",
+            "item_3_title": "Community access",
+            "item_3_note": "Weekly Monday rucks, the leaderboard, and the crew.",
+            "item_4_title": "Member-only drops",
+            "item_4_note": "First access to new gear and limited releases.",
+            "item_5_title": "",
+            "item_5_note": "",
+            "item_6_title": "",
+            "item_6_note": ""
+          }
+        },
         "buy_buttons": {
           "type": "product-buy-buttons",
           "settings": {
             "add_to_cart_text": "Add to Cart",
             "sold_out_text": "Sold Out",
             "unavailable_text": "This variant is currently unavailable.",
-            "show_payment_button": true
+            "show_payment_button": true,
+            "default_highest_price": true
           }
         },
         "tabs": {
@@ -80,6 +103,10 @@
             "no_description_text": "Product details coming soon.",
             "tab_shipping": "Shipping & Returns",
             "shipping_content": "<p>Free shipping on orders over $75. Returns accepted within 30 days of delivery.</p>",
+            "tab_howto": "How It Works",
+            "howto_content": "<ol><li><strong>Subscribe</strong> — lock in your membership in under a minute. No contracts, cancel anytime.</li><li><strong>Get your drop</strong> — your patch ships free each month and your new workouts unlock the moment they release.</li><li><strong>Ruck On</strong> — train the program, rep the patch, and show up with the community. Repeat every month.</li></ol>",
+            "tab_faq": "FAQ",
+            "faq_content": "<p><strong>When am I billed?</strong><br>You're billed today and on the same date each month. Cancel anytime before your next renewal.</p><p><strong>Can I cancel?</strong><br>Yes — there are no contracts. Manage or cancel your subscription anytime from your account.</p><p><strong>When does my patch ship?</strong><br>Patches ship free at the start of each billing cycle.</p><p><strong>How do I access the workouts?</strong><br>Each month's programmed workouts unlock automatically for active members.</p>",
             "show_reviews_tab": false,
             "tab_reviews": "Reviews",
             "reviews_content": "<p>Customer reviews coming soon.</p>"
@@ -95,6 +122,7 @@
         "community_selector",
         "patch_text",
         "quantity",
+        "highlights",
         "buy_buttons",
         "tabs"
       ],

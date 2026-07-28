@@ -6,6 +6,9 @@
 {% enddoc %}
 
 {%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- if block.settings.default_highest_price -%}
+  {%- assign current_variant = product.variants | sort: 'price' | last -%}
+{%- endif -%}
 
 <div {{ block.shopify_attributes }}>
   {%- form 'product', product, id: 'product-form', novalidate: 'novalidate' -%}
@@ -78,6 +81,13 @@
       "id": "show_payment_button",
       "label": "Show dynamic payment button (Buy Now)",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "default_highest_price",
+      "label": "Default to highest-priced variant",
+      "info": "Pre-select the most expensive variant on page load instead of the first available one.",
+      "default": false
     }
   ],
   "presets": [{ "name": "Buy buttons" }]
