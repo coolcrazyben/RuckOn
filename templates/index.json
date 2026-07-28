@@ -215,6 +215,66 @@
         "badge_text_color": "#faf8f4"
       }
     },
+    "monthly-subscription": {
+      "type": "monthly-subscription",
+      "blocks": {
+        "benefit_patch": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🎖️",
+            "title": "Monthly Patch",
+            "description": "A new limited embroidered patch every month — hook-and-loop backed, built to earn its spot on your ruck."
+          }
+        },
+        "benefit_workouts": {
+          "type": "benefit",
+          "settings": {
+            "icon": "💪",
+            "title": "Programmed Workouts",
+            "description": "Fresh ruck-focused training every month — built for real time under load, not the treadmill."
+          }
+        },
+        "benefit_community": {
+          "type": "benefit",
+          "settings": {
+            "icon": "🤝",
+            "title": "Community Access",
+            "description": "A spot in the Ruck On community — weekly Monday rucks, the leaderboard, and ruckers who show up."
+          }
+        },
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Subscribe",
+            "description": "Lock in your membership in under a minute. No contracts — cancel whenever."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Get Your Drop",
+            "description": "Your patch ships free each month and your new workouts unlock the moment they drop."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Ruck On",
+            "description": "Train the program, rep the patch, and show up with the community. Repeat every month."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_patch",
+        "benefit_workouts",
+        "benefit_community",
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+      }
+    },
     "newsletter": {
       "type": "newsletter",
       "settings": {
@@ -244,6 +304,7 @@
     "manifesto",
     "shop-by-category",
     "community",
+    "monthly-subscription",
     "newsletter"
   ]
 }
