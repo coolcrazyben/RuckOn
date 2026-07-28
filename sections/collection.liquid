@@ -78,12 +78,13 @@
                 <div class="product-card__overlay"></div>
 
                 <div class="product-card__info">
+                  {%- assign card_variant = product.variants.first -%}
                   <div class="collection-card__badges">
                     {%- if product.available == false -%}
                       <span class="product-card__badge product-card__badge--soldout">
                         {{ section.settings.sold_out_badge_text }}
                       </span>
-                    {%- elsif product.compare_at_price > product.price -%}
+                    {%- elsif card_variant.compare_at_price > card_variant.price -%}
                       <span class="product-card__badge">{{ section.settings.sale_badge_text }}</span>
                     {%- endif -%}
                   </div>
@@ -91,10 +92,10 @@
                   <h3 class="product-card__title">{{ product.title }}</h3>
 
                   <p class="product-card__price">
-                    {%- if product.compare_at_price > product.price -%}
-                      <s class="product-card__compare">{{ product.compare_at_price | money }}</s>
+                    {%- if card_variant.compare_at_price > card_variant.price -%}
+                      <s class="product-card__compare">{{ card_variant.compare_at_price | money }}</s>
                     {%- endif -%}
-                    {{ product.price | money }}
+                    {{ card_variant.price | money }}
                   </p>
 
                   <span class="product-card__cta collection-card__quick-add" aria-hidden="true">

@@ -68,11 +68,12 @@
                     <div class="product-card__info">
                       <h3 class="product-card__title">{{ result.title }}</h3>
                       {%- if result.price -%}
+                        {%- assign card_variant = result.variants.first -%}
                         <p class="product-card__price">
-                          {%- if result.compare_at_price > result.price -%}
-                            <s class="product-card__compare">{{ result.compare_at_price | money }}</s>
+                          {%- if card_variant.compare_at_price > card_variant.price -%}
+                            <s class="product-card__compare">{{ card_variant.compare_at_price | money }}</s>
                           {%- endif -%}
-                          {{ result.price | money }}
+                          {{ card_variant.price | money }}
                         </p>
                       {%- endif -%}
                       <span class="product-card__cta" aria-hidden="true">{{ section.settings.card_cta_text }} &rarr;</span>

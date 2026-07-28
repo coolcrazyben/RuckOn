@@ -162,11 +162,12 @@
                   <div class="product-card__overlay"></div>
                   <div class="product-card__info">
                     <h3 class="product-card__title">{{ crosssell_product.title }}</h3>
+                    {%- assign card_variant = crosssell_product.variants.first -%}
                     <p class="product-card__price">
-                      {%- if crosssell_product.compare_at_price > crosssell_product.price -%}
-                        <s class="product-card__compare">{{ crosssell_product.compare_at_price | money }}</s>
+                      {%- if card_variant.compare_at_price > card_variant.price -%}
+                        <s class="product-card__compare">{{ card_variant.compare_at_price | money }}</s>
                       {%- endif -%}
-                      {{ crosssell_product.price | money }}
+                      {{ card_variant.price | money }}
                     </p>
                     <span class="product-card__cta" aria-hidden="true">{{ section.settings.crosssell_cta_text }} &rarr;</span>
                   </div>
@@ -216,11 +217,12 @@
                     <div class="product-card__overlay"></div>
                     <div class="product-card__info">
                       <h3 class="product-card__title">{{ related_product.title }}</h3>
+                      {%- assign card_variant = related_product.variants.first -%}
                       <p class="product-card__price">
-                        {%- if related_product.compare_at_price > related_product.price -%}
-                          <s class="product-card__compare">{{ related_product.compare_at_price | money }}</s>
+                        {%- if card_variant.compare_at_price > card_variant.price -%}
+                          <s class="product-card__compare">{{ card_variant.compare_at_price | money }}</s>
                         {%- endif -%}
-                        {{ related_product.price | money }}
+                        {{ card_variant.price | money }}
                       </p>
                       <span class="product-card__cta" aria-hidden="true">{{ section.settings.related_cta_text }} &rarr;</span>
                     </div>
