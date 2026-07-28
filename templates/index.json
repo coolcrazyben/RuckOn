@@ -62,6 +62,31 @@
         "divider_color": "#c8a96e"
       }
     },
+    "community_PFtmqE": {
+      "type": "community",
+      "name": "Community",
+      "settings": {
+        "eyebrow_text": "// The Movement",
+        "heading_line1": "Built for Ruckers.",
+        "heading_line2": "By Ruckers.",
+        "body_text": "Monday is for rucking. The Ruck On community shows up every week — rain, cold, heat, or dark. 10,000 strong and growing. Join the movement that never puts the ruck down.",
+        "stat1_number": "10K+",
+        "stat1_label": "Community Members",
+        "stat2_number": "52",
+        "stat2_label": "Monday Events / Year",
+        "cta_text": "Join the Community",
+        "cta_url": "",
+        "badge_text": "Monday is for Rucking",
+        "background_color": "#1e1e1a",
+        "eyebrow_color": "#d4622a",
+        "heading_color_1": "#faf8f4",
+        "heading_color_2": "#c8a96e",
+        "body_color": "#e8d5b0",
+        "stat_number_color": "#c8a96e",
+        "badge_bg_color": "#d4622a",
+        "badge_text_color": "#faf8f4"
+      }
+    },
     "best-sellers": {
       "type": "best-sellers",
       "settings": {
@@ -188,66 +213,6 @@
         "badge_text_color": "#faf8f4"
       }
     },
-    "monthly-subscription": {
-      "type": "monthly-subscription",
-      "blocks": {
-        "benefit_patch": {
-          "type": "benefit",
-          "settings": {
-            "icon": "🎖️",
-            "title": "Monthly Patch",
-            "description": "A new limited embroidered patch every month — hook-and-loop backed, built to earn its spot on your ruck."
-          }
-        },
-        "benefit_workouts": {
-          "type": "benefit",
-          "settings": {
-            "icon": "💪",
-            "title": "Programmed Workouts",
-            "description": "Fresh ruck-focused training every month — built for real time under load, not the treadmill."
-          }
-        },
-        "benefit_community": {
-          "type": "benefit",
-          "settings": {
-            "icon": "🤝",
-            "title": "Community Access",
-            "description": "A spot in the Ruck On community — weekly Monday rucks, the leaderboard, and ruckers who show up."
-          }
-        },
-        "step_1": {
-          "type": "step",
-          "settings": {
-            "title": "Subscribe",
-            "description": "Lock in your membership in under a minute. No contracts — cancel whenever."
-          }
-        },
-        "step_2": {
-          "type": "step",
-          "settings": {
-            "title": "Get Your Drop",
-            "description": "Your patch ships free each month and your new workouts unlock the moment they drop."
-          }
-        },
-        "step_3": {
-          "type": "step",
-          "settings": {
-            "title": "Ruck On",
-            "description": "Train the program, rep the patch, and show up with the community. Repeat every month."
-          }
-        }
-      },
-      "block_order": [
-        "benefit_patch",
-        "benefit_workouts",
-        "benefit_community",
-        "step_1",
-        "step_2",
-        "step_3"
-      ],
-      "settings": {
-      }
-    },
     "newsletter": {
       "type": "newsletter",
       "settings": {
@@ -272,11 +237,11 @@
     "hero",
     "stats-bar",
     "manifesto_niEbeg",
+    "community_PFtmqE",
     "best-sellers",
     "manifesto",
     "shop-by-category",
     "community",
-    "monthly-subscription",
     "newsletter"
   ]
 }
