@@ -32,6 +32,17 @@
           },
           "blocks": {}
         },
+        "simple_bundles_kits_infinite_options_selector_FrDi9J": {
+          "type": "shopify://apps/simple-bundles-kits/blocks/infinite-options-selector/e553276b-36b2-446d-b80a-aa47fe5f96ac",
+          "settings": {
+            "select_placeholder": "Please select an option",
+            "disable_oos_options": true,
+            "show_price_variance": true,
+            "rank_options_by_price_diff": true,
+            "custom_css": "",
+            "custom_js": ""
+          }
+        },
         "variant_picker": {
           "type": "product-variant-picker",
           "settings": {
@@ -102,6 +113,7 @@
         "eyebrow",
         "title",
         "price",
+        "simple_bundles_kits_infinite_options_selector_FrDi9J",
         "variant_picker",
         "community_selector",
         "patch_text",
@@ -133,10 +145,15 @@
     "1784667318ca6af38c": {
       "type": "apps",
       "settings": {}
+    },
+    "1785428126e9f496aa": {
+      "type": "apps",
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "1784667318ca6af38c"
+    "1784667318ca6af38c",
+    "1785428126e9f496aa"
   ]
 }
