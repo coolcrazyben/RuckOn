@@ -15,7 +15,7 @@
       "type": "announcement-bar",
       "settings": {
         "show_bar": true,
-        "announcement_text": "Try the Ruck On App Today",
+        "announcement_text": "Try the Ruck On App Today\nFree shipping on orders over $75\nUse code RUCKON10 for 10% off",
         "link_url": "",
         "enable_scroll": true,
         "separator": "•",

@@ -7,26 +7,33 @@
   }
 {% endstyle %}
 
+{%- comment -%} Split the textarea into one message per line {%- endcomment -%}
+{%- assign ab_messages = section.settings.announcement_text | newline_to_br | split: '<br />' -%}
+
 {% unless section.settings.show_bar == false %}
   <div class="announcement-bar full-width{% if section.settings.enable_scroll %} announcement-bar--marquee{% endif %}">
     {%- if section.settings.enable_scroll -%}
       {%- comment -%} Scrolling marquee: two identical groups sit side-by-side so the
-        track can translate -50% for a seamless, gap-free loop. {%- endcomment -%}
+        track can translate -50% for a seamless, gap-free loop. Each group repeats the
+        full set of messages so they cycle continuously. {%- endcomment -%}
       <div class="announcement-bar__marquee" role="marquee">
-        <div class="announcement-bar__track">
+        <div class="announcement-bar__track" data-speed="{{ section.settings.scroll_speed }}">
           {%- for group in (1..2) -%}
             <div class="announcement-bar__group"{% if group == 2 %} aria-hidden="true"{% endif %}>
               {%- for repeat in (1..section.settings.repeat_count) -%}
-                <span class="announcement-bar__item">
-                  {%- if section.settings.link_url != blank -%}
-                    <a href="{{ section.settings.link_url }}" class="announcement-bar__link">
-                      {{ section.settings.announcement_text }}
-                    </a>
-                  {%- else -%}
-                    {{ section.settings.announcement_text }}
+                {%- for msg in ab_messages -%}
+                  {%- assign ab_msg = msg | strip -%}
+                  {%- if ab_msg != blank -%}
+                    <span class="announcement-bar__item">
+                      {%- if section.settings.link_url != blank -%}
+                        <a href="{{ section.settings.link_url }}" class="announcement-bar__link">{{ ab_msg }}</a>
+                      {%- else -%}
+                        {{ ab_msg }}
+                      {%- endif -%}
+                      <span class="announcement-bar__sep" aria-hidden="true">{{ section.settings.separator }}</span>
+                    </span>
                   {%- endif -%}
-                  <span class="announcement-bar__sep" aria-hidden="true">{{ section.settings.separator }}</span>
-                </span>
+                {%- endfor -%}
               {%- endfor -%}
             </div>
           {%- endfor -%}
@@ -34,13 +41,17 @@
       </div>
     {%- else -%}
       <p class="announcement-bar__text">
-        {% if section.settings.link_url != blank %}
-          <a href="{{ section.settings.link_url }}" class="announcement-bar__link">
-            {{ section.settings.announcement_text }}
-          </a>
-        {% else %}
-          {{ section.settings.announcement_text }}
-        {% endif %}
+        {%- if section.settings.link_url != blank -%}<a href="{{ section.settings.link_url }}" class="announcement-bar__link">{%- endif -%}
+        {%- for msg in ab_messages -%}
+          {%- assign ab_msg = msg | strip -%}
+          {%- if ab_msg != blank -%}
+            {{ ab_msg }}
+            {%- unless forloop.last -%}
+              <span class="announcement-bar__sep" aria-hidden="true">{{ section.settings.separator }}</span>
+            {%- endunless -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if section.settings.link_url != blank -%}</a>{%- endif -%}
       </p>
     {%- endif -%}
   </div>
@@ -129,6 +140,25 @@
   }
 {% endstylesheet %}
 
+{% javascript %}
+(function () {
+  // Keep a constant scroll speed regardless of how many messages there are:
+  // set the animation duration from the track width so pixels/second stays even.
+  function setup(track) {
+    var speed = parseFloat(track.getAttribute('data-speed')) || 30;
+    var pxPerSec = 2000 / speed; // lower slider value = faster
+    function apply() {
+      var groupWidth = track.scrollWidth / 2; // track holds two identical groups
+      if (groupWidth > 0) track.style.animationDuration = (groupWidth / pxPerSec) + 's';
+    }
+    apply();
+    window.addEventListener('load', apply);
+    window.addEventListener('resize', apply, { passive: true });
+  }
+  document.querySelectorAll('.announcement-bar__track').forEach(setup);
+})();
+{% endjavascript %}
+
 {% schema %}
 {
   "name": "Announcement Bar",
@@ -140,10 +170,11 @@
       "default": true
     },
     {
-      "type": "text",
+      "type": "textarea",
       "id": "announcement_text",
-      "label": "Announcement text",
-      "default": "Free shipping on orders over $75 | Use code RUCKON10 for 10% off your first order"
+      "label": "Announcement messages",
+      "info": "Put each message on its own line. They scroll one after another, separated by the symbol below.",
+      "default": "Try the Ruck On App Today\nFree shipping on orders over $75\nUse code RUCKON10 for 10% off"
     },
     {
       "type": "url",
@@ -186,7 +217,7 @@
       "step": 5,
       "unit": "s",
       "default": 30,
-      "info": "Seconds per full loop. Lower = faster."
+      "info": "Lower = faster scroll."
     },
     {
       "type": "header",
