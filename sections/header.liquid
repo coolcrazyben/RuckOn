@@ -608,11 +608,22 @@
 {% javascript %}
 (function () {
   var wrapper = document.getElementById('site-header-wrapper');
-  var group   = document.getElementById('shopify-section-group-header-group');
+
+  // Find the fixed header-group wrapper robustly (don't rely on an exact id).
+  var group = wrapper && wrapper.closest ? wrapper.closest('[id^="shopify-section-group"]') : null;
+  if (!group) group = document.getElementById('shopify-section-group-header-group');
+
+  // Reserve exactly the header's height so content sits below the fixed header.
+  function setHeaderPad() {
+    if (group) document.body.style.paddingTop = group.offsetHeight + 'px';
+  }
+  setHeaderPad();
+  window.addEventListener('resize', setHeaderPad, { passive: true });
+  window.addEventListener('load', setHeaderPad);
+
+  // Scroll-shadow + hide-on-scroll-down / reveal-on-scroll-up
   var announcementBar = document.querySelector('.announcement-bar');
   var abHeight = announcementBar ? announcementBar.offsetHeight : 42;
-
-  // Scroll-shadow + hide-on-scroll-down / show-on-scroll-up
   var lastY = window.scrollY;
   var ticking = false;
 
@@ -623,18 +634,15 @@
     if (wrapper) wrapper.classList.toggle('is-scrolled', y > abHeight);
 
     if (group) {
-      var delta = y - lastY;
-
-      // Any upward scroll reveals the header, anywhere on the page.
-      // Only downward scrolling (past the announcement bar) hides it.
-      // The 1px deadzone ignores sub-pixel/rubber-band noise.
-      if (delta < -1) {
-        group.classList.remove('header-group--hidden'); // scrolling up → reveal
-      } else if (delta > 1 && y > abHeight + 80) {
-        group.classList.add('header-group--hidden');    // scrolling down → hide
+      // Reveal on ANY upward movement, anywhere on the page.
+      if (y < lastY) {
+        group.classList.remove('header-group--hidden');
+      // Hide only when scrolling down past the announcement bar.
+      } else if (y > lastY && y > abHeight + 80) {
+        group.classList.add('header-group--hidden');
       }
 
-      // Always show at the very top
+      // Always show at the very top.
       if (y <= abHeight) group.classList.remove('header-group--hidden');
     }
 
