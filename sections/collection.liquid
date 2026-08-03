@@ -103,14 +103,12 @@
     background: var(--color-black);
   }
 
-  /* Sort bar */
+  /* Sort bar — scrolls with the grid (not sticky, so it can't float over the
+     fixed hide-on-scroll header) */
   .collection-sort-bar {
     background: var(--color-charcoal);
     border-bottom: 1px solid rgba(200, 169, 110, 0.12);
     padding: 0 var(--page-margin);
-    position: sticky;
-    top: var(--header-total-height);
-    z-index: 10;
   }
 
   .collection-sort-bar__inner {
@@ -226,7 +224,6 @@
     .collection-grid { grid-template-columns: repeat(var(--col-cols-mobile, 2), 1fr); }
     /* collection-card height driven by image aspect-ratio */
     .collection-grid-wrap { padding: 24px var(--page-margin) 60px; }
-    .collection-sort-bar { position: static; }
   }
 {% endstylesheet %}
 
