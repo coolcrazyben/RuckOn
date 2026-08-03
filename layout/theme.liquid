@@ -28,7 +28,10 @@
   </head>
 
   <body>
-    {% sections 'header-group' %}
+    {%- comment -%} Own wrapper so the fixed-header CSS/JS targets a guaranteed element {%- endcomment -%}
+    <div id="site-header-fixed">
+      {% sections 'header-group' %}
+    </div>
 
     {%- comment -%} Reserves space for the fixed header so content sits below it {%- endcomment -%}
     <div id="header-spacer" aria-hidden="true"></div>

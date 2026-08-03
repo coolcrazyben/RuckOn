@@ -609,9 +609,8 @@
 (function () {
   var wrapper = document.getElementById('site-header-wrapper');
 
-  // Find the fixed header-group wrapper robustly (don't rely on an exact id).
-  var group = wrapper && wrapper.closest ? wrapper.closest('[id^="shopify-section-group"]') : null;
-  if (!group) group = document.getElementById('shopify-section-group-header-group');
+  // Our own fixed wrapper around the header group (see layout/theme.liquid).
+  var group = document.getElementById('site-header-fixed');
 
   // Size the in-flow spacer to match the fixed header's exact height.
   var spacer = document.getElementById('header-spacer');
