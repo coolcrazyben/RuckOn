@@ -66,10 +66,12 @@ p:empty { display: none; }
 .shopify-section > * { grid-column: 2; }
 .shopify-section > .full-width { grid-column: 1 / -1; }
 
-/* === Global Header Group Sticky === */
+/* === Global Header Group (fixed; body is flex so sticky won't pin reliably) === */
 #shopify-section-group-header-group {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 900;
   transition: transform 0.35s ease;
 }
@@ -77,6 +79,13 @@ p:empty { display: none; }
 /* Hide-on-scroll-down / show-on-scroll-up (toggled by header JS) */
 #shopify-section-group-header-group.header-group--hidden {
   transform: translateY(-100%);
+}
+
+/* Spacer holds the header's place in normal flow (JS sets its exact height).
+   Placed AFTER the header, so it can never create empty space above it. */
+#header-spacer {
+  height: var(--header-total-height);
+  flex: none;
 }
 
 /* === Global Typography === */

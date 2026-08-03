@@ -30,6 +30,9 @@
   <body>
     {% sections 'header-group' %}
 
+    {%- comment -%} Reserves space for the fixed header so content sits below it {%- endcomment -%}
+    <div id="header-spacer" aria-hidden="true"></div>
+
     <main id="main-content">
       {{ content_for_layout }}
     </main>
