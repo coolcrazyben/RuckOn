@@ -51,14 +51,6 @@
         </svg>
       </button>
 
-      {%- comment -%} Search — mobile only {%- endcomment -%}
-      <a href="{{ routes.search_url }}" class="site-header__search-link" aria-label="Search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
-          <circle cx="10.5" cy="10.5" r="6.5"/>
-          <path stroke-linecap="round" d="M16.5 16.5L22 22"/>
-        </svg>
-      </a>
-
     </div>
 
     {%- comment -%} Logo — always in center column {%- endcomment -%}
@@ -100,15 +92,8 @@
         {% endfor %}
       </nav>
 
-      {%- comment -%} Icons group — always visible on desktop; search hidden on mobile {%- endcomment -%}
+      {%- comment -%} Icons group — account + cart {%- endcomment -%}
       <div class="site-header__icons">
-        <a href="{{ routes.search_url }}" class="site-header__icon-link site-header__search-desktop" aria-label="Search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
-            <circle cx="10.5" cy="10.5" r="6.5"/>
-            <path stroke-linecap="round" d="M16.5 16.5L22 22"/>
-          </svg>
-        </a>
-
         {% if shop.customer_accounts_enabled %}
           <a href="{{ routes.account_url }}" class="site-header__icon-link" aria-label="Account">
             {{ 'icon-account.svg' | inline_asset_content }}
@@ -330,9 +315,8 @@
     display: block;
   }
 
-  /* Cart + search icons use stroke, not fill */
-  .site-header__cart-icon svg,
-  .site-header__search-desktop svg {
+  /* Cart icon uses stroke, not fill */
+  .site-header__cart-icon svg {
     fill: none;
     stroke: currentColor;
   }
@@ -379,29 +363,10 @@
     display: block;
   }
 
-  /* Search link */
-  .site-header__search-link {
-    color: var(--header-link, #e8d5b0);
-    text-decoration: none;
-    display: none;
-    align-items: center;
-    transition: color 0.2s ease;
-  }
-
-  .site-header__search-link:hover { color: var(--color-tan); }
-
-  .site-header__search-link svg {
-    width: 20px;
-    height: 20px;
-    display: block;
-  }
-
-  /* Mobile: hide desktop nav + desktop search, show hamburger + mobile search */
+  /* Mobile: hide desktop nav, show hamburger */
   @media (max-width: 1024px) {
-    .site-header__nav            { display: none; }
-    .site-header__burger         { display: flex; align-items: center; }
-    .site-header__search-link    { display: flex; align-items: center; }
-    .site-header__search-desktop { display: none; }
+    .site-header__nav    { display: none; }
+    .site-header__burger { display: flex; align-items: center; }
   }
 
   /* =====================
@@ -642,15 +607,44 @@
 
 {% javascript %}
 (function () {
-  // Scroll-shadow on header
   var wrapper = document.getElementById('site-header-wrapper');
-  if (wrapper) {
-    var announcementBar = document.querySelector('.announcement-bar');
-    var abHeight = announcementBar ? announcementBar.offsetHeight : 42;
-    window.addEventListener('scroll', function () {
-      wrapper.classList.toggle('is-scrolled', window.scrollY > abHeight);
-    }, { passive: true });
+  var group   = document.getElementById('shopify-section-group-header-group');
+  var announcementBar = document.querySelector('.announcement-bar');
+  var abHeight = announcementBar ? announcementBar.offsetHeight : 42;
+
+  // Scroll-shadow + hide-on-scroll-down / show-on-scroll-up
+  var lastY = window.scrollY;
+  var ticking = false;
+
+  function onScroll() {
+    var y = window.scrollY;
+
+    // Solid backdrop once past the announcement bar
+    if (wrapper) wrapper.classList.toggle('is-scrolled', y > abHeight);
+
+    if (group) {
+      var goingDown = y > lastY;
+      // Ignore tiny jitters and iOS rubber-banding at the very top
+      if (Math.abs(y - lastY) > 6) {
+        if (goingDown && y > abHeight + 80) {
+          group.classList.add('header-group--hidden');   // scrolling down → hide
+        } else {
+          group.classList.remove('header-group--hidden'); // scrolling up → reveal
+        }
+      }
+      if (y <= abHeight) group.classList.remove('header-group--hidden'); // always show near top
+    }
+
+    lastY = y;
+    ticking = false;
   }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      window.requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  }, { passive: true });
 
   // Mobile nav
   var nav      = document.getElementById('mobile-nav');

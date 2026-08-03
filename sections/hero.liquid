@@ -8,20 +8,79 @@
   }
 {% endstyle %}
 
-<div class="hero full-width">
-  {%- if section.settings.background_image != blank -%}
-    <div class="hero__bg">
-      {{
-        section.settings.background_image
-        | image_url: width: 2400
-        | image_tag:
-          loading: 'eager',
-          fetchpriority: 'high',
-          sizes: '100vw',
-          alt: section.settings.background_image.alt
-      }}
-    </div>
-  {%- endif -%}
+{%- comment -%}
+  Background media is a slideshow of blocks (image or video). If no blocks are
+  added, we fall back to the legacy single background_image so existing hero
+  instances keep working untouched.
+{%- endcomment -%}
+{%- assign slide_count = section.blocks.size -%}
+
+<div
+  class="hero full-width"
+  data-hero
+  data-autoplay="{{ section.settings.autoplay_speed }}"
+>
+  <div class="hero__media">
+    {%- if slide_count > 0 -%}
+      {%- for block in section.blocks -%}
+        <div
+          class="hero__slide{% if forloop.first %} is-active{% endif %}"
+          data-slide="{{ forloop.index0 }}"
+          {{ block.shopify_attributes }}
+        >
+          {%- case block.type -%}
+            {%- when 'video' -%}
+              {%- if block.settings.video != blank -%}
+                {%- assign hero_poster = block.settings.poster | default: block.settings.video.preview_image -%}
+                <video
+                  class="hero__video"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  {% if hero_poster != blank %}poster="{{ hero_poster | image_url: width: 2400 }}"{% endif %}
+                >
+                  {%- for source in block.settings.video.sources -%}
+                    <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                  {%- endfor -%}
+                </video>
+              {%- elsif block.settings.poster != blank -%}
+                {{
+                  block.settings.poster
+                  | image_url: width: 2400
+                  | image_tag: loading: 'lazy', sizes: '100vw', alt: block.settings.poster.alt
+                }}
+              {%- endif -%}
+            {%- else -%}
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 2400
+                  | image_tag:
+                    loading: 'eager',
+                    fetchpriority: 'high',
+                    sizes: '100vw',
+                    alt: block.settings.image.alt
+                }}
+              {%- endif -%}
+          {%- endcase -%}
+        </div>
+      {%- endfor -%}
+    {%- elsif section.settings.background_image != blank -%}
+      <div class="hero__slide is-active" data-slide="0">
+        {{
+          section.settings.background_image
+          | image_url: width: 2400
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            sizes: '100vw',
+            alt: section.settings.background_image.alt
+        }}
+      </div>
+    {%- endif -%}
+  </div>
 
   <div class="hero__overlay"></div>
   <div class="hero__grid"></div>
@@ -66,6 +125,19 @@
     </div>
   </div>
 
+  {%- if slide_count > 1 -%}
+    <div class="hero__dots" role="tablist" aria-label="Hero slides">
+      {%- for block in section.blocks -%}
+        <button
+          type="button"
+          class="hero__dot{% if forloop.first %} is-active{% endif %}"
+          data-dot="{{ forloop.index0 }}"
+          aria-label="Show slide {{ forloop.index }}"
+        ></button>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
   {%- if section.settings.show_scroll_indicator -%}
     <div class="hero__scroll" aria-hidden="true">
       <span class="hero__scroll-line"></span>
@@ -84,18 +156,31 @@
     overflow: hidden;
   }
 
-  /* Background image */
-  .hero__bg {
+  /* Background media / slideshow */
+  .hero__media {
     position: absolute;
     inset: 0;
     z-index: 0;
   }
 
-  .hero__bg img {
+  .hero__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+
+  .hero__slide.is-active {
+    opacity: 1;
+  }
+
+  .hero__slide img,
+  .hero__slide video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
+    display: block;
   }
 
   /* Gradient + color overlays */
@@ -179,6 +264,33 @@
     flex-wrap: wrap;
   }
 
+  /* Slideshow dots */
+  .hero__dots {
+    position: absolute;
+    bottom: 44px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    gap: 12px;
+  }
+
+  .hero__dot {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: 1px solid var(--color-tan);
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+
+  .hero__dot.is-active {
+    background: var(--color-tan);
+    transform: scale(1.15);
+  }
+
   /* Scroll indicator */
   .hero__scroll {
     position: absolute;
@@ -223,18 +335,114 @@
   }
 {% endstylesheet %}
 
+{% javascript %}
+(function () {
+  function initHero(hero) {
+    var slides = hero.querySelectorAll('.hero__slide');
+    if (slides.length < 2) return; // nothing to rotate
+
+    var dots  = hero.querySelectorAll('.hero__dot');
+    var speed = (parseInt(hero.getAttribute('data-autoplay'), 10) || 6) * 1000;
+    var index = 0;
+    var timer = null;
+
+    function show(i) {
+      index = (i + slides.length) % slides.length;
+      slides.forEach(function (s, n) { s.classList.toggle('is-active', n === index); });
+      dots.forEach(function (d, n) { d.classList.toggle('is-active', n === index); });
+    }
+
+    function next() { show(index + 1); }
+
+    function start() {
+      if (speed > 0) {
+        stop();
+        timer = setInterval(next, speed);
+      }
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        show(parseInt(dot.getAttribute('data-dot'), 10));
+        start(); // restart the clock after a manual pick
+      });
+    });
+
+    // Pause when the hero is off-screen to save cycles
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { e.isIntersecting ? start() : stop(); });
+      }, { threshold: 0.1 }).observe(hero);
+    } else {
+      start();
+    }
+  }
+
+  document.querySelectorAll('[data-hero]').forEach(initHero);
+})();
+{% endjavascript %}
+
 {% schema %}
 {
   "name": "Hero",
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Video slide",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "Uploaded video. Autoplays muted and loops as a background."
+        },
+        {
+          "type": "image_picker",
+          "id": "poster",
+          "label": "Poster image",
+          "info": "Shown while the video loads (and as a fallback)."
+        }
+      ]
+    }
+  ],
   "settings": [
     {
       "type": "header",
       "content": "Background"
     },
     {
+      "type": "paragraph",
+      "content": "Add Image and Video slides as blocks below. They rotate as a slideshow. If no blocks are added, the single fallback image below is used."
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Seconds per slide",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "unit": "s",
+      "default": 6,
+      "info": "Only applies when there is more than one slide."
+    },
+    {
       "type": "image_picker",
       "id": "background_image",
-      "label": "Background image"
+      "label": "Fallback background image",
+      "info": "Used only when no Image/Video slide blocks are added."
     },
     {
       "type": "range",

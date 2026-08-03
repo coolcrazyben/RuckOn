@@ -6,33 +6,6 @@
 {% endstyle %}
 
 <div class="collection-page">
-  <!-- Banner -->
-  <div class="collection-banner">
-    {%- if collection.image and section.settings.show_banner_image -%}
-      <div class="collection-banner__bg">
-        {{
-          collection.image
-          | image_url: width: 2000
-          | image_tag:
-            loading: 'eager',
-            sizes: '100vw',
-            alt: collection.image.alt | default: collection.title
-        }}
-        <div class="collection-banner__overlay"></div>
-      </div>
-    {%- endif -%}
-
-    <div class="collection-banner__content">
-      {%- if section.settings.eyebrow_text != blank -%}
-        <span class="eyebrow">{{ section.settings.eyebrow_text }}</span>
-      {%- endif -%}
-      <h1 class="collection-banner__title">{{ collection.title }}</h1>
-      {%- if collection.description != blank and section.settings.show_description -%}
-        <p class="collection-banner__description">{{ collection.description | strip_html }}</p>
-      {%- endif -%}
-    </div>
-  </div>
-
   <!-- Sort bar -->
   <div class="collection-sort-bar">
     <div class="collection-sort-bar__inner">
@@ -128,64 +101,6 @@
 {% stylesheet %}
   .collection-page {
     background: var(--color-black);
-  }
-
-  /* Banner */
-  .collection-banner {
-    position: relative;
-    min-height: 280px;
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
-    background: var(--color-charcoal);
-  }
-
-  .collection-banner__bg {
-    position: absolute;
-    inset: 0;
-  }
-
-  .collection-banner__bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .collection-banner__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(17, 16, 9, 0.9) 0%,
-      rgba(17, 16, 9, 0.55) 50%,
-      rgba(17, 16, 9, 0.25) 100%
-    );
-  }
-
-  .collection-banner__content {
-    position: relative;
-    z-index: 1;
-    padding: 48px var(--page-margin);
-    width: 100%;
-    max-width: calc(var(--page-width) + var(--page-margin) * 2);
-    margin: 0 auto;
-  }
-
-  .collection-banner__title {
-    font-family: var(--font-heading);
-    font-size: clamp(36px, 6vw, 72px);
-    color: var(--color-white);
-    line-height: 1;
-    margin-bottom: 12px;
-  }
-
-  .collection-banner__description {
-    font-family: var(--font-body);
-    font-size: 16px;
-    color: var(--color-tan-light);
-    max-width: 560px;
-    line-height: 1.6;
-    opacity: 0.85;
   }
 
   /* Sort bar */
@@ -308,8 +223,6 @@
   }
 
   @media (max-width: 768px) {
-    .collection-banner { min-height: 200px; }
-    .collection-banner__content { padding: 32px var(--page-margin); }
     .collection-grid { grid-template-columns: repeat(var(--col-cols-mobile, 2), 1fr); }
     /* collection-card height driven by image aspect-ratio */
     .collection-grid-wrap { padding: 24px var(--page-margin) 60px; }
@@ -334,28 +247,6 @@
 {
   "name": "Collection",
   "settings": [
-    {
-      "type": "header",
-      "content": "Banner"
-    },
-    {
-      "type": "text",
-      "id": "eyebrow_text",
-      "label": "Eyebrow label",
-      "default": "// Gear Up"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_banner_image",
-      "label": "Show collection image in banner",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_description",
-      "label": "Show collection description",
-      "default": true
-    },
     {
       "type": "header",
       "content": "Sort bar"

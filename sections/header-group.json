@@ -17,9 +17,13 @@
         "show_bar": true,
         "announcement_text": "Try the Ruck On App Today",
         "link_url": "",
-        "background_color": "#2d3a18",
-        "text_color": "#e8d5b0",
-        "border_color": "#4a5c2a"
+        "enable_scroll": true,
+        "separator": "•",
+        "repeat_count": 6,
+        "scroll_speed": 30,
+        "background_color": "#4a5c2a",
+        "text_color": "#f5f0e8",
+        "border_color": "#6b7f3e"
       }
     },
     "header": {

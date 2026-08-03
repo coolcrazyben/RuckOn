@@ -3,27 +3,53 @@
     --ab-bg:          {{ section.settings.background_color }};
     --ab-text-color:  {{ section.settings.text_color }};
     --ab-border:      {{ section.settings.border_color }};
+    --ab-speed:       {{ section.settings.scroll_speed }}s;
   }
 {% endstyle %}
 
 {% unless section.settings.show_bar == false %}
-  <div class="announcement-bar full-width">
-    <p class="announcement-bar__text">
-      {% if section.settings.link_url != blank %}
-        <a href="{{ section.settings.link_url }}" class="announcement-bar__link">
+  <div class="announcement-bar full-width{% if section.settings.enable_scroll %} announcement-bar--marquee{% endif %}">
+    {%- if section.settings.enable_scroll -%}
+      {%- comment -%} Scrolling marquee: two identical groups sit side-by-side so the
+        track can translate -50% for a seamless, gap-free loop. {%- endcomment -%}
+      <div class="announcement-bar__marquee" role="marquee">
+        <div class="announcement-bar__track">
+          {%- for group in (1..2) -%}
+            <div class="announcement-bar__group"{% if group == 2 %} aria-hidden="true"{% endif %}>
+              {%- for repeat in (1..section.settings.repeat_count) -%}
+                <span class="announcement-bar__item">
+                  {%- if section.settings.link_url != blank -%}
+                    <a href="{{ section.settings.link_url }}" class="announcement-bar__link">
+                      {{ section.settings.announcement_text }}
+                    </a>
+                  {%- else -%}
+                    {{ section.settings.announcement_text }}
+                  {%- endif -%}
+                  <span class="announcement-bar__sep" aria-hidden="true">{{ section.settings.separator }}</span>
+                </span>
+              {%- endfor -%}
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- else -%}
+      <p class="announcement-bar__text">
+        {% if section.settings.link_url != blank %}
+          <a href="{{ section.settings.link_url }}" class="announcement-bar__link">
+            {{ section.settings.announcement_text }}
+          </a>
+        {% else %}
           {{ section.settings.announcement_text }}
-        </a>
-      {% else %}
-        {{ section.settings.announcement_text }}
-      {% endif %}
-    </p>
+        {% endif %}
+      </p>
+    {%- endif -%}
   </div>
 {% endunless %}
 
 {% stylesheet %}
   .announcement-bar {
-    background-color: var(--ab-bg, #2d3a18);
-    border-bottom: 1px solid var(--ab-border, #4a5c2a);
+    background-color: var(--ab-bg, #4a5c2a);
+    border-bottom: 1px solid var(--ab-border, #6b7f3e);
     padding: 11px 20px;
     text-align: center;
     height: var(--announcement-bar-height, 42px);
@@ -38,7 +64,7 @@
     font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--ab-text-color, #e8d5b0);
+    color: var(--ab-text-color, #f5f0e8);
     margin: 0;
   }
 
@@ -50,6 +76,56 @@
   .announcement-bar__link:hover {
     color: var(--color-tan);
     text-decoration: underline;
+  }
+
+  /* === Scrolling marquee === */
+  .announcement-bar--marquee {
+    padding: 11px 0;
+    overflow: hidden;
+  }
+
+  .announcement-bar__marquee {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .announcement-bar__track {
+    display: flex;
+    width: max-content;
+    animation: ab-marquee var(--ab-speed, 30s) linear infinite;
+    will-change: transform;
+  }
+
+  .announcement-bar__group {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .announcement-bar__item {
+    font-family: var(--font-label);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ab-text-color, #f5f0e8);
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .announcement-bar__sep {
+    padding: 0 1.75rem;
+    opacity: 0.6;
+  }
+
+  @keyframes ab-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* Pause the scroll for anyone who prefers reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .announcement-bar__track { animation: none; }
   }
 {% endstylesheet %}
 
@@ -76,25 +152,63 @@
     },
     {
       "type": "header",
+      "content": "Scrolling marquee"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_scroll",
+      "label": "Scroll text continuously",
+      "default": true,
+      "info": "Repeats the text and slides it across the bar like the reference site."
+    },
+    {
+      "type": "text",
+      "id": "separator",
+      "label": "Separator between repeats",
+      "default": "•"
+    },
+    {
+      "type": "range",
+      "id": "repeat_count",
+      "label": "Repeats per loop",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 6,
+      "info": "Higher = more copies on screen. Raise this if you see a gap on wide screens."
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "Scroll speed",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "s",
+      "default": 30,
+      "info": "Seconds per full loop. Lower = faster."
+    },
+    {
+      "type": "header",
       "content": "Colors"
     },
     {
       "type": "color",
       "id": "background_color",
       "label": "Background color",
-      "default": "#2d3a18"
+      "default": "#4a5c2a"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text color",
-      "default": "#e8d5b0"
+      "default": "#f5f0e8"
     },
     {
       "type": "color",
       "id": "border_color",
       "label": "Border color",
-      "default": "#4a5c2a"
+      "default": "#6b7f3e"
     }
   ]
 }
