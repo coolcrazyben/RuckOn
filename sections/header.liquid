@@ -609,17 +609,9 @@
 (function () {
   var wrapper = document.getElementById('site-header-wrapper');
 
-  // Find the fixed header-group wrapper robustly (don't rely on an exact id).
+  // Find the sticky header-group wrapper robustly (don't rely on an exact id).
   var group = wrapper && wrapper.closest ? wrapper.closest('[id^="shopify-section-group"]') : null;
   if (!group) group = document.getElementById('shopify-section-group-header-group');
-
-  // Reserve exactly the header's height so content sits below the fixed header.
-  function setHeaderPad() {
-    if (group) document.body.style.paddingTop = group.offsetHeight + 'px';
-  }
-  setHeaderPad();
-  window.addEventListener('resize', setHeaderPad, { passive: true });
-  window.addEventListener('load', setHeaderPad);
 
   // Scroll-shadow + hide-on-scroll-down / reveal-on-scroll-up
   var announcementBar = document.querySelector('.announcement-bar');

@@ -66,12 +66,10 @@ p:empty { display: none; }
 .shopify-section > * { grid-column: 2; }
 .shopify-section > .full-width { grid-column: 1 / -1; }
 
-/* === Global Header Group (fixed so hide/reveal is reliable) === */
+/* === Global Header Group Sticky === */
 #shopify-section-group-header-group {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 900;
   transition: transform 0.35s ease;
 }
@@ -79,12 +77,6 @@ p:empty { display: none; }
 /* Hide-on-scroll-down / show-on-scroll-up (toggled by header JS) */
 #shopify-section-group-header-group.header-group--hidden {
   transform: translateY(-100%);
-}
-
-/* Reserve space for the fixed header so content isn't hidden underneath.
-   Header JS refines this to the header's exact measured height on load/resize. */
-body {
-  padding-top: var(--header-total-height);
 }
 
 /* === Global Typography === */
