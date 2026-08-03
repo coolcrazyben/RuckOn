@@ -623,7 +623,10 @@
     if (wrapper) wrapper.classList.toggle('is-scrolled', y > abHeight);
 
     if (group) {
+      var docHeight = document.documentElement.scrollHeight;
+      var atBottom  = (window.innerHeight + y) >= (docHeight - 4);
       var goingDown = y > lastY;
+
       // Ignore tiny jitters and iOS rubber-banding at the very top
       if (Math.abs(y - lastY) > 6) {
         if (goingDown && y > abHeight + 80) {
@@ -632,7 +635,10 @@
           group.classList.remove('header-group--hidden'); // scrolling up → reveal
         }
       }
-      if (y <= abHeight) group.classList.remove('header-group--hidden'); // always show near top
+
+      // Always show near the very top or at the very bottom of the page,
+      // so the menu is reachable at the bottom without scrolling back up.
+      if (y <= abHeight || atBottom) group.classList.remove('header-group--hidden');
     }
 
     lastY = y;
