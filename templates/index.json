@@ -12,6 +12,7 @@
     "hero": {
       "type": "hero",
       "settings": {
+        "autoplay_speed": 6,
         "background_image": "shopify://shop_images/544898431_1342224821238342_1899506584520207790_n.jpg",
         "min_height": 700,
         "eyebrow_text": "// Community Minded Rucking",
@@ -152,11 +153,11 @@
         "category_Vxmmpz": {
           "type": "category",
           "settings": {
-            "category_name": "Communities",
+            "category_name": "Patches",
             "image": "shopify://shop_images/4.png",
             "collection": "patch",
             "link_url": "",
-            "product_count": "1 Product",
+            "product_count": "4 Prodcuts",
             "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)"
           }
         },
