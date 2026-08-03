@@ -623,22 +623,19 @@
     if (wrapper) wrapper.classList.toggle('is-scrolled', y > abHeight);
 
     if (group) {
-      var docHeight = document.documentElement.scrollHeight;
-      var atBottom  = (window.innerHeight + y) >= (docHeight - 4);
-      var goingDown = y > lastY;
+      var delta = y - lastY;
 
-      // Ignore tiny jitters and iOS rubber-banding at the very top
-      if (Math.abs(y - lastY) > 6) {
-        if (goingDown && y > abHeight + 80) {
-          group.classList.add('header-group--hidden');   // scrolling down → hide
-        } else {
-          group.classList.remove('header-group--hidden'); // scrolling up → reveal
-        }
+      // Any upward scroll reveals the header, anywhere on the page.
+      // Only downward scrolling (past the announcement bar) hides it.
+      // The 1px deadzone ignores sub-pixel/rubber-band noise.
+      if (delta < -1) {
+        group.classList.remove('header-group--hidden'); // scrolling up → reveal
+      } else if (delta > 1 && y > abHeight + 80) {
+        group.classList.add('header-group--hidden');    // scrolling down → hide
       }
 
-      // Always show near the very top or at the very bottom of the page,
-      // so the menu is reachable at the bottom without scrolling back up.
-      if (y <= abHeight || atBottom) group.classList.remove('header-group--hidden');
+      // Always show at the very top
+      if (y <= abHeight) group.classList.remove('header-group--hidden');
     }
 
     lastY = y;
