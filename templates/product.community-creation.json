@@ -141,9 +141,9 @@
         "crosssell_subtext": "Our hats are built for interchangeable patches — grab a few and switch up your look.",
         "crosssell_cta_text": "Shop",
         "crosssell_limit": 4,
-        "accent_color": "#9a825c",
-        "sale_color": "#857151",
-        "selected_pill_bg": "#0a1e32"
+        "accent_color": "#7a6634",
+        "sale_color": "#7a6634",
+        "selected_pill_bg": "#2d3a18"
       }
     }
   },

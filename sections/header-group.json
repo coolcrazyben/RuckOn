@@ -21,9 +21,9 @@
         "separator": "/",
         "repeat_count": 6,
         "scroll_speed": 30,
-        "background_color": "#0a1e32",
+        "background_color": "#2d3a18",
         "text_color": "#ffffff",
-        "border_color": "#0a1e32"
+        "border_color": "#2d3a18"
       }
     },
     "header": {
@@ -37,10 +37,10 @@
         "cart_label": "Cart",
         "account_label": "Account",
         "background_color": "#ffffff",
-        "link_color": "#0a1e32",
-        "logo_color_1": "#0a1e32",
-        "logo_color_2": "#0a1e32",
-        "cart_color": "#0a1e32"
+        "link_color": "#2d3a18",
+        "logo_color_1": "#2d3a18",
+        "logo_color_2": "#2d3a18",
+        "cart_color": "#4a5c2a"
       }
     }
   },

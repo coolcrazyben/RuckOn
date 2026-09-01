@@ -192,7 +192,7 @@
   }
 
   .site-header-wrapper.is-scrolled {
-    border-bottom-color: rgba(10, 30, 50, 0.16);
+    border-bottom-color: rgba(45, 58, 24, 0.16);
   }
 
   /* 3-column grid: left | center (logo) | right */
@@ -227,8 +227,8 @@
     text-decoration: none;
     font-family: var(--font-heading);
     font-size: 26px;
-    font-weight: 400;
-    letter-spacing: 0.14em;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     display: flex;
     align-items: baseline;
     gap: 0.28em;
@@ -236,8 +236,8 @@
     flex-shrink: 0;
   }
 
-  .logo-word-1 { color: var(--header-logo1, #0a1e32); }
-  .logo-word-2 { color: var(--header-logo2, #0a1e32); }
+  .logo-word-1 { color: var(--header-logo1, #2d3a18); }
+  .logo-word-2 { color: var(--header-logo2, #2d3a18); }
 
   .site-header__logo-img {
     display: block;
@@ -269,7 +269,7 @@
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--header-link, #0a1e32);
+    color: var(--header-link, #2d3a18);
     text-decoration: none;
     position: relative;
     padding-bottom: 3px;
@@ -294,7 +294,7 @@
 
   /* Icon links (account + cart) */
   .site-header__icon-link {
-    color: var(--header-cart, #0a1e32);
+    color: var(--header-cart, #2d3a18);
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -324,7 +324,7 @@
     top: -4px;
     right: -10px;
     background: transparent;
-    color: var(--color-gold-dark);
+    color: var(--color-tan);
     font-family: var(--font-label);
     font-stretch: var(--label-stretch);
     font-size: 10px;
@@ -347,7 +347,7 @@
   .site-header__burger {
     background: none;
     border: none;
-    color: var(--color-navy);
+    color: var(--color-ink);
     cursor: pointer;
     padding: 6px 4px;
     line-height: 0;
@@ -390,7 +390,7 @@
   .mobile-nav__backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(10, 30, 50, 0.35);
+    background: rgba(45, 58, 24, 0.35);
     opacity: 0;
     transition: opacity 0.35s ease;
   }
@@ -435,8 +435,8 @@
     text-decoration: none;
     font-family: var(--font-heading);
     font-size: 20px;
-    font-weight: 400;
-    letter-spacing: 0.14em;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     display: flex;
     align-items: baseline;
     gap: 0.28em;
@@ -447,7 +447,7 @@
   .mobile-nav__close {
     background: none;
     border: none;
-    color: var(--color-navy);
+    color: var(--color-ink);
     cursor: pointer;
     padding: 6px;
     line-height: 0;
@@ -479,9 +479,9 @@
     display: block;
     font-family: var(--font-heading);
     font-size: 26px;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: 0;
-    color: var(--color-navy);
+    color: var(--color-ink);
     text-decoration: none;
     padding: 18px 28px;
     opacity: 0;
@@ -529,9 +529,9 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: #fff;
-    background: var(--color-navy);
+    background: var(--color-ink);
     text-decoration: none;
-    border: 1px solid var(--color-navy);
+    border: 1px solid var(--color-ink);
     padding: 13px 22px;
     transition: opacity 0.2s;
     align-self: stretch;
@@ -560,13 +560,13 @@
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--color-navy-60);
+    color: var(--color-ink-60);
     text-decoration: none;
     transition: color 0.2s;
     align-self: center;
   }
 
-  .mobile-nav__account:hover { color: var(--color-navy); }
+  .mobile-nav__account:hover { color: var(--color-ink); }
 
   /* Only show on mobile */
   @media (min-width: 1025px) {
@@ -781,25 +781,25 @@
       "type": "color",
       "id": "link_color",
       "label": "Navigation link color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "logo_color_1",
       "label": "Logo — first word color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "logo_color_2",
       "label": "Logo — second word color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "cart_color",
       "label": "Cart & account icon color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     }
   ]
 }

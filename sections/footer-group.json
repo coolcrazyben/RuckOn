@@ -29,13 +29,13 @@
         "copyright_suffix": "All rights reserved.",
         "footer_tagline": "Carry the Weight",
         "background_color": "#ffffff",
-        "top_border_color": "#e7e9eb",
-        "logo_color_1": "#0a1e32",
-        "logo_color_2": "#0a1e32",
-        "tagline_color": "#5c6469",
-        "column_title_color": "#0a1e32",
-        "link_color": "#5c6469",
-        "bottom_text_color": "#5c6469"
+        "top_border_color": "#e3e3dc",
+        "logo_color_1": "#2d3a18",
+        "logo_color_2": "#2d3a18",
+        "tagline_color": "#5f6653",
+        "column_title_color": "#2d3a18",
+        "link_color": "#5f6653",
+        "bottom_text_color": "#5f6653"
       }
     }
   },

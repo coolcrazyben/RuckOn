@@ -150,7 +150,7 @@
   .hero {
     position: relative;
     min-height: max(92svh, var(--hero-min-height, 700px));
-    background-color: var(--color-navy);
+    background-color: var(--color-ink);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -191,9 +191,9 @@
     z-index: 1;
     background:
       linear-gradient(to top,
-        rgba(10, 30, 50, 0.45) 0%,
-        rgba(10, 30, 50, 0.18) 45%,
-        rgba(10, 30, 50, 0.28) 100%
+        rgba(45, 58, 24, 0.45) 0%,
+        rgba(45, 58, 24, 0.18) 45%,
+        rgba(45, 58, 24, 0.28) 100%
       );
   }
 
@@ -227,9 +227,9 @@
   .hero__headline {
     font-family: var(--font-heading);
     font-size: clamp(52px, 7.2vw, 104px);
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.02;
-    letter-spacing: -0.015em;
+    letter-spacing: 0.01em;
     margin-bottom: 1.25rem;
     display: flex;
     flex-direction: column;
@@ -245,7 +245,6 @@
   .hero__headline-2 {
     color: var(--hero-headline2-color, #ffffff);
     display: block;
-    font-style: italic;
   }
 
   .hero__subtext {

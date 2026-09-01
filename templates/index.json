@@ -16,11 +16,11 @@
         "background_image": "shopify://shop_images/544898431_1342224821238342_1899506584520207790_n.jpg",
         "min_height": 700,
         "eyebrow_text": "Autumn Collection",
-        "eyebrow_color": "#ffffff",
+        "eyebrow_color": "#c8a96e",
         "headline_line1": "Carry the",
         "headline1_color": "#ffffff",
         "headline_line2": "Weight",
-        "headline2_color": "#ffffff",
+        "headline2_color": "#c8a96e",
         "subtext": "Built for the miles that ask more of you.",
         "subtext_color": "#ffffff",
         "btn_primary_text": "Shop Collection",
@@ -41,7 +41,7 @@
             "collection": "hats",
             "link_url": "",
             "product_count": "Shop Hats",
-            "gradient_overlay": "linear-gradient(to top, rgba(10,30,50,0.55) 0%, rgba(10,30,50,0.28) 55%, rgba(10,30,50,0.22) 100%)"
+            "gradient_overlay": "linear-gradient(to top, rgba(45, 58, 24,0.55) 0%, rgba(45, 58, 24,0.28) 55%, rgba(45, 58, 24,0.22) 100%)"
           }
         },
         "category_e6TDiC": {
@@ -52,7 +52,7 @@
             "collection": "shirts",
             "link_url": "shopify://collections/shirts",
             "product_count": "Shop Shirts",
-            "gradient_overlay": "linear-gradient(to top, rgba(10,30,50,0.55) 0%, rgba(10,30,50,0.28) 55%, rgba(10,30,50,0.22) 100%)"
+            "gradient_overlay": "linear-gradient(to top, rgba(45, 58, 24,0.55) 0%, rgba(45, 58, 24,0.28) 55%, rgba(45, 58, 24,0.22) 100%)"
           }
         },
         "category_Vxmmpz": {
@@ -63,7 +63,7 @@
             "collection": "patch",
             "link_url": "",
             "product_count": "Shop Patches",
-            "gradient_overlay": "linear-gradient(to top, rgba(10,30,50,0.55) 0%, rgba(10,30,50,0.28) 55%, rgba(10,30,50,0.22) 100%)"
+            "gradient_overlay": "linear-gradient(to top, rgba(45, 58, 24,0.55) 0%, rgba(45, 58, 24,0.28) 55%, rgba(45, 58, 24,0.22) 100%)"
           }
         },
         "category_jq6CfC": {
@@ -74,7 +74,7 @@
             "collection": "subscriptions",
             "link_url": "",
             "product_count": "Shop Subscriptions",
-            "gradient_overlay": "linear-gradient(to top, rgba(10,30,50,0.55) 0%, rgba(10,30,50,0.28) 55%, rgba(10,30,50,0.22) 100%)"
+            "gradient_overlay": "linear-gradient(to top, rgba(45, 58, 24,0.55) 0%, rgba(45, 58, 24,0.28) 55%, rgba(45, 58, 24,0.22) 100%)"
           }
         }
       },
@@ -89,9 +89,9 @@
         "heading_text_1": "Shop by Category",
         "heading_text_2": "",
         "background_color": "#ffffff",
-        "eyebrow_color": "#857151",
-        "heading_color": "#0a1e32",
-        "accent_color": "#0a1e32",
+        "eyebrow_color": "#7a6634",
+        "heading_color": "#2d3a18",
+        "accent_color": "#7a6634",
         "card_text_color": "#ffffff"
       }
     },
@@ -108,11 +108,11 @@
         "card_cta_text": "Shop",
         "empty_text": "No products found — add some to this collection.",
         "background_color": "#ffffff",
-        "eyebrow_color": "#857151",
-        "heading_color": "#0a1e32",
-        "accent_color": "#857151",
-        "badge_bg_color": "#857151",
-        "badge_text_color": "#0a1e32"
+        "eyebrow_color": "#7a6634",
+        "heading_color": "#2d3a18",
+        "accent_color": "#7a6634",
+        "badge_bg_color": "#7a6634",
+        "badge_text_color": "#2d3a18"
       }
     },
     "manifesto": {
@@ -123,11 +123,11 @@
         "body_text": "Every mile under load is a deposit. The weight does not negotiate, it does not care about the weather, and it does not care how you slept. Show up anyway. That is the whole method.",
         "cta_text": "Shop the Collection",
         "cta_url": "shopify://blogs/story/welcome-to-ruck-on",
-        "background_color": "#f4f0e9",
-        "quote_color_1": "#0a1e32",
-        "quote_color_2": "#0a1e32",
-        "body_color": "#5c6469",
-        "divider_color": "#9a825c"
+        "background_color": "#f2f1ea",
+        "quote_color_1": "#2d3a18",
+        "quote_color_2": "#7a6634",
+        "body_color": "#5f6653",
+        "divider_color": "#7a6634"
       }
     },
     "manifesto_niEbeg": {
@@ -140,10 +140,10 @@
         "cta_text": "Download Now",
         "cta_url": "https://apps.apple.com/us/app/ruck-on-fitness/id6773949584",
         "background_color": "#ffffff",
-        "quote_color_1": "#0a1e32",
-        "quote_color_2": "#0a1e32",
-        "body_color": "#5c6469",
-        "divider_color": "#9a825c"
+        "quote_color_1": "#2d3a18",
+        "quote_color_2": "#7a6634",
+        "body_color": "#5f6653",
+        "divider_color": "#7a6634"
       }
     },
     "community_PFtmqE": {
@@ -163,13 +163,13 @@
         "image_1": "shopify://shop_images/IMG-5723.jpg",
         "image_2": "shopify://shop_images/Untitled_design_2.png",
         "badge_text": "Monday is for Rucking",
-        "background_color": "#f4f0e9",
-        "eyebrow_color": "#857151",
-        "heading_color_1": "#0a1e32",
-        "heading_color_2": "#0a1e32",
-        "body_color": "#5c6469",
-        "stat_number_color": "#0a1e32",
-        "badge_bg_color": "#0a1e32",
+        "background_color": "#f2f1ea",
+        "eyebrow_color": "#7a6634",
+        "heading_color_1": "#2d3a18",
+        "heading_color_2": "#7a6634",
+        "body_color": "#5f6653",
+        "stat_number_color": "#4a5c2a",
+        "badge_bg_color": "#4a5c2a",
         "badge_text_color": "#ffffff"
       }
     },
@@ -190,12 +190,12 @@
         "image_2": "shopify://shop_images/543414701_1342223241238500_1508051128177641398_n.jpg",
         "badge_text": "Monday is for Rucking",
         "background_color": "#ffffff",
-        "eyebrow_color": "#857151",
-        "heading_color_1": "#0a1e32",
-        "heading_color_2": "#0a1e32",
-        "body_color": "#5c6469",
-        "stat_number_color": "#0a1e32",
-        "badge_bg_color": "#0a1e32",
+        "eyebrow_color": "#7a6634",
+        "heading_color_1": "#2d3a18",
+        "heading_color_2": "#7a6634",
+        "body_color": "#5f6653",
+        "stat_number_color": "#4a5c2a",
+        "badge_bg_color": "#4a5c2a",
         "badge_text_color": "#ffffff"
       }
     },
@@ -208,13 +208,13 @@
         "button_text": "Submit",
         "success_message": "You're in. Welcome to the movement.",
         "disclaimer": "No spam. Unsubscribe any time.",
-        "background_color": "#f4f0e9",
-        "top_border_color": "#e7e9eb",
-        "title_color": "#0a1e32",
-        "subtitle_color": "#5c6469",
+        "background_color": "#f2f1ea",
+        "top_border_color": "#e3e3dc",
+        "title_color": "#2d3a18",
+        "subtitle_color": "#5f6653",
         "input_bg_color": "#ffffff",
-        "input_border_color": "#0a1e32",
-        "button_bg_color": "#0a1e32",
+        "input_border_color": "#2d3a18",
+        "button_bg_color": "#4a5c2a",
         "button_text_color": "#ffffff"
       }
     }

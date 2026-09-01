@@ -1,53 +1,54 @@
 {% style %}
   :root {
     /* === Ruck On Brand Colors ===
-       Editorial running-heritage palette: deep navy, antique gold, warm paper. */
+       Field palette on paper: olive green, dark-olive ink, worn tan. */
 
-    /* Navy family (primary brand color, text, dark panels) */
-    --color-navy:        #0a1e32;
-    --color-navy-deep:   #061524;
-    --color-navy-mid:    #2c4763;
-    --color-navy-60:     #5c6469;
+    /* Green family (primary — buttons, links, accents) */
+    --color-green:       #4a5c2a;
+    --color-green-deep:  #1f290f;
+    --color-green-light: #6b7f3e;
 
-    /* Gold family (accent, CTAs, eyebrows) */
-    --color-gold:        #9a825c;
-    --color-gold-dark:   #857151;
-    --color-gold-light:  #c3ac83;
+    /* Ink family (type) */
+    --color-ink:         #2d3a18;
+    --color-ink-60:      #5f6653;
+
+    /* Tan family (eyebrows, stroke links, dividers) */
+    --color-tan:         #7a6634;
+    --color-tan-light:   #c8a96e;
 
     /* Paper family (backgrounds) */
     --color-paper:       #ffffff;
-    --color-paper-warm:  #f4f0e9;
-    --color-paper-cool:  #f8f8f9;
-    --color-rule:        #e7e9eb;
+    --color-paper-warm:  #f2f1ea;
+    --color-paper-cool:  #f6f6f3;
+    --color-rule:        #e3e3dc;
 
     /* --- Legacy aliases -------------------------------------------------
        Existing sections reference these names. They now resolve to the
-       editorial palette, so the whole theme flips together. ------------- */
-    --color-olive:       var(--color-navy);
-    --color-olive-dark:  var(--color-navy-deep);
-    --color-olive-light: var(--color-navy-mid);
-    --color-tan:         var(--color-gold);
-    --color-tan-light:   var(--color-navy-60);
+       palette above, so the whole theme moves together. Note that the old
+       --color-orange CTA colour now resolves to green: orange is retired. */
+    --color-olive:       var(--color-green);
+    --color-olive-dark:  var(--color-green-deep);
+    --color-olive-light: var(--color-green-light);
     --color-cream:       var(--color-paper-warm);
     --color-black:       var(--color-paper);
     --color-charcoal:    var(--color-paper-cool);
-    --color-white:       var(--color-navy);
-    --color-orange:      var(--color-gold);
+    --color-white:       var(--color-ink);
+    --color-orange:      var(--color-green);
 
     /* === Semantic Aliases === */
     --color-background: {{ settings.background_color | default: '#ffffff' }};
-    --color-foreground: {{ settings.foreground_color | default: '#0a1e32' }};
+    --color-foreground: {{ settings.foreground_color | default: '#2d3a18' }};
 
     /* === Typography ===
-       Display serif with true italics for editorial headlines; an extended
-       grotesque for nav, labels, buttons and body copy. */
-    --font-heading:  'Playfair Display', 'Times New Roman', Georgia, serif;
-    --font-label:    'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    --font-body:     'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+       Condensed athletic caps for display and labels; a neutral grotesque
+       for body copy. */
+    --font-heading:  'Oswald', 'Arial Narrow', Arial, sans-serif;
+    --font-label:    'Oswald', 'Arial Narrow', Arial, sans-serif;
+    --font-body:     'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
     --font-primary--family: var(--font-body);
 
-    /* Width axis used to fake the "extended grotesque" of the label face */
-    --label-stretch: 112%;
+    /* Oswald carries no width axis — kept so label rules stay valid. */
+    --label-stretch: normal;
 
     /* === Layout === */
     --page-width:   {{ settings.max_page_width }};

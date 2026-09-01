@@ -270,7 +270,7 @@
   .about-hero {
     position: relative;
     min-height: max(60vh, var(--about-hero-height, 600px));
-    background-color: var(--color-navy);
+    background-color: var(--color-ink);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -296,9 +296,9 @@
     z-index: 1;
     background:
       linear-gradient(to top,
-        rgba(10, 30, 50, 0.45) 0%,
-        rgba(10, 30, 50, 0.2) 50%,
-        rgba(10, 30, 50, 0.28) 100%
+        rgba(45, 58, 24, 0.45) 0%,
+        rgba(45, 58, 24, 0.2) 50%,
+        rgba(45, 58, 24, 0.28) 100%
       );
   }
 
@@ -331,9 +331,9 @@
   .about-hero__headline {
     font-family: var(--font-heading);
     font-size: clamp(46px, 6.4vw, 92px);
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.02;
-    letter-spacing: -0.015em;
+    letter-spacing: 0.01em;
     margin-bottom: 1.25rem;
     display: flex;
     flex-direction: column;
@@ -348,14 +348,13 @@
   .about-hero__hl2 {
     color: var(--about-hero-hl2, #ffffff);
     display: block;
-    font-style: italic;
   }
 
   .about-hero__body {
     font-family: var(--font-body);
     font-size: 18px;
     font-weight: 300;
-    color: var(--about-hero-body, #5c6469);
+    color: var(--about-hero-body, #5f6653);
     max-width: 520px;
     line-height: 1.65;
   }
@@ -364,7 +363,7 @@
      ORIGIN STORY
   ═══════════════════════════════════ */
   .about-story {
-    background-color: var(--about-story-bg, #f8f8f9);
+    background-color: var(--about-story-bg, #f6f6f3);
     padding: 100px var(--page-margin);
   }
 
@@ -378,7 +377,7 @@
   }
 
   .about-story__eyebrow {
-    color: var(--about-story-eyebrow, #857151);
+    color: var(--about-story-eyebrow, #7a6634);
     display: block;
     margin-bottom: 1rem;
   }
@@ -387,21 +386,20 @@
     font-family: var(--font-heading);
     font-size: clamp(36px, 4.5vw, 58px);
     line-height: 1.05;
-    color: var(--about-story-hl, #0a1e32);
+    color: var(--about-story-hl, #2d3a18);
     margin-bottom: 1.75rem;
   }
 
   .about-story__heading span {
-    color: var(--about-story-accent, #9a825c);
+    color: var(--about-story-accent, #7a6634);
     display: block;
-    font-style: italic;
   }
 
   .about-story__body {
     font-family: var(--font-body);
     font-size: 17px;
     font-weight: 300;
-    color: var(--about-story-body, #5c6469);
+    color: var(--about-story-body, #5f6653);
     line-height: 1.75;
     margin-bottom: 1.25rem;
     max-width: 480px;
@@ -426,14 +424,14 @@
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(92, 100, 105, 0.55);
+    color: rgba(95, 102, 83, 0.55);
   }
 
   .about-story__founded-year {
     font-family: var(--font-heading);
     font-size: 32px;
     line-height: 1;
-    color: var(--about-story-year, #9a825c);
+    color: var(--about-story-year, #7a6634);
   }
 
   .about-story__visual {
@@ -470,7 +468,7 @@
     width: 52%;
     height: 56%;
     z-index: 2;
-    border: 4px solid var(--about-story-bg, #f8f8f9);
+    border: 4px solid var(--about-story-bg, #f6f6f3);
   }
 
   .about-story__img--placeholder {
@@ -508,13 +506,13 @@
   .about-values__eyebrow {
     display: block;
     margin-bottom: 1rem;
-    color: var(--about-values-eyebrow, #857151);
+    color: var(--about-values-eyebrow, #7a6634);
   }
 
   .about-values__heading {
     font-family: var(--font-heading);
     font-size: clamp(32px, 4vw, 52px);
-    color: var(--about-values-hl, #0a1e32);
+    color: var(--about-values-hl, #2d3a18);
     line-height: 1.05;
   }
 
@@ -525,7 +523,7 @@
   }
 
   .about-values__card {
-    background-color: var(--about-values-card-bg, #f8f8f9);
+    background-color: var(--about-values-card-bg, #f6f6f3);
     padding: 48px 40px;
     position: relative;
     overflow: hidden;
@@ -552,16 +550,16 @@
     font-family: var(--font-heading);
     font-size: 64px;
     line-height: 1;
-    color: var(--about-values-num, rgba(10, 30, 50, 0.35));
+    color: var(--about-values-num, rgba(45, 58, 24, 0.35));
     display: block;
     margin-bottom: 20px;
-    letter-spacing: -2px;
+    letter-spacing: 0.01em;
   }
 
   .about-values__title {
     font-family: var(--font-heading);
     font-size: 22px;
-    color: var(--about-values-title, #0a1e32);
+    color: var(--about-values-title, #2d3a18);
     margin-bottom: 14px;
     line-height: 1.1;
   }
@@ -570,7 +568,7 @@
     font-family: var(--font-body);
     font-size: 15px;
     font-weight: 300;
-    color: var(--about-values-body, #5c6469);
+    color: var(--about-values-body, #5f6653);
     line-height: 1.7;
   }
 
@@ -578,7 +576,7 @@
      MISSION QUOTE
   ═══════════════════════════════════ */
   .about-mission {
-    background-color: var(--about-mission-bg, #f4f0e9);
+    background-color: var(--about-mission-bg, #f2f1ea);
     position: relative;
     overflow: hidden;
     padding: 120px var(--page-margin);
@@ -599,15 +597,15 @@
   }
 
   .about-mission__divider {
-    background: var(--about-mission-divider, #9a825c);
+    background: var(--about-mission-divider, #7a6634);
   }
 
   .about-mission__quote {
     font-family: var(--font-heading);
     font-size: clamp(38px, 5.4vw, 72px);
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.04;
-    letter-spacing: -0.015em;
+    letter-spacing: 0.01em;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -615,21 +613,20 @@
   }
 
   .about-mission__ql1 {
-    color: var(--about-mission-ql1, #0a1e32);
+    color: var(--about-mission-ql1, #2d3a18);
     display: block;
   }
 
   .about-mission__ql2 {
-    color: var(--about-mission-ql2, #0a1e32);
+    color: var(--about-mission-ql2, #2d3a18);
     display: block;
-    font-style: italic;
   }
 
   .about-mission__body {
     font-family: var(--font-body);
     font-size: 17px;
     font-weight: 300;
-    color: var(--about-mission-body, #5c6469);
+    color: var(--about-mission-body, #5f6653);
     line-height: 1.7;
     max-width: 580px;
   }
@@ -638,9 +635,9 @@
      STATS
   ═══════════════════════════════════ */
   .about-stats {
-    background-color: var(--about-stats-bg, #f8f8f9);
-    border-top: 1px solid rgba(10, 30, 50, 0.35);
-    border-bottom: 1px solid rgba(10, 30, 50, 0.35);
+    background-color: var(--about-stats-bg, #f6f6f3);
+    border-top: 1px solid rgba(45, 58, 24, 0.35);
+    border-bottom: 1px solid rgba(45, 58, 24, 0.35);
     padding: 48px var(--page-margin);
   }
 
@@ -668,8 +665,8 @@
     font-family: var(--font-heading);
     font-size: 44px;
     line-height: 1;
-    color: var(--about-stats-number, #9a825c);
-    letter-spacing: -0.01em;
+    color: var(--about-stats-number, #7a6634);
+    letter-spacing: 0.01em;
   }
 
   .about-stats__label {
@@ -679,7 +676,7 @@
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--about-stats-label, rgba(92, 100, 105, 0.6));
+    color: var(--about-stats-label, rgba(95, 102, 83, 0.6));
     max-width: 160px;
   }
 
@@ -702,21 +699,21 @@
   }
 
   .about-cta__eyebrow {
-    color: var(--about-cta-eyebrow, #857151);
+    color: var(--about-cta-eyebrow, #7a6634);
   }
 
   .about-cta__heading {
     font-family: var(--font-heading);
     font-size: clamp(36px, 5vw, 64px);
     line-height: 1.0;
-    color: var(--about-cta-hl, #0a1e32);
+    color: var(--about-cta-hl, #2d3a18);
   }
 
   .about-cta__body {
     font-family: var(--font-body);
     font-size: 17px;
     font-weight: 300;
-    color: var(--about-cta-body, #5c6469);
+    color: var(--about-cta-body, #5f6653);
     line-height: 1.7;
     max-width: 520px;
   }
@@ -918,37 +915,37 @@
       "type": "color",
       "id": "story_bg",
       "label": "Section background",
-      "default": "#f8f8f9"
+      "default": "#f6f6f3"
     },
     {
       "type": "color",
       "id": "story_eyebrow_color",
       "label": "Eyebrow color",
-      "default": "#857151"
+      "default": "#7a6634"
     },
     {
       "type": "color",
       "id": "story_heading_color",
       "label": "Heading color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "story_accent_color",
       "label": "Heading accent color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "story_body_color",
       "label": "Body text color",
-      "default": "#5c6469"
+      "default": "#5f6653"
     },
     {
       "type": "color",
       "id": "story_year_color",
       "label": "Founded year color",
-      "default": "#857151"
+      "default": "#7a6634"
     },
     {
       "type": "header",
@@ -1016,37 +1013,37 @@
       "type": "color",
       "id": "values_eyebrow_color",
       "label": "Eyebrow color",
-      "default": "#857151"
+      "default": "#7a6634"
     },
     {
       "type": "color",
       "id": "values_heading_color",
       "label": "Heading color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "values_card_bg",
       "label": "Card background",
-      "default": "#f8f8f9"
+      "default": "#f6f6f3"
     },
     {
       "type": "color",
       "id": "values_num_color",
       "label": "Number color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "values_title_color",
       "label": "Value title color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "values_body_color",
       "label": "Value body color",
-      "default": "#5c6469"
+      "default": "#5f6653"
     },
     {
       "type": "header",
@@ -1078,31 +1075,31 @@
       "type": "color",
       "id": "mission_bg",
       "label": "Section background",
-      "default": "#f4f0e9"
+      "default": "#f2f1ea"
     },
     {
       "type": "color",
       "id": "mission_ql1_color",
       "label": "Quote line 1 color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "mission_ql2_color",
       "label": "Quote line 2 color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "mission_body_color",
       "label": "Body text color",
-      "default": "#5c6469"
+      "default": "#5f6653"
     },
     {
       "type": "color",
       "id": "mission_divider_color",
       "label": "Divider color",
-      "default": "#9a825c"
+      "default": "#7a6634"
     },
     {
       "type": "header",
@@ -1164,25 +1161,25 @@
       "type": "color",
       "id": "stats_bg",
       "label": "Section background",
-      "default": "#f8f8f9"
+      "default": "#f6f6f3"
     },
     {
       "type": "color",
       "id": "stats_number_color",
       "label": "Number color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "stats_label_color",
       "label": "Label color",
-      "default": "#5c6469"
+      "default": "#5f6653"
     },
     {
       "type": "color",
       "id": "stats_divider_color",
       "label": "Divider color",
-      "default": "#e7e9eb"
+      "default": "#e3e3dc"
     },
     {
       "type": "header",
@@ -1242,19 +1239,19 @@
       "type": "color",
       "id": "cta_eyebrow_color",
       "label": "Eyebrow color",
-      "default": "#857151"
+      "default": "#7a6634"
     },
     {
       "type": "color",
       "id": "cta_heading_color",
       "label": "Heading color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "cta_body_color",
       "label": "Body text color",
-      "default": "#5c6469"
+      "default": "#5f6653"
     }
   ],
   "presets": [

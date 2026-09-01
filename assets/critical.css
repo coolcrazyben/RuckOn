@@ -1,6 +1,6 @@
 /** Critical CSS for Ruck On theme. Loaded on every page.
-    Editorial running-heritage system: paper backgrounds, navy ink, gold accents,
-    display serif headlines with true italics, extended-grotesque labels. */
+    Field system on paper: olive green, dark-olive ink, worn tan accents,
+    condensed athletic caps for display and labels. */
 
 /* === Reset === */
 *, *::before, *::after { box-sizing: border-box; margin: 0; }
@@ -94,23 +94,24 @@ p:empty { display: none; }
 }
 
 /* === Global Typography ===
-   Headlines are a display serif. `<em>` inside a heading is the house style:
-   an italic word or two that carries the editorial voice. */
+   Display is condensed uppercase. A `<span>` or `<em>` inside a heading is the
+   house accent: the same caps shifted to tan. */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.005em;
-  color: var(--color-navy);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--color-ink);
 }
 
 h1 em, h2 em, h3 em, h4 em,
-.display-serif em {
-  font-style: italic;
-  font-weight: 400;
+.display-accent em {
+  font-style: normal;
+  color: var(--color-tan);
 }
 
-/* Extended-grotesque label treatment: nav, eyebrows, buttons, meta */
+/* Label treatment: nav, eyebrows, buttons, meta */
 .label-type {
   font-family: var(--font-label);
   font-stretch: var(--label-stretch);
@@ -144,35 +145,36 @@ h1 em, h2 em, h3 em, h4 em,
 .btn:hover { opacity: 0.8; }
 
 .btn--primary {
-  background: var(--color-gold-dark);
+  background: var(--color-green);
   color: #fff;
-  border-color: var(--color-gold-dark);
+  border-color: var(--color-green);
 }
 
+/* Back-compat: earlier markup used .btn--navy for the solid CTA. */
 .btn--navy {
-  background: var(--color-navy);
+  background: var(--color-green);
   color: #fff;
-  border-color: var(--color-navy);
+  border-color: var(--color-green);
 }
 
 /* Outline on paper */
 .btn--secondary {
   background: transparent;
-  color: var(--color-navy);
-  border-color: rgba(10, 30, 50, 0.4);
+  color: var(--color-ink);
+  border-color: rgba(45, 58, 24, 0.4);
 }
 
 .btn--secondary:hover {
   opacity: 1;
-  border-color: var(--color-navy);
-  background: var(--color-navy);
+  border-color: var(--color-ink);
+  background: var(--color-ink);
   color: #fff;
 }
 
 /* Solid white — for use over photography */
 .btn--white {
   background: #fff;
-  color: var(--color-navy);
+  color: var(--color-ink);
   border-color: #fff;
 }
 
@@ -186,7 +188,7 @@ h1 em, h2 em, h3 em, h4 em,
 .btn--outline-light:hover {
   opacity: 1;
   background: #fff;
-  color: var(--color-navy);
+  color: var(--color-ink);
   border-color: #fff;
 }
 
@@ -202,20 +204,20 @@ h1 em, h2 em, h3 em, h4 em,
   letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--color-gold-dark);
-  border-bottom: 1px solid rgba(133, 113, 81, 0.4);
+  color: var(--color-tan);
+  border-bottom: 1px solid rgba(122, 102, 52, 0.45);
   padding-bottom: 2px;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
 
-.link-stroke:hover { border-bottom-color: var(--color-gold-dark); }
+.link-stroke:hover { border-bottom-color: var(--color-tan); }
 
 .link-stroke--navy {
-  color: var(--color-navy);
-  border-bottom-color: rgba(10, 30, 50, 0.4);
+  color: var(--color-ink);
+  border-bottom-color: rgba(45, 58, 24, 0.4);
 }
 
-.link-stroke--navy:hover { border-bottom-color: var(--color-navy); }
+.link-stroke--navy:hover { border-bottom-color: var(--color-ink); }
 
 .link-stroke--light {
   color: #fff;
@@ -252,7 +254,7 @@ h1 em, h2 em, h3 em, h4 em,
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-gold-dark);
+  color: var(--color-tan);
   display: block;
   margin-bottom: 0.75rem;
 }
@@ -261,18 +263,18 @@ h1 em, h2 em, h3 em, h4 em,
 .section-title {
   font-family: var(--font-heading);
   font-size: clamp(30px, 3.6vw, 46px);
-  font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  color: var(--color-navy);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--color-ink);
 }
 
-/* Legacy: sections wrap an accent word in <span>. Render it as the italic
-   serif accent rather than a color change. */
+/* Sections wrap an accent word in <span>: shift it to tan. */
 .section-title span,
 .section-title em {
-  font-style: italic;
-  color: inherit;
+  font-style: normal;
+  color: var(--color-tan);
 }
 
 /* === Divider line === */
@@ -281,7 +283,7 @@ h1 em, h2 em, h3 em, h4 em,
   width: 100%;
   max-width: 64px;
   height: 1px;
-  background: var(--color-gold);
+  background: var(--color-tan);
 }
 
 /* === Page padding for non-hero pages === */
@@ -339,7 +341,7 @@ h1 em, h2 em, h3 em, h4 em,
 .product-card__badge {
   display: inline-block;
   background: transparent;
-  color: var(--color-gold-dark);
+  color: var(--color-tan);
   font-family: var(--font-label);
   font-stretch: var(--label-stretch);
   font-size: 10px;
@@ -350,7 +352,7 @@ h1 em, h2 em, h3 em, h4 em,
   align-self: center;
 }
 
-.product-card__badge--soldout { color: var(--color-navy-60); }
+.product-card__badge--soldout { color: var(--color-ink-60); }
 
 .product-card__title {
   font-family: var(--font-body);
@@ -358,15 +360,15 @@ h1 em, h2 em, h3 em, h4 em,
   font-weight: 400;
   line-height: 1.4;
   letter-spacing: 0;
-  color: var(--color-navy);
+  color: var(--color-ink);
 }
 
 .product-card__price {
   font-family: var(--font-heading);
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0;
-  color: var(--color-navy);
+  color: var(--color-ink);
   display: flex;
   gap: 10px;
   align-items: baseline;
@@ -375,7 +377,7 @@ h1 em, h2 em, h3 em, h4 em,
 
 .product-card__compare {
   font-size: 15px;
-  color: #6c7884;
+  color: #7d8069;
   text-decoration: line-through;
 }
 
@@ -386,7 +388,7 @@ h1 em, h2 em, h3 em, h4 em,
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-gold-dark);
+  color: var(--color-tan);
   opacity: 0;
   transform: translateY(4px);
   transition: opacity 0.25s ease, transform 0.25s ease;
@@ -421,7 +423,7 @@ h1 em, h2 em, h3 em, h4 em,
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-navy);
+  color: var(--color-ink);
   text-decoration: none;
   padding: 8px 14px;
   border-bottom: 1px solid transparent;
@@ -429,20 +431,20 @@ h1 em, h2 em, h3 em, h4 em,
   display: inline-block;
 }
 
-.pagination a:hover { border-bottom-color: var(--color-navy); }
+.pagination a:hover { border-bottom-color: var(--color-ink); }
 
 .pagination em {
-  border-bottom-color: var(--color-gold);
-  color: var(--color-gold-dark);
+  border-bottom-color: var(--color-tan);
+  color: var(--color-tan);
   font-style: normal;
 }
 
 /* === Rich Text Editor (article content) === */
-.rte { color: var(--color-navy); line-height: 1.75; font-size: 16px; }
-.rte h1, .rte h2, .rte h3, .rte h4 { font-family: var(--font-heading); color: var(--color-navy); margin: 1.6em 0 0.5em; font-weight: 400; }
+.rte { color: var(--color-ink); line-height: 1.75; font-size: 16px; }
+.rte h1, .rte h2, .rte h3, .rte h4 { font-family: var(--font-heading); color: var(--color-ink); margin: 1.6em 0 0.5em; font-weight: 600; }
 .rte p { margin-bottom: 1.1rem; }
-.rte a { color: var(--color-gold-dark); text-decoration: none; border-bottom: 1px solid rgba(133, 113, 81, 0.4); }
-.rte a:hover { border-bottom-color: var(--color-gold-dark); }
+.rte a { color: var(--color-tan); text-decoration: none; border-bottom: 1px solid rgba(122, 102, 52, 0.4); }
+.rte a:hover { border-bottom-color: var(--color-tan); }
 .rte ul, .rte ol { padding-left: 1.5rem; margin-bottom: 1rem; }
 .rte li { margin-bottom: 0.4rem; }
 .rte img { max-width: 100%; height: auto; margin: 2rem 0; }
@@ -456,9 +458,9 @@ h1 em, h2 em, h3 em, h4 em,
   font-style: italic;
   font-size: clamp(22px, 2.6vw, 30px);
   line-height: 1.3;
-  color: var(--color-navy);
+  color: var(--color-ink);
 }
-.rte strong { color: var(--color-navy); font-weight: 600; }
+.rte strong { color: var(--color-ink); font-weight: 600; }
 .rte code {
   background: var(--color-paper-cool);
   padding: 2px 6px;
@@ -485,8 +487,8 @@ h1 em, h2 em, h3 em, h4 em,
   width: 100%;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid rgba(10, 30, 50, 0.25);
-  color: var(--color-navy);
+  border-bottom: 1px solid rgba(45, 58, 24, 0.25);
+  color: var(--color-ink);
   font-family: var(--font-body);
   font-size: 15px;
   padding: 12px 2px;
@@ -494,10 +496,10 @@ h1 em, h2 em, h3 em, h4 em,
   transition: border-color 0.2s;
 }
 
-.form-input:focus { border-bottom-color: var(--color-navy); }
+.form-input:focus { border-bottom-color: var(--color-ink); }
 
 .form-input::placeholder {
-  color: rgba(10, 30, 50, 0.4);
+  color: rgba(45, 58, 24, 0.4);
 }
 
 /* Light-on-dark variant, for forms sitting on navy panels or photography */

@@ -152,12 +152,12 @@
     inset: 0;
     z-index: 1;
     background:
-      radial-gradient(ellipse at 20% 60%, rgba(10, 30, 50, 0.35) 0%, transparent 55%),
-      radial-gradient(ellipse at 80% 20%, rgba(133, 113, 81, 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 60%, rgba(45, 58, 24, 0.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 20%, rgba(122, 102, 52, 0.15) 0%, transparent 50%),
       linear-gradient(to bottom,
-        rgba(10, 30, 50, 0.75) 0%,
-        rgba(10, 30, 50, 0.88) 50%,
-        rgba(10, 30, 50, 0.97) 100%
+        rgba(45, 58, 24, 0.75) 0%,
+        rgba(45, 58, 24, 0.88) 50%,
+        rgba(45, 58, 24, 0.97) 100%
       );
   }
 
@@ -166,8 +166,8 @@
     inset: 0;
     z-index: 2;
     background-image:
-      linear-gradient(rgba(10, 30, 50, 0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(10, 30, 50, 0.07) 1px, transparent 1px);
+      linear-gradient(rgba(45, 58, 24, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45, 58, 24, 0.07) 1px, transparent 1px);
     background-size: 60px 60px;
     animation: aw-grid-pulse 7s ease-in-out infinite;
   }
@@ -196,9 +196,9 @@
 
   .aw__badge {
     display: inline-block;
-    background: var(--aw-badge-bg, rgba(133, 113, 81, 0.15));
-    color: var(--aw-badge-text, #857151);
-    border: 1px solid rgba(133, 113, 81, 0.4);
+    background: var(--aw-badge-bg, rgba(122, 102, 52, 0.15));
+    color: var(--aw-badge-text, #7a6634);
+    border: 1px solid rgba(122, 102, 52, 0.4);
     font-family: var(--font-label);
     font-stretch: var(--label-stretch);
     font-size: 11px;
@@ -213,7 +213,7 @@
     font-family: var(--font-heading);
     font-size: clamp(52px, 8vw, 110px);
     line-height: 0.95;
-    letter-spacing: -1px;
+    letter-spacing: 0.01em;
     display: flex;
     flex-direction: column;
     gap: 0.06em;
@@ -222,19 +222,19 @@
 
   .aw__headline-1 {
     display: block;
-    color: var(--aw-headline1, #0a1e32);
+    color: var(--aw-headline1, #2d3a18);
   }
 
   .aw__headline-2 {
     display: block;
-    color: var(--aw-headline2, #9a825c);
+    color: var(--aw-headline2, #7a6634);
   }
 
   .aw__subtext {
     font-family: var(--font-body);
     font-size: 18px;
     font-weight: 300;
-    color: var(--aw-subtext, #5c6469);
+    color: var(--aw-subtext, #5f6653);
     line-height: 1.65;
     max-width: 520px;
     margin-bottom: 36px;
@@ -266,7 +266,7 @@
     align-items: flex-start;
     gap: 14px;
     padding: 16px 20px;
-    background: rgba(10, 30, 50, 0.7);
+    background: rgba(45, 58, 24, 0.7);
     border: 1px solid var(--color-rule);
     border-left: 3px solid var(--color-tan);
   }
@@ -291,13 +291,13 @@
     font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--aw-feature-title, #0a1e32);
+    color: var(--aw-feature-title, #2d3a18);
   }
 
   .aw__feature-desc {
     font-family: var(--font-body);
     font-size: 14px;
-    color: var(--aw-feature-body, #5c6469);
+    color: var(--aw-feature-body, #5f6653);
     line-height: 1.5;
     font-weight: 300;
   }
@@ -319,8 +319,8 @@
   .aw__input {
     flex: 1;
     padding: 16px 20px;
-    background: rgba(10, 30, 50, 0.7);
-    border: 1px solid rgba(154, 130, 92, 0.5);
+    background: rgba(45, 58, 24, 0.7);
+    border: 1px solid rgba(122, 102, 52, 0.5);
     border-right: none;
     color: var(--color-white);
     font-family: var(--font-body);
@@ -332,12 +332,12 @@
   }
 
   .aw__input::placeholder {
-    color: rgba(92, 100, 105, 0.45);
+    color: rgba(95, 102, 83, 0.45);
   }
 
   .aw__input:focus {
     border-color: var(--color-tan);
-    background: rgba(10, 30, 50, 0.9);
+    background: rgba(45, 58, 24, 0.9);
   }
 
   .aw__btn {
@@ -372,14 +372,14 @@
     text-transform: uppercase;
     color: var(--color-tan);
     padding: 18px;
-    border: 1px solid rgba(154, 130, 92, 0.4);
+    border: 1px solid rgba(122, 102, 52, 0.4);
     text-align: center;
   }
 
   .aw__disclaimer {
     font-family: var(--font-body);
     font-size: 12px;
-    color: rgba(92, 100, 105, 0.4);
+    color: rgba(95, 102, 83, 0.4);
     line-height: 1.5;
     margin-top: 12px;
     text-align: center;
@@ -391,7 +391,7 @@
     .aw__headline { font-size: clamp(44px, 12vw, 80px); }
 
     .aw__row { flex-direction: column; }
-    .aw__input { border-right: 1px solid rgba(154, 130, 92, 0.5); border-bottom: none; }
+    .aw__input { border-right: 1px solid rgba(122, 102, 52, 0.5); border-bottom: none; }
     .aw__btn { width: 100%; padding: 16px; }
   }
 {% endstylesheet %}
@@ -423,13 +423,13 @@
       "type": "color",
       "id": "badge_bg_color",
       "label": "Badge background",
-      "default": "#f8f8f9"
+      "default": "#f6f6f3"
     },
     {
       "type": "color",
       "id": "badge_text_color",
       "label": "Badge text color",
-      "default": "#857151"
+      "default": "#7a6634"
     },
     {
       "type": "header",
@@ -445,7 +445,7 @@
       "type": "color",
       "id": "headline1_color",
       "label": "Line 1 color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "text",
@@ -457,7 +457,7 @@
       "type": "color",
       "id": "headline2_color",
       "label": "Line 2 color",
-      "default": "#9a825c"
+      "default": "#7a6634"
     },
     {
       "type": "textarea",
@@ -469,7 +469,7 @@
       "type": "color",
       "id": "subtext_color",
       "label": "Subtext color",
-      "default": "#5c6469"
+      "default": "#5f6653"
     },
     {
       "type": "header",
@@ -488,13 +488,13 @@
       "type": "color",
       "id": "feature_title_color",
       "label": "Feature title color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "feature_body_color",
       "label": "Feature description color",
-      "default": "#5c6469"
+      "default": "#5f6653"
     },
     {
       "type": "header",

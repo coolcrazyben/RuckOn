@@ -63,8 +63,8 @@
 
 {% stylesheet %}
   .newsletter {
-    background-color: var(--nl-bg, #f4f0e9);
-    border-top: 1px solid var(--nl-border, #e7e9eb);
+    background-color: var(--nl-bg, #f2f1ea);
+    border-top: 1px solid var(--nl-border, #e3e3dc);
     padding: 104px var(--page-margin);
   }
 
@@ -81,20 +81,20 @@
   .newsletter__title {
     font-family: var(--font-heading);
     font-size: clamp(30px, 3.6vw, 46px);
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.05;
-    letter-spacing: -0.01em;
-    color: var(--nl-title, #0a1e32);
+    letter-spacing: 0.01em;
+    color: var(--nl-title, #2d3a18);
   }
 
   .newsletter__title em,
-  .newsletter__title span { font-style: italic; color: inherit; }
+  .newsletter__title span { font-style: normal; color: var(--color-tan); }
 
   .newsletter__subtitle {
     font-family: var(--font-body);
     font-size: 16px;
     font-weight: 400;
-    color: var(--nl-subtitle, #5c6469);
+    color: var(--nl-subtitle, #5f6653);
     line-height: 1.6;
     margin-bottom: 16px;
   }
@@ -108,12 +108,12 @@
     gap: 0;
     width: 100%;
     align-items: stretch;
-    border-bottom: 1px solid var(--nl-input-border, rgba(10, 30, 50, 0.3));
+    border-bottom: 1px solid var(--nl-input-border, rgba(45, 58, 24, 0.3));
     transition: border-color 0.2s ease;
   }
 
   .newsletter__row:focus-within {
-    border-bottom-color: var(--color-navy);
+    border-bottom-color: var(--color-ink);
   }
 
   .newsletter__input {
@@ -121,7 +121,7 @@
     padding: 12px 2px;
     background: transparent;
     border: 0;
-    color: var(--color-navy);
+    color: var(--color-ink);
     font-family: var(--font-body);
     font-size: 16px;
     outline: none;
@@ -130,14 +130,14 @@
   }
 
   .newsletter__input::placeholder {
-    color: rgba(10, 30, 50, 0.4);
+    color: rgba(45, 58, 24, 0.4);
   }
 
   .newsletter__btn {
     flex-shrink: 0;
     min-width: 0;
     background: transparent;
-    color: var(--nl-btn-bg, #0a1e32);
+    color: var(--nl-btn-bg, #2d3a18);
     font-family: var(--font-label);
     font-stretch: var(--label-stretch);
     font-size: 11px;
@@ -159,7 +159,7 @@
     font-size: 12px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--color-navy);
+    color: var(--color-ink);
     padding: 16px 0;
     border-top: 1px solid var(--color-rule);
     border-bottom: 1px solid var(--color-rule);
@@ -168,7 +168,7 @@
   .newsletter__disclaimer {
     font-family: var(--font-body);
     font-size: 12px;
-    color: rgba(10, 30, 50, 0.5);
+    color: rgba(45, 58, 24, 0.5);
     line-height: 1.5;
     margin-top: 8px;
   }
@@ -242,25 +242,25 @@
       "type": "color",
       "id": "background_color",
       "label": "Background color",
-      "default": "#f4f0e9"
+      "default": "#f2f1ea"
     },
     {
       "type": "color",
       "id": "top_border_color",
       "label": "Top border color",
-      "default": "#e7e9eb"
+      "default": "#e3e3dc"
     },
     {
       "type": "color",
       "id": "title_color",
       "label": "Title color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "subtitle_color",
       "label": "Subtitle color",
-      "default": "#5c6469"
+      "default": "#5f6653"
     },
     {
       "type": "color",
@@ -272,13 +272,13 @@
       "type": "color",
       "id": "input_border_color",
       "label": "Input border color",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
       "id": "button_bg_color",
       "label": "Button background",
-      "default": "#0a1e32"
+      "default": "#2d3a18"
     },
     {
       "type": "color",
