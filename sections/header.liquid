@@ -22,7 +22,7 @@
 {%- endif -%}
 
 <div class="site-header-wrapper" id="site-header-wrapper">
-  <header class="site-header" role="banner">
+  <header class="site-header{% if section.settings.nav_alignment == 'split' %} site-header--split{% endif %}" role="banner">
 
     {%- comment -%} Left zone: Desktop=nav links, Mobile=hamburger+search {%- endcomment -%}
     <div class="site-header__left">
@@ -587,13 +587,28 @@
      Desktop nav placement
      ===================== */
   @media (min-width: 1025px) {
-    /* Left nav hugs the left edge of the masthead */
+    /* Left-aligned layout: links hug the left edge of the masthead */
     .site-header__left .site-header__nav {
       justify-content: flex-start;
     }
 
     .site-header__nav--right {
       justify-content: flex-end;
+    }
+
+    /* Split layout: spread each half across its own column so the two groups
+       sit symmetrically about the logo. Packing them to the outer edges reads
+       lopsided, because only the right column also carries the icons. */
+    .site-header--split .site-header__left .site-header__nav {
+      width: 100%;
+      justify-content: space-evenly;
+      gap: 0;
+    }
+
+    .site-header--split .site-header__nav--right {
+      flex: 1;
+      justify-content: space-evenly;
+      gap: 0;
     }
 
     /* Right nav is empty in the default (left-aligned) layout */
