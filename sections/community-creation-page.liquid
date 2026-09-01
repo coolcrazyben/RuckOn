@@ -20,8 +20,6 @@
     --cc-steps-num:     {{ section.settings.steps_number_color }};
     --cc-steps-title:   {{ section.settings.steps_title_color }};
     --cc-steps-body:    {{ section.settings.steps_body_color }};
-    --cc-steps-ph-bg:   {{ section.settings.steps_placeholder_bg }};
-    --cc-steps-ph-bdr:  {{ section.settings.steps_placeholder_border }};
     --cc-why-bg:        {{ section.settings.why_bg_color }};
     --cc-why-label:     {{ section.settings.why_label_color }};
     --cc-why-title:     {{ section.settings.why_section_title_color }};
@@ -46,10 +44,7 @@
 <!-- ====================================================
      HERO
      ==================================================== -->
-<div class="cc-hero full-width">
-  <div class="cc-hero__overlay" aria-hidden="true"></div>
-  <div class="cc-hero__grid"    aria-hidden="true"></div>
-
+<div class="cc-hero full-width{% if section.settings.hero_image != blank %} cc-hero--split{% endif %}">
   <div class="cc-hero__content">
     {%- if section.settings.hero_eyebrow != blank -%}
       <p class="cc-hero__eyebrow fade-up" data-delay="1">
@@ -84,6 +79,21 @@
       </div>
     {%- endif -%}
   </div>
+
+  {%- if section.settings.hero_image != blank -%}
+    <div class="cc-hero__media">
+      {{
+        section.settings.hero_image
+        | image_url: width: 1400
+        | image_tag:
+          class: 'cc-hero__img',
+          loading: 'eager',
+          sizes: '(max-width: 900px) 100vw, 50vw',
+          widths: '600, 900, 1200, 1400',
+          alt: section.settings.hero_headline_line1
+      }}
+    </div>
+  {%- endif -%}
 </div>
 
 <!-- ====================================================
@@ -108,36 +118,18 @@
         {%- assign step_num       = i -%}
         {%- assign title_key      = 'step' | append: i | append: '_title' -%}
         {%- assign desc_key       = 'step' | append: i | append: '_description' -%}
-        {%- assign img_key        = 'step' | append: i | append: '_image' -%}
         {%- assign step_title     = section.settings[title_key] -%}
         {%- assign step_desc      = section.settings[desc_key] -%}
-        {%- assign step_img       = section.settings[img_key] -%}
 
-        <div class="cc-step fade-up" data-delay="{{ forloop.index | plus: 2 }}">
-          <!-- Image / placeholder -->
-          <div class="cc-step__img-wrap">
-            {%- if step_img != blank -%}
-              {{
-                step_img
-                | image_url: width: 600
-                | image_tag:
-                  class: 'cc-step__img',
-                  loading: 'lazy',
-                  alt: step_title
-              }}
-            {%- else -%}
-              <div class="cc-step__placeholder" aria-hidden="true">
-                <span class="cc-step__placeholder-label">{{ section.settings.placeholder_label }}</span>
-              </div>
-            {%- endif -%}
-          </div>
-
-          <div class="cc-step__body">
+        {%- if step_title != blank -%}
+          <div class="cc-step fade-up" data-delay="{{ forloop.index | plus: 2 }}">
             <span class="cc-step__num" aria-hidden="true">0{{ step_num }}</span>
-            <h3 class="cc-step__title">{{ step_title }}</h3>
-            <p class="cc-step__desc">{{ step_desc }}</p>
+            <div class="cc-step__body">
+              <h3 class="cc-step__title">{{ step_title }}</h3>
+              <p class="cc-step__desc">{{ step_desc }}</p>
+            </div>
           </div>
-        </div>
+        {%- endif -%}
       {%- endfor -%}
     </div>
   </div>
@@ -295,40 +287,41 @@
    HERO
    ============================================================ */
 .cc-hero {
-  position: relative;
   background-color: var(--cc-hero-bg, #ffffff);
-  min-height: 72vh;
   display: flex;
   align-items: center;
-  overflow: hidden;
 }
 
-.cc-hero__overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    radial-gradient(ellipse at 10% 60%, rgba(45, 58, 24, 0.30) 0%, transparent 55%),
-    radial-gradient(ellipse at 90% 10%, rgba(122, 102, 52, 0.14) 0%, transparent 48%),
-    linear-gradient(to bottom, rgba(45, 58, 24, 0.60) 0%, rgba(45, 58, 24, 0.85) 100%);
-}
-
-.cc-hero__grid {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background-image:
-    linear-gradient(rgba(45, 58, 24, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(45, 58, 24, 0.07) 1px, transparent 1px);
-  background-size: 56px 56px;
+/* With an image the hero splits: copy on paper, photography beside it.
+   No scrim or wash — the type never sits on the picture. */
+.cc-hero--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  gap: 0;
 }
 
 .cc-hero__content {
-  position: relative;
-  z-index: 3;
-  padding: clamp(80px, 12vh, 160px) clamp(24px, 6vw, 100px);
+  padding: clamp(72px, 11vh, 150px) clamp(24px, 6vw, 100px);
   max-width: 1000px;
   width: 100%;
+  align-self: center;
+}
+
+.cc-hero__media {
+  position: relative;
+  min-height: 100%;
+  background-color: var(--color-paper-cool);
+  overflow: hidden;
+}
+
+.cc-hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .cc-hero__eyebrow {
@@ -416,45 +409,16 @@
 .cc-steps__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 40px;
 }
 
+/* Typographic steps — a numeral and a hairline, no artwork to supply. */
 .cc-step {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-}
-
-/* Placeholder image slot */
-.cc-step__img-wrap {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border: 1px solid var(--cc-steps-ph-bdr, #1f290f);
-}
-
-.cc-step__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.cc-step__placeholder {
-  width: 100%;
-  height: 100%;
-  background-color: var(--cc-steps-ph-bg, #18180e);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cc-step__placeholder-label {
-  font-family: var(--font-label);
-    font-stretch: var(--label-stretch);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #3a3a30;
+  gap: 16px;
+  padding-top: 22px;
+  border-top: 2px solid var(--cc-steps-num, #4a5c2a);
 }
 
 .cc-step__body {
@@ -465,9 +429,10 @@
 
 .cc-step__num {
   font-family: var(--font-heading);
-  font-size: 52px;
-  line-height: 1;
-  color: var(--cc-steps-num, #1f290f);
+  font-size: clamp(44px, 5vw, 64px);
+  font-weight: 600;
+  line-height: 0.9;
+  color: var(--cc-steps-num, #4a5c2a);
   letter-spacing: 0.01em;
 }
 
@@ -698,22 +663,26 @@
 @media (max-width: 900px) {
   .cc-steps__grid {
     grid-template-columns: 1fr;
-    gap: 48px;
-    max-width: 520px;
+    gap: 36px;
+    max-width: 560px;
     margin-left: auto;
     margin-right: auto;
   }
 
-  .cc-step__img-wrap {
-    aspect-ratio: 16 / 9;
+  .cc-benefits__grid { grid-template-columns: repeat(2, 1fr); }
+
+  .cc-hero--split {
+    grid-template-columns: 1fr;
   }
 
-  .cc-benefits__grid { grid-template-columns: repeat(2, 1fr); }
+  .cc-hero__media {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+    order: -1;
+  }
 }
 
 @media (max-width: 768px) {
-  .cc-hero { min-height: 80svh; }
-
   .cc-hero__headline { font-size: clamp(48px, 13vw, 80px); }
 
   .cc-steps,
@@ -779,6 +748,12 @@
       "label": "CTA button URL"
     },
     {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image",
+      "info": "Optional. With an image the hero splits in two — copy on one side, photography on the other. This is the only image the page uses."
+    },
+    {
       "type": "header",
       "content": "Hero — Colors"
     },
@@ -829,12 +804,6 @@
       "default": "Three Steps to Launch"
     },
     {
-      "type": "text",
-      "id": "placeholder_label",
-      "label": "Image placeholder label",
-      "default": "Image Coming Soon"
-    },
-    {
       "type": "header",
       "content": "How It Works — Step 1"
     },
@@ -849,11 +818,6 @@
       "id": "step1_description",
       "label": "Step 1 description",
       "default": "Sign up for the Community Creation Membership at $25/month. No contracts. Cancel anytime."
-    },
-    {
-      "type": "image_picker",
-      "id": "step1_image",
-      "label": "Step 1 image (optional)"
     },
     {
       "type": "header",
@@ -872,11 +836,6 @@
       "default": "We email you a private product link branded to your community. Share it with your members — that's it."
     },
     {
-      "type": "image_picker",
-      "id": "step2_image",
-      "label": "Step 2 image (optional)"
-    },
-    {
       "type": "header",
       "content": "How It Works — Step 3"
     },
@@ -891,11 +850,6 @@
       "id": "step3_description",
       "label": "Step 3 description",
       "default": "Every month your members receive a custom patch with your gym's name on it. A monthly touchpoint that builds identity."
-    },
-    {
-      "type": "image_picker",
-      "id": "step3_image",
-      "label": "Step 3 image (optional)"
     },
     {
       "type": "header",
@@ -916,7 +870,7 @@
     {
       "type": "color",
       "id": "steps_number_color",
-      "label": "Step number color",
+      "label": "Step number & rule color",
       "default": "#1f290f"
     },
     {
@@ -930,18 +884,6 @@
       "id": "steps_body_color",
       "label": "Step description color",
       "default": "#5f6653"
-    },
-    {
-      "type": "color",
-      "id": "steps_placeholder_bg",
-      "label": "Image placeholder background",
-      "default": "#f6f6f3"
-    },
-    {
-      "type": "color",
-      "id": "steps_placeholder_border",
-      "label": "Image placeholder border",
-      "default": "#e3e3dc"
     },
     {
       "type": "header",

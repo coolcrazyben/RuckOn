@@ -25,23 +25,17 @@
         "hero_subtext_color": "#5f6653",
         "steps_eyebrow": "How It Works",
         "steps_heading": "Three Steps to Launch",
-        "placeholder_label": "Image Coming Soon",
         "step1_title": "Found Your Club",
         "step1_description": "Tell us what your community is called. Founding a club is $0/month — no contracts, no inventory, cancel anytime.",
-        "step1_image": "shopify://shop_images/ChatGPT_Image_Mar_7_2026_03_09_15_PM.png",
         "step2_title": "We Build Your Page",
         "step2_description": "We design a custom embroidered patch around your club and give it its own membership page on the Ruck On store. You get the link.",
-        "step2_image": "shopify://shop_images/ChatGPT_Image_Mar_7_2026_08_16_39_PM.png",
         "step3_title": "Your Members Get Patched",
         "step3_description": "Share the link. Your members subscribe on your page and receive a patch carrying your gym's name every month — a touchpoint that builds identity.",
-        "step3_image": "shopify://shop_images/ChatGPT_Image_Mar_7_2026_08_16_40_PM.png",
         "steps_bg_color": "#f6f6f3",
         "steps_label_color": "#7a6634",
         "steps_number_color": "#1f290f",
         "steps_title_color": "#2d3a18",
         "steps_body_color": "#5f6653",
-        "steps_placeholder_bg": "#f6f6f3",
-        "steps_placeholder_border": "#e3e3dc",
         "why_eyebrow": "Why It Works",
         "why_heading": "Built for Communities That Carry",
         "prop1_icon": "◈",
@@ -89,7 +83,8 @@
         "benefits_heading_color": "#2d3a18",
         "benefits_title_color": "#2d3a18",
         "benefits_body_color": "#5f6653",
-        "benefits_marker_color": "#4a5c2a"
+        "benefits_marker_color": "#4a5c2a",
+        "hero_image": "shopify://shop_images/ChatGPT_Image_Mar_7_2026_03_09_15_PM.png"
       }
     }
   },
