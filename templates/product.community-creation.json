@@ -75,8 +75,8 @@
             "plus_1_note": "We design an embroidered patch around your community's name and send it for your approval before the first run.",
             "plus_2_title": "Your name on every member patch",
             "plus_2_note": "Everyone who rucks with your club carries your community's name on their kit each month.",
-            "plus_3_title": "Your club in the member picker",
-            "plus_3_note": "Your community is listed at checkout so your people can find it and join in one click."
+            "plus_3_title": "Your own club membership page",
+            "plus_3_note": "We stand up a page for your club on the Ruck On store and send you the link to share with your members."
           }
         },
         "buy_buttons": {
@@ -105,9 +105,9 @@
             "tab_shipping": "Shipping & Returns",
             "shipping_content": "<p>Your patch ships free at the start of every billing cycle. Membership is billed monthly and can be cancelled anytime from your account — no contracts.</p>",
             "tab_howto": "How It Works",
-            "howto_content": "<ol><li><strong>Name your club</strong> — tell us what your community is called. That name goes on every patch your members receive.</li><li><strong>We design your patch</strong> — our team builds a custom embroidered patch for your club and sends it to you for approval before the first run.</li><li><strong>Your people join</strong> — your club appears in the member picker, and anyone who joins it gets your patch every month.</li></ol>",
+            "howto_content": "<ol><li><strong>Name your club</strong> — tell us what your community is called. That name goes on every patch your members receive.</li><li><strong>We build your page</strong> — our team designs a custom embroidered patch for your club and gives it its own membership page on our store.</li><li><strong>Your people join</strong> — share the link. Your members subscribe on your page and get your patch every month.</li></ol>",
             "tab_faq": "FAQ",
-            "faq_content": "<p><strong>Do I get member benefits too?</strong><br>Yes. Founding a club includes a full membership — 10% off store wide, exclusive drops, monthly workouts and a patch every month — plus the club perks on top.</p><p><strong>Who designs the patch?</strong><br>We do. Send us your club name and any logo or colors, and our team designs the patch and sends it for approval before anything is produced.</p><p><strong>What does it cost my members?</strong><br>The same as any Ruck On membership. They pick your club at checkout and get your patch instead of the Ruck On Club patch.</p><p><strong>How do my members find my club?</strong><br>Once your club is set up it appears in the community picker on the membership product.</p><p><strong>Is there a minimum number of members?</strong><br>No. Start with one and grow from there.</p><p><strong>Can I cancel?</strong><br>Yes — no contracts. Manage or cancel anytime from your account.</p>",
+            "faq_content": "<p><strong>Do I get member benefits too?</strong><br>Yes. Founding a club includes a full membership — 10% off store wide, exclusive drops, monthly workouts and a patch every month — plus the club perks on top.</p><p><strong>Who designs the patch?</strong><br>We do. Send us your club name and any logo or colors, and our team designs the patch and sends it for approval before anything is produced.</p><p><strong>What does it cost my members?</strong><br>The same as any Ruck On membership. They subscribe on your club's own page and get your patch instead of the Ruck On Club patch.</p><p><strong>How do my members find my club?</strong><br>You send them the link. Your club gets its own membership page on our store — share it in the gym, in your group chat, wherever your people are.</p><p><strong>Is there a minimum number of members?</strong><br>No. Start with one and grow from there.</p><p><strong>Can I cancel?</strong><br>Yes — no contracts. Manage or cancel anytime from your account.</p>",
             "show_reviews_tab": false,
             "tab_reviews": "Reviews",
             "reviews_content": "<p>Customer reviews coming soon.</p>"
@@ -163,7 +163,7 @@
           "settings": {
             "icon": "🏋️",
             "title": "Your Gym's Club",
-            "description": "Already ruck with a gym or a crew? Pick them from the list and your monthly patch carries their name."
+            "description": "Already ruck with a gym or a crew? Join on your club's own page and your monthly patch carries their name."
           }
         },
         "club_own": {
@@ -192,7 +192,7 @@
           "type": "step",
           "settings": {
             "title": "Your People Join",
-            "description": "Your club appears in the member picker. Anyone who joins it gets your patch — and every member benefit — each month."
+            "description": "Share your link. Your members subscribe on your club's page and get your patch — and every member benefit — each month."
           }
         }
       },

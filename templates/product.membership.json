@@ -151,7 +151,7 @@
           "settings": {
             "icon": "🏋️",
             "title": "Your Gym's Club",
-            "description": "Already ruck with a gym or a crew? Pick them from the list and your monthly patch carries their name."
+            "description": "Already ruck with a gym or a crew? Join on your club's own page and your monthly patch carries their name."
           }
         },
         "club_own": {
@@ -159,7 +159,7 @@
           "settings": {
             "icon": "🚩",
             "title": "Start Your Own",
-            "description": "Run a gym or a crew? Found a club, get a patch designed for it, and put your name on every member's kit."
+            "description": "Run a gym or a crew? Found a club free, get a patch designed for it, and get your own page to send your members to."
           }
         },
         "step_1": {
