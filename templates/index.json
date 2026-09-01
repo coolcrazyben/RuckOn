@@ -83,38 +83,19 @@
         "card_text_color": "#ffffff"
       }
     },
-    "best-sellers": {
-      "type": "best-sellers",
-      "settings": {
-        "eyebrow_text": "",
-        "heading_text_1": "Best Sellers",
-        "heading_text_2": "",
-        "view_all_text": "Shop Now",
-        "collection": "best-sellers",
-        "product_limit": 6,
-        "show_badge": false,
-        "card_cta_text": "Shop",
-        "empty_text": "No products found — add some to this collection.",
-        "background_color": "#ffffff",
-        "eyebrow_color": "#7a6634",
-        "heading_color": "#2d3a18",
-        "accent_color": "#7a6634",
-        "badge_bg_color": "#7a6634",
-        "badge_text_color": "#2d3a18"
-      }
-    },
     "category-spotlight": {
       "type": "category-spotlight",
       "blocks": {
         "panel_best": {
           "type": "panel",
           "settings": {
-            "image": "shopify://shop_images/19-DSC06372.jpg",
+            "image": "shopify://shop_images/1-DSC06301.jpg",
             "eyebrow": "Shop",
             "heading": "Best Sellers",
             "body": "The gear that earns its place on every ruck.",
             "cta_text": "Shop the Collection",
             "collection": "best-sellers",
+            "link_url": "",
             "content_position": "bottom",
             "overlay_strength": 0.6,
             "text_color": "#ffffff"
@@ -128,6 +109,7 @@
             "heading": "Ruck On Stories",
             "body": "Miles, weight and the people carrying it.",
             "cta_text": "Read the Stories",
+            "collection": "",
             "link_url": "shopify://blogs/story",
             "content_position": "bottom",
             "overlay_strength": 0.6,
@@ -140,6 +122,9 @@
         "panel_stories"
       ],
       "settings": {
+        "eyebrow_text": "",
+        "heading_text_1": "",
+        "heading_text_2": "",
         "panel_ratio": "4 / 3",
         "gap": 8,
         "full_width": false,
@@ -256,7 +241,6 @@
   "order": [
     "hero",
     "shop-by-category",
-    "best-sellers",
     "category-spotlight",
     "manifesto",
     "manifesto_niEbeg",
