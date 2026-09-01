@@ -150,13 +150,6 @@ h1 em, h2 em, h3 em, h4 em,
   border-color: var(--color-green);
 }
 
-/* Back-compat: earlier markup used .btn--navy for the solid CTA. */
-.btn--navy {
-  background: var(--color-green);
-  color: #fff;
-  border-color: var(--color-green);
-}
-
 /* Outline on paper */
 .btn--secondary {
   background: transparent;

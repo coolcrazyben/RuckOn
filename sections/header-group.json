@@ -33,7 +33,7 @@
         "logo_text_1": "RUCK",
         "logo_text_2": "ON",
         "menu": "main-menu",
-        "nav_alignment": "left",
+        "nav_alignment": "split",
         "cart_label": "Cart",
         "account_label": "Account",
         "background_color": "#ffffff",

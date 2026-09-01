@@ -29,7 +29,7 @@
         type="submit"
         name="add"
         id="product-add-btn"
-        class="btn btn--navy product-actions__add"
+        class="btn btn--primary product-actions__add"
         data-add-text="{{ block.settings.add_to_cart_text | escape }}"
         data-sold-text="{{ block.settings.sold_out_text | escape }}"
         {%- unless current_variant.available -%}disabled{%- endunless -%}

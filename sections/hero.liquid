@@ -113,7 +113,7 @@
 
     <div class="hero__buttons fade-up" data-delay="5">
       {%- if section.settings.btn_primary_text != blank -%}
-        <a href="{{ section.settings.btn_primary_url | default: '#' }}" class="btn btn--white">
+        <a href="{{ section.settings.btn_primary_url | default: '#' }}" class="btn btn--primary">
           {{ section.settings.btn_primary_text }}
         </a>
       {%- endif -%}

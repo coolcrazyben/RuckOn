@@ -37,7 +37,7 @@
 
     {%- if section.settings.cta_text != blank -%}
       <div class="manifesto__cta fade-up" data-delay="5">
-        <a href="{{ section.settings.cta_url | default: '#' }}" class="btn btn--navy">
+        <a href="{{ section.settings.cta_url | default: '#' }}" class="btn btn--primary">
           {{ section.settings.cta_text }}
         </a>
       </div>

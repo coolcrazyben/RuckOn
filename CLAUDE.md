@@ -4,73 +4,86 @@
 - **Name:** Ruck On
 - **Tagline:** "Carry the Weight"
 - **Description:** Gear for the long carry — made for people who never put the ruck down.
-- **Vibe:** Editorial running-heritage. Paper-white grounds, deep navy ink, antique
-  gold accents, big photography and a display serif. Restrained, premium, magazine-like.
-  Modelled on tracksmith.com.
+- **Vibe:** Field kit on paper. Olive green and worn tan on light grounds, big
+  photography, condensed athletic caps. Editorial layout, rugged voice.
 
 ## Color Palette
 ```
---color-navy:        #0a1e32  (primary ink, dark panels, solid buttons)
---color-navy-deep:   #061524  (deepest navy)
---color-navy-mid:    #2c4763  (mid navy)
---color-navy-60:     #5c6469  (secondary body copy, meta)
---color-gold:        #9a825c  (accent, dividers)
---color-gold-dark:   #857151  (eyebrows, stroke links, solid gold buttons)
---color-gold-light:  #c3ac83
+--color-green:       #4a5c2a  (PRIMARY — buttons, links, accents)
+--color-green-deep:  #1f290f
+--color-green-light: #6b7f3e
+--color-ink:         #2d3a18  (dark olive — headings and body ink)
+--color-ink-60:      #5f6653  (secondary copy, meta)
+--color-tan:         #7a6634  (eyebrows, stroke links, headline accents)
+--color-tan-light:   #c8a96e  (accents over photography only — 2.2:1 on white)
 --color-paper:       #ffffff  (main background)
---color-paper-warm:  #f4f0e9  (cream — pull quotes, newsletter)
---color-paper-cool:  #f8f8f9  (product-card media tile)
---color-rule:        #e7e9eb  (hairline borders — the only border colour)
+--color-paper-warm:  #f2f1ea  (pull quotes, newsletter)
+--color-paper-cool:  #f6f6f3  (product-card media tile)
+--color-rule:        #e3e3dc  (hairline borders — the only border colour)
 ```
 
-Legacy aliases (`--color-olive`, `--color-tan`, `--color-black`, `--color-white`,
-`--color-orange`, …) still exist in `snippets/css-variables.liquid` and now resolve to
-the palette above, so older section CSS keeps working. **Prefer the new token names in
-new code**; treat the aliases as a compatibility layer, not an API.
+**Orange is retired.** The old `--color-orange` alias resolves to green so legacy
+section CSS keeps working; do not reintroduce it.
+
+Legacy aliases (`--color-olive`, `--color-black`, `--color-white`, `--color-charcoal`,
+`--color-cream`, …) live in `snippets/css-variables.liquid` and resolve to the palette
+above. **Prefer the real token names in new code**; the aliases are a compatibility
+layer, not an API.
+
+Contrast: green 7.35:1, ink 12.1:1, ink-60 6.0:1, tan 5.6:1 — all on white, all AA.
+`--color-tan-light` fails on paper; use it only over photography.
 
 ## Typography
-- **Playfair Display** (`--font-heading`) — headlines, product/collection titles,
-  prices, stat numbers, the wordmark. Always `font-weight: 400`, tight leading,
-  slightly negative tracking, Title Case (never uppercase except the wordmark).
-- **Archivo** (`--font-label` and `--font-body`) — nav, eyebrows, buttons, labels,
-  body copy. Loaded as a variable font; label/uppercase text sets
-  `font-stretch: var(--label-stretch)` (112%) to read as an extended grotesque.
+- **Oswald** (`--font-heading` and `--font-label`) — headlines, wordmark, eyebrows,
+  nav, buttons, labels, prices, stat numbers. Display headings are **uppercase,
+  weight 600, `letter-spacing: 0.01em`**. Labels are ~11px at `0.16em`.
+- **Inter** (`--font-body`) — body copy, product-card titles, form fields.
+- `--label-stretch` is `normal` (Oswald has no width axis); the variable is kept so
+  existing label rules stay valid.
 
-### The house italic
-Headlines pair a roman phrase with an italic accent — "The Ruck *is Sacred*",
-"Join Our *Newsletter*", "Better *Together*". Sections express this as a second
-settings field rendered in a `<span>` (or `<em>` where the section has one text field);
-the accent is **italic in the same ink**, never a colour change.
+### The house accent
+Headlines pair a phrase with an accent word shifted to **tan** — "THE RUCK / IS SACRED",
+"BETTER / TOGETHER". Sections express this as a second settings field rendered in a
+`<span>` (or `<em>` where the section has one text field). Oswald has no italic, so the
+accent is always a colour shift, never a style change.
+
+**Do not append an accent colour to a rule that already sets a settings-driven colour** —
+it silently overrides the merchant's choice. Drive the accent from the setting instead.
 
 ## Design Tokens
-- Buttons are rectangular — no radius, no shadow, no skew. ~11px uppercase,
+- Buttons are rectangular — no radius, shadow or skew. ~11px uppercase,
   `letter-spacing: 0.18em`, `min-width: 9rem`, hover `opacity: 0.8`.
-  Variants: `.btn--primary` (solid gold-dark), `.btn--navy` (solid navy — use for
-  commerce actions: add to cart, checkout), `.btn--secondary` (navy outline on paper),
-  `.btn--white` / `.btn--outline-light` (over photography).
-- `.link-stroke` is the house text CTA: uppercase micro-label with a 40%-opacity
-  hairline underline that solidifies on hover. Variants `--navy`, `--light`.
-- Borders are hairlines in `--color-rule`. Do not tint borders gold.
-- All uppercase text: `letter-spacing: 0.16em` (0.18–0.24em for buttons and eyebrows).
+  Variants: `.btn--primary` (solid green — the default CTA everywhere),
+  `.btn--secondary` (ink outline, fills on hover), `.btn--white` /
+  `.btn--outline-light` (over photography).
+- `.link-stroke` is the house text CTA: uppercase micro-label with a hairline
+  underline that solidifies on hover. Variants `--navy` (ink), `--light`.
+- Borders are hairlines in `--color-rule`. Do not tint borders tan.
 - Scroll-triggered `fade-up` animations on cards and stats.
-- Product cards are centred and borderless: media on `--color-paper-cool`, sans title,
-  **serif price**, hover `scale(1.035)`.
+- Product cards are centred and borderless: media on `--color-paper-cool`,
+  Inter title, Oswald price, hover `scale(1.035)`.
 
 ## Header Layout
 3-column CSS grid (`1fr auto 1fr`) so the logo is always truly centered:
 
 | Zone | Desktop (≥1025px) | Mobile (≤1024px) |
 |------|-------------------|------------------|
-| Left `.site-header__left` | Nav links | Hamburger |
+| Left `.site-header__left` | First half of nav | Hamburger |
 | Center `.site-header__logo` | Logo | Logo |
-| Right `.site-header__right` | Account + Cart icons | Account + Cart icons |
+| Right `.site-header__right` | Second half of nav + Account + Cart | Account + Cart |
 
 - White bar, hairline bottom rule, no blur or gradient.
-- `nav_alignment` (schema) defaults to `left` — all links sit left of the centred
-  wordmark, as on the reference site. Set it to `split` to balance them either side.
-- Cart is an **icon link** (shopping bag SVG); the count is a small plain gold numeral,
+- `nav_alignment` (schema) is set to **`split`** — links divide evenly either side of
+  the wordmark, odd counts putting the extra on the left. Set it to `left` to stack
+  them all before the logo.
+- Cart is an **icon link** (shopping bag SVG); the count is a small plain tan numeral,
   not a filled pip.
 - Mobile slide-out drawer is triggered by the hamburger button.
+
+## Known Gaps
+- Nav is a flat link list; there is no mega-menu.
+- The stored logo image was drawn for the old dark header and is not wired up —
+  the header falls back to the Oswald text wordmark.
 
 ## Product Page Architecture
 The product page is **block-based**. `sections/product.liquid` renders the gallery (left
