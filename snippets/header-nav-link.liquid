@@ -1,0 +1,64 @@
+{% doc %}
+  Renders one top-level item in the desktop header nav.
+
+  When the menu link has children, the item also renders a dropdown panel
+  containing them. The panel opens on `:hover` and on `:focus-within`, so it is
+  reachable by keyboard without a separate toggle button — tabbing into the
+  parent link reveals the panel and the child links follow in tab order.
+
+  Third-level links (children of children) are rendered as a nested list inside
+  the same panel, since Shopify menus allow two levels of nesting.
+
+  @param link {object} - A linklist link, e.g. from `section.settings.menu.links`.
+{% enddoc %}
+
+{%- assign has_children = false -%}
+{%- if link.links.size > 0 -%}
+  {%- assign has_children = true -%}
+{%- endif -%}
+
+<div class="site-header__nav-item{% if has_children %} has-submenu{% endif %}">
+  <a
+    href="{{ link.url }}"
+    class="site-header__nav-link{% if link.active %} is-active{% endif %}"
+    {% if link.current %}aria-current="page"{% endif %}
+    {% if has_children %}aria-haspopup="true"{% endif %}
+  >
+    {{ link.title }}
+    {%- if has_children -%}
+      <svg class="site-header__caret" viewBox="0 0 10 6" aria-hidden="true" focusable="false">
+        <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+    {%- endif -%}
+  </a>
+
+  {%- if has_children -%}
+    <div class="site-header__submenu">
+      <ul class="site-header__submenu-list" role="list">
+        {%- for child in link.links -%}
+          <li class="site-header__submenu-item">
+            <a
+              href="{{ child.url }}"
+              class="site-header__submenu-link{% if child.active %} is-active{% endif %}"
+              {% if child.current %}aria-current="page"{% endif %}
+            >{{ child.title }}</a>
+
+            {%- if child.links.size > 0 -%}
+              <ul class="site-header__submenu-sublist" role="list">
+                {%- for grandchild in child.links -%}
+                  <li>
+                    <a
+                      href="{{ grandchild.url }}"
+                      class="site-header__submenu-link site-header__submenu-link--nested{% if grandchild.active %} is-active{% endif %}"
+                      {% if grandchild.current %}aria-current="page"{% endif %}
+                    >{{ grandchild.title }}</a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+</div>

@@ -30,13 +30,7 @@
       {%- comment -%} Desktop navigation {%- endcomment -%}
       <nav class="site-header__nav" aria-label="Main navigation">
         {% for link in nav_links limit: left_count %}
-          <a
-            href="{{ link.url }}"
-            class="site-header__nav-link{% if link.active %} is-active{% endif %}"
-            {% if link.current %}aria-current="page"{% endif %}
-          >
-            {{ link.title }}
-          </a>
+          {% render 'header-nav-link', link: link %}
         {% endfor %}
       </nav>
 
@@ -86,13 +80,7 @@
       {%- comment -%} Right nav — desktop only, hidden on mobile via .site-header__nav rule {%- endcomment -%}
       <nav class="site-header__nav site-header__nav--right" aria-label="Main navigation secondary">
         {% for link in nav_links offset: left_count %}
-          <a
-            href="{{ link.url }}"
-            class="site-header__nav-link{% if link.active %} is-active{% endif %}"
-            {% if link.current %}aria-current="page"{% endif %}
-          >
-            {{ link.title }}
-          </a>
+          {% render 'header-nav-link', link: link %}
         {% endfor %}
       </nav>
 
@@ -159,6 +147,39 @@
             class="mobile-nav__link{% if link.active %} is-active{% endif %}"
             {% if link.current %}aria-current="page"{% endif %}
           >{{ link.title }}</a>
+
+          {%- comment -%}
+            Children are always visible rather than behind a toggle: the drawer
+            already scrolls, and a disclosure adds a tap between the shopper and
+            the link they came for.
+          {%- endcomment -%}
+          {%- if link.links.size > 0 -%}
+            <ul class="mobile-nav__sublinks" role="list">
+              {%- for child in link.links -%}
+                <li>
+                  <a
+                    href="{{ child.url }}"
+                    class="mobile-nav__sublink{% if child.active %} is-active{% endif %}"
+                    {% if child.current %}aria-current="page"{% endif %}
+                  >{{ child.title }}</a>
+
+                  {%- if child.links.size > 0 -%}
+                    <ul class="mobile-nav__sublinks mobile-nav__sublinks--nested" role="list">
+                      {%- for grandchild in child.links -%}
+                        <li>
+                          <a
+                            href="{{ grandchild.url }}"
+                            class="mobile-nav__sublink{% if grandchild.active %} is-active{% endif %}"
+                            {% if grandchild.current %}aria-current="page"{% endif %}
+                          >{{ grandchild.title }}</a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
         </li>
       {%- endfor -%}
     </ul>
@@ -262,6 +283,16 @@
     gap: 2.25rem;
   }
 
+  /* Nav item wraps the link so the dropdown can anchor to it. Stretching it to
+     the full header height means the panel opens flush with the header's
+     bottom edge, and the mouse never crosses a gap on the way down. */
+  .site-header__nav-item {
+    position: relative;
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+  }
+
   .site-header__nav-link {
     font-family: var(--font-label);
     font-stretch: var(--label-stretch);
@@ -290,6 +321,91 @@
   .site-header__nav-link:hover::after,
   .site-header__nav-link.is-active::after {
     width: 100%;
+  }
+
+  .site-header__caret {
+    width: 8px;
+    height: 5px;
+    margin-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    opacity: 0.65;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .has-submenu:hover .site-header__caret,
+  .has-submenu:focus-within .site-header__caret {
+    transform: rotate(180deg);
+    opacity: 1;
+  }
+
+  /* === Dropdown === */
+  .site-header__submenu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-6px);
+    min-width: 220px;
+    background: var(--header-bg, #ffffff);
+    border: 1px solid var(--color-rule);
+    border-top: none;
+    padding: 14px 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    z-index: 10;
+  }
+
+  /* Opens on hover and on keyboard focus, so no toggle button is needed */
+  .has-submenu:hover .site-header__submenu,
+  .has-submenu:focus-within .site-header__submenu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .site-header__submenu-list,
+  .site-header__submenu-sublist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-header__submenu-link {
+    display: block;
+    font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--header-link, #2d3a18);
+    text-decoration: none;
+    padding: 9px 24px;
+    white-space: nowrap;
+    transition: color 0.2s ease, background 0.2s ease;
+  }
+
+  .site-header__submenu-link:hover,
+  .site-header__submenu-link.is-active {
+    color: var(--color-tan);
+    background: var(--color-paper-cool);
+  }
+
+  .site-header__submenu-sublist { padding-bottom: 4px; }
+
+  .site-header__submenu-link--nested {
+    padding-left: 38px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--color-ink-60);
+  }
+
+  /* Dropdowns are hover-driven, so they have no place in the mobile drawer */
+  @media (max-width: 1024px) {
+    .site-header__submenu { display: none; }
   }
 
   /* Icon links (account + cart) */
@@ -507,6 +623,45 @@
     padding-left: 36px;
   }
 
+  /* Drawer submenu */
+  .mobile-nav__sublinks {
+    list-style: none;
+    margin: 0 0 14px;
+    padding: 0;
+  }
+
+  .mobile-nav__sublinks--nested { margin-bottom: 0; }
+
+  .mobile-nav__sublink {
+    display: block;
+    font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-60);
+    text-decoration: none;
+    padding: 9px 28px 9px 44px;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.3s ease 0.2s, transform 0.3s ease 0.2s, color 0.2s ease;
+  }
+
+  .mobile-nav.is-open .mobile-nav__sublink {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .mobile-nav__sublink:hover,
+  .mobile-nav__sublink.is-active { color: var(--color-tan); }
+
+  .mobile-nav__sublinks--nested .mobile-nav__sublink {
+    padding-left: 60px;
+    font-size: 11px;
+    opacity: 0.85;
+  }
+
   /* Panel footer — cart + account */
   .mobile-nav__foot {
     padding: 24px 28px 32px;
@@ -702,7 +857,7 @@
   });
 
   // Close when a nav link is tapped
-  nav.querySelectorAll('.mobile-nav__link, .mobile-nav__cart, .mobile-nav__logo').forEach(function (el) {
+  nav.querySelectorAll('.mobile-nav__link, .mobile-nav__sublink, .mobile-nav__cart, .mobile-nav__logo').forEach(function (el) {
     el.addEventListener('click', closeNav);
   });
 })();
