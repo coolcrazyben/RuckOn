@@ -15,114 +15,19 @@
         "autoplay_speed": 6,
         "background_image": "shopify://shop_images/544898431_1342224821238342_1899506584520207790_n.jpg",
         "min_height": 700,
-        "eyebrow_text": "// Community Minded Rucking",
-        "eyebrow_color": "#d4622a",
-        "headline_line1": "Built to",
-        "headline1_color": "#faf8f4",
-        "headline_line2": "Ruck On",
-        "headline2_color": "#c8a96e",
-        "subtext": "Community Focused Rucking",
-        "subtext_color": "#e8d5b0",
-        "btn_primary_text": "Shop Now",
+        "eyebrow_text": "Autumn Collection",
+        "eyebrow_color": "#ffffff",
+        "headline_line1": "Carry the",
+        "headline1_color": "#ffffff",
+        "headline_line2": "Weight",
+        "headline2_color": "#ffffff",
+        "subtext": "Built for the miles that ask more of you.",
+        "subtext_color": "#ffffff",
+        "btn_primary_text": "Shop Collection",
         "btn_primary_url": "shopify://collections/all",
         "btn_secondary_text": "Our Story",
         "btn_secondary_url": "shopify://pages/about-us",
-        "show_scroll_indicator": true
-      }
-    },
-    "stats-bar": {
-      "type": "stats-bar",
-      "settings": {
-        "stat_1_number": "20+",
-        "stat_1_label": "Ruckers Strong",
-        "stat_2_number": "500+",
-        "stat_2_label": "Miles Tested",
-        "stat_3_number": "100%",
-        "stat_3_label": "No Quit Guarantee",
-        "stat_4_number": "5★",
-        "stat_4_label": "Avg. Rating",
-        "background_color": "#2d3a18",
-        "number_color": "#c8a96e",
-        "label_color": "#e8d5b0",
-        "divider_color": "#4a5c2a"
-      }
-    },
-    "manifesto_niEbeg": {
-      "type": "manifesto",
-      "name": "Manifesto",
-      "settings": {
-        "quote_line1": "The Ruck On App",
-        "quote_line2": "IS LIVE",
-        "body_text": "Ruck On is live. Track every mile and every pound on your back, find rucks happening near you, and see where you stack up on the leaderboard. Built for anyone who wants to walk with purpose — download it now",
-        "cta_text": "Download Now",
-        "cta_url": "https://apps.apple.com/us/app/ruck-on-fitness/id6773949584",
-        "background_color": "#2d3a18",
-        "quote_color_1": "#faf8f4",
-        "quote_color_2": "#c8a96e",
-        "body_color": "#e8d5b0",
-        "divider_color": "#c8a96e"
-      }
-    },
-    "community_PFtmqE": {
-      "type": "community",
-      "name": "Community",
-      "settings": {
-        "eyebrow_text": "// The Movement",
-        "heading_line1": "Built for Ruckers.",
-        "heading_line2": "By Ruckers.",
-        "body_text": "Join the Ruck On Community and Receive a Custom Workout Card and Patch Each Month. Only want the Card? Don't Worry we have that too!",
-        "stat1_number": "200+",
-        "stat1_label": "Community Members",
-        "stat2_number": "$20",
-        "stat2_label": "A Month",
-        "cta_text": "Join the Community",
-        "cta_url": "shopify://products/monthly-patch-and-workout-subscription",
-        "image_1": "shopify://shop_images/IMG-5723.jpg",
-        "image_2": "shopify://shop_images/Untitled_design_2.png",
-        "badge_text": "Monday is for Rucking",
-        "background_color": "#1e1e1a",
-        "eyebrow_color": "#d4622a",
-        "heading_color_1": "#faf8f4",
-        "heading_color_2": "#c8a96e",
-        "body_color": "#e8d5b0",
-        "stat_number_color": "#c8a96e",
-        "badge_bg_color": "#d4622a",
-        "badge_text_color": "#faf8f4"
-      }
-    },
-    "best-sellers": {
-      "type": "best-sellers",
-      "settings": {
-        "eyebrow_text": "// Drop 01",
-        "heading_text_1": "Best",
-        "heading_text_2": "Sellers",
-        "view_all_text": "View All",
-        "collection": "best-sellers",
-        "product_limit": 7,
-        "show_badge": true,
-        "card_cta_text": "Add to Cart",
-        "empty_text": "No products found — add some to this collection.",
-        "background_color": "#111009",
-        "eyebrow_color": "#d4622a",
-        "heading_color": "#faf8f4",
-        "accent_color": "#c8a96e",
-        "badge_bg_color": "#d4622a",
-        "badge_text_color": "#faf8f4"
-      }
-    },
-    "manifesto": {
-      "type": "manifesto",
-      "settings": {
-        "quote_line1": "Don't Just Rock On.",
-        "quote_line2": "Ruck On.",
-        "body_text": "We don't make gear for the gym. We make gear for the grind — the 20-mile ruck, the 4am alarm, the weight that never comes off. Built by ruckers. Tested in the field. Made to last a lifetime.",
-        "cta_text": "Read Our Story",
-        "cta_url": "shopify://blogs/story/welcome-to-ruck-on",
-        "background_color": "#2d3a18",
-        "quote_color_1": "#faf8f4",
-        "quote_color_2": "#c8a96e",
-        "body_color": "#e8d5b0",
-        "divider_color": "#c8a96e"
+        "show_scroll_indicator": false
       }
     },
     "shop-by-category": {
@@ -135,8 +40,8 @@
             "image": "shopify://shop_images/IMG_5682.jpg",
             "collection": "hats",
             "link_url": "",
-            "product_count": "3 Products",
-            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)"
+            "product_count": "Shop Hats",
+            "gradient_overlay": "linear-gradient(to top, rgba(10,30,50,0.55) 0%, rgba(10,30,50,0.28) 55%, rgba(10,30,50,0.22) 100%)"
           }
         },
         "category_e6TDiC": {
@@ -146,8 +51,8 @@
             "image": "shopify://shop_images/ChatGPTImageApr18_2026_09_08_47PM.png",
             "collection": "shirts",
             "link_url": "shopify://collections/shirts",
-            "product_count": "2 Products",
-            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)"
+            "product_count": "Shop Shirts",
+            "gradient_overlay": "linear-gradient(to top, rgba(10,30,50,0.55) 0%, rgba(10,30,50,0.28) 55%, rgba(10,30,50,0.22) 100%)"
           }
         },
         "category_Vxmmpz": {
@@ -157,8 +62,8 @@
             "image": "shopify://shop_images/4.png",
             "collection": "patch",
             "link_url": "",
-            "product_count": "4 Prodcuts",
-            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)"
+            "product_count": "Shop Patches",
+            "gradient_overlay": "linear-gradient(to top, rgba(10,30,50,0.55) 0%, rgba(10,30,50,0.28) 55%, rgba(10,30,50,0.22) 100%)"
           }
         },
         "category_jq6CfC": {
@@ -168,8 +73,8 @@
             "image": "shopify://shop_images/ChatGPTImageMar5_2026_08_02_26PM.png",
             "collection": "subscriptions",
             "link_url": "",
-            "product_count": "2 Products",
-            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)"
+            "product_count": "Shop Subscriptions",
+            "gradient_overlay": "linear-gradient(to top, rgba(10,30,50,0.55) 0%, rgba(10,30,50,0.28) 55%, rgba(10,30,50,0.22) 100%)"
           }
         }
       },
@@ -180,70 +85,147 @@
         "category_jq6CfC"
       ],
       "settings": {
-        "eyebrow_text": "// Everything You Need",
-        "heading_text_1": "Shop by",
-        "heading_text_2": "Category",
-        "background_color": "#111009",
-        "eyebrow_color": "#d4622a",
-        "heading_color": "#faf8f4",
-        "accent_color": "#c8a96e",
-        "card_text_color": "#faf8f4"
+        "eyebrow_text": "",
+        "heading_text_1": "Shop by Category",
+        "heading_text_2": "",
+        "background_color": "#ffffff",
+        "eyebrow_color": "#857151",
+        "heading_color": "#0a1e32",
+        "accent_color": "#0a1e32",
+        "card_text_color": "#ffffff"
+      }
+    },
+    "best-sellers": {
+      "type": "best-sellers",
+      "settings": {
+        "eyebrow_text": "",
+        "heading_text_1": "Best Sellers",
+        "heading_text_2": "",
+        "view_all_text": "Shop Now",
+        "collection": "best-sellers",
+        "product_limit": 6,
+        "show_badge": false,
+        "card_cta_text": "Shop",
+        "empty_text": "No products found — add some to this collection.",
+        "background_color": "#ffffff",
+        "eyebrow_color": "#857151",
+        "heading_color": "#0a1e32",
+        "accent_color": "#857151",
+        "badge_bg_color": "#857151",
+        "badge_text_color": "#0a1e32"
+      }
+    },
+    "manifesto": {
+      "type": "manifesto",
+      "settings": {
+        "quote_line1": "The Ruck",
+        "quote_line2": "is Sacred",
+        "body_text": "Every mile under load is a deposit. The weight does not negotiate, it does not care about the weather, and it does not care how you slept. Show up anyway. That is the whole method.",
+        "cta_text": "Shop the Collection",
+        "cta_url": "shopify://blogs/story/welcome-to-ruck-on",
+        "background_color": "#f4f0e9",
+        "quote_color_1": "#0a1e32",
+        "quote_color_2": "#0a1e32",
+        "body_color": "#5c6469",
+        "divider_color": "#9a825c"
+      }
+    },
+    "manifesto_niEbeg": {
+      "type": "manifesto",
+      "name": "Manifesto",
+      "settings": {
+        "quote_line1": "The App",
+        "quote_line2": "is Live",
+        "body_text": "New to Ruck On? Track every mile and every pound on your back, find rucks happening near you, and see where you stack up. Built for anyone who wants to walk with purpose.",
+        "cta_text": "Download Now",
+        "cta_url": "https://apps.apple.com/us/app/ruck-on-fitness/id6773949584",
+        "background_color": "#ffffff",
+        "quote_color_1": "#0a1e32",
+        "quote_color_2": "#0a1e32",
+        "body_color": "#5c6469",
+        "divider_color": "#9a825c"
+      }
+    },
+    "community_PFtmqE": {
+      "type": "community",
+      "name": "Community",
+      "settings": {
+        "eyebrow_text": "Membership",
+        "heading_line1": "The Monthly",
+        "heading_line2": "Card",
+        "body_text": "A custom workout card and a patch, posted to you every month. Want the card on its own? That works too.",
+        "stat1_number": "200+",
+        "stat1_label": "Community Members",
+        "stat2_number": "$20",
+        "stat2_label": "A Month",
+        "cta_text": "Join the Club",
+        "cta_url": "shopify://products/monthly-patch-and-workout-subscription",
+        "image_1": "shopify://shop_images/IMG-5723.jpg",
+        "image_2": "shopify://shop_images/Untitled_design_2.png",
+        "badge_text": "Monday is for Rucking",
+        "background_color": "#f4f0e9",
+        "eyebrow_color": "#857151",
+        "heading_color_1": "#0a1e32",
+        "heading_color_2": "#0a1e32",
+        "body_color": "#5c6469",
+        "stat_number_color": "#0a1e32",
+        "badge_bg_color": "#0a1e32",
+        "badge_text_color": "#ffffff"
       }
     },
     "community": {
       "type": "community",
       "settings": {
-        "eyebrow_text": "// The Movement",
-        "heading_line1": "Built for Ruckers.",
-        "heading_line2": "By Ruckers.",
-        "body_text": "Monday is for rucking. The Ruck On community shows up every week — rain, cold, heat, or dark. 10,000 strong and growing. Join the movement that never puts the ruck down.",
+        "eyebrow_text": "Community",
+        "heading_line1": "Better",
+        "heading_line2": "Together",
+        "body_text": "Monday is for rucking. The Ruck On community shows up every week — rain, cold, heat or dark. Ten thousand strong and growing.",
         "stat1_number": "10K+",
         "stat1_label": "Community Members",
         "stat2_number": "52",
         "stat2_label": "Monday Events / Year",
-        "cta_text": "Join the Community",
+        "cta_text": "Run With Us",
         "cta_url": "shopify://products/monthly-patch-and-workout-subscription",
         "image_1": "shopify://shop_images/607645220_1446767074117449_283894495600907984_n.jpg",
         "image_2": "shopify://shop_images/543414701_1342223241238500_1508051128177641398_n.jpg",
         "badge_text": "Monday is for Rucking",
-        "background_color": "#1e1e1a",
-        "eyebrow_color": "#d4622a",
-        "heading_color_1": "#faf8f4",
-        "heading_color_2": "#c8a96e",
-        "body_color": "#e8d5b0",
-        "stat_number_color": "#c8a96e",
-        "badge_bg_color": "#d4622a",
-        "badge_text_color": "#faf8f4"
+        "background_color": "#ffffff",
+        "eyebrow_color": "#857151",
+        "heading_color_1": "#0a1e32",
+        "heading_color_2": "#0a1e32",
+        "body_color": "#5c6469",
+        "stat_number_color": "#0a1e32",
+        "badge_bg_color": "#0a1e32",
+        "badge_text_color": "#ffffff"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "title": "Ruck On. Stay Informed.",
-        "subtitle": "Drop updates, training tips, and gear drops delivered to your inbox.",
-        "input_placeholder": "Enter your email address",
-        "button_text": "Subscribe",
+        "title": "Join Our <em>Newsletter</em>",
+        "subtitle": "Field notes, training and first look at every drop.",
+        "input_placeholder": "Email address",
+        "button_text": "Submit",
         "success_message": "You're in. Welcome to the movement.",
-        "disclaimer": "No spam. Unsubscribe anytime. We ruck, we don't spam.",
-        "background_color": "#2d3a18",
-        "top_border_color": "#c8a96e",
-        "title_color": "#faf8f4",
-        "subtitle_color": "#e8d5b0",
-        "input_bg_color": "#111009",
-        "input_border_color": "#c8a96e",
-        "button_bg_color": "#d4622a",
-        "button_text_color": "#faf8f4"
+        "disclaimer": "No spam. Unsubscribe any time.",
+        "background_color": "#f4f0e9",
+        "top_border_color": "#e7e9eb",
+        "title_color": "#0a1e32",
+        "subtitle_color": "#5c6469",
+        "input_bg_color": "#ffffff",
+        "input_border_color": "#0a1e32",
+        "button_bg_color": "#0a1e32",
+        "button_text_color": "#ffffff"
       }
     }
   },
   "order": [
     "hero",
-    "stats-bar",
-    "manifesto_niEbeg",
-    "community_PFtmqE",
+    "shop-by-category",
     "best-sellers",
     "manifesto",
-    "shop-by-category",
+    "manifesto_niEbeg",
+    "community_PFtmqE",
     "community",
     "newsletter"
   ]

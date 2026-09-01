@@ -6,6 +6,24 @@
 {% endstyle %}
 
 <div class="collection-page">
+  {%- if section.settings.show_collection_header -%}
+    <header class="collection-header">
+      {%- if section.settings.show_breadcrumb -%}
+        <nav class="collection-header__crumbs" aria-label="Breadcrumb">
+          <a href="{{ routes.root_url }}">{{ section.settings.breadcrumb_home_label }}</a>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{{ collection.title }}</span>
+        </nav>
+      {%- endif -%}
+
+      <h1 class="collection-header__title">{{ collection.title }}</h1>
+
+      {%- if section.settings.show_collection_description and collection.description != blank -%}
+        <div class="collection-header__description rte">{{ collection.description }}</div>
+      {%- endif -%}
+    </header>
+  {%- endif -%}
+
   <!-- Sort bar -->
   <div class="collection-sort-bar">
     <div class="collection-sort-bar__inner">
@@ -103,11 +121,64 @@
     background: var(--color-black);
   }
 
+  /* Collection masthead */
+  .collection-header {
+    max-width: var(--page-width);
+    margin: 0 auto;
+    padding: 56px var(--page-margin) 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .collection-header__crumbs {
+    font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-navy-60);
+    display: flex;
+    gap: 8px;
+  }
+
+  .collection-header__crumbs a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .collection-header__crumbs a:hover { color: var(--color-navy); }
+
+  .collection-header__title {
+    font-family: var(--font-heading);
+    font-size: clamp(30px, 3.6vw, 46px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--color-navy);
+  }
+
+  .collection-header__description {
+    max-width: 58ch;
+    font-size: 16px;
+    color: var(--color-navy-60);
+  }
+
+  .collection-header__description p { margin-bottom: 0.6rem; }
+
+  @media (max-width: 768px) {
+    .collection-header { padding: 40px var(--page-margin) 28px; }
+  }
+
   /* Sort bar — scrolls with the grid (not sticky, so it can't float over the
      fixed hide-on-scroll header) */
   .collection-sort-bar {
-    background: var(--color-charcoal);
-    border-bottom: 1px solid rgba(200, 169, 110, 0.12);
+    background: var(--color-paper);
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-rule);
     padding: 0 var(--page-margin);
   }
 
@@ -123,11 +194,12 @@
 
   .collection-sort-bar__count {
     font-family: var(--font-label);
-    font-size: 12px;
+    font-stretch: var(--label-stretch);
+    font-size: 11px;
     font-weight: 500;
-    letter-spacing: 2px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(200, 169, 110, 0.5);
+    color: var(--color-navy-60);
   }
 
   .collection-sort-bar__right {
@@ -138,39 +210,41 @@
 
   .collection-sort-bar__label {
     font-family: var(--font-label);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 2px;
+    font-stretch: var(--label-stretch);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--color-tan);
+    color: var(--color-navy);
     white-space: nowrap;
   }
 
   .collection-sort-bar__select {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(200, 169, 110, 0.3);
-    color: var(--color-tan);
+    background: transparent;
+    border: 1px solid var(--color-rule);
+    color: var(--color-navy);
     font-family: var(--font-label);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
+    font-stretch: var(--label-stretch);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    padding: 6px 32px 6px 12px;
+    padding: 8px 32px 8px 12px;
     appearance: none;
     cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c8a96e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230a1e32' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 10px center;
     outline: none;
   }
 
   .collection-sort-bar__select:focus {
-    border-color: var(--color-tan);
+    border-color: var(--color-navy);
   }
 
   /* Product grid */
   .collection-grid-wrap {
-    padding: 32px var(--page-margin) 80px;
+    padding: 48px var(--page-margin) 96px;
     max-width: calc(var(--page-width) + var(--page-margin) * 2);
     margin: 0 auto;
     width: 100%;
@@ -179,7 +253,8 @@
   .collection-grid {
     display: grid;
     grid-template-columns: repeat(var(--col-cols-desktop, 4), 1fr);
-    gap: 3px;
+    column-gap: 20px;
+    row-gap: 48px;
   }
 
   /* collection-card height driven by image aspect-ratio */
@@ -192,7 +267,7 @@
   }
 
   .collection-card__quick-add {
-    color: var(--color-orange);
+    color: var(--color-gold-dark);
   }
 
   /* Empty */
@@ -209,11 +284,12 @@
 
   .collection-empty__message {
     font-family: var(--font-label);
-    font-size: 15px;
+    font-stretch: var(--label-stretch);
+    font-size: 11px;
     font-weight: 500;
-    letter-spacing: 2px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(200, 169, 110, 0.5);
+    color: var(--color-navy-60);
   }
 
   @media (max-width: 1024px) {
@@ -221,7 +297,7 @@
   }
 
   @media (max-width: 768px) {
-    .collection-grid { grid-template-columns: repeat(var(--col-cols-mobile, 2), 1fr); }
+    .collection-grid { grid-template-columns: repeat(var(--col-cols-mobile, 2), 1fr); column-gap: 12px; row-gap: 32px; }
     /* collection-card height driven by image aspect-ratio */
     .collection-grid-wrap { padding: 24px var(--page-margin) 60px; }
   }
@@ -244,6 +320,34 @@
 {
   "name": "Collection",
   "settings": [
+    {
+      "type": "header",
+      "content": "Collection header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_header",
+      "label": "Show collection title",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumb",
+      "label": "Show breadcrumb",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "breadcrumb_home_label",
+      "label": "Breadcrumb home label",
+      "default": "Home"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "label": "Show collection description",
+      "default": true
+    },
     {
       "type": "header",
       "content": "Sort bar"

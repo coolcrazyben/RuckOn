@@ -164,7 +164,7 @@
               <button
                 type="submit"
                 name="checkout"
-                class="btn btn--primary cart-summary__checkout"
+                class="btn btn--navy cart-summary__checkout"
               >
                 {{ section.settings.checkout_text }}
               </button>
@@ -245,7 +245,7 @@
   .cart-item__image {
     aspect-ratio: 1;
     overflow: hidden;
-    background: rgba(255,255,255,0.04);
+    background: var(--color-paper-cool);
   }
 
   .cart-item__image img,
@@ -278,11 +278,12 @@
   .cart-item__variant,
   .cart-item__selling-plan {
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 12px;
     font-weight: 500;
-    letter-spacing: 2px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(200, 169, 110, 0.55);
+    color: var(--color-navy-60);
   }
 
   .cart-item__controls {
@@ -296,7 +297,7 @@
   .cart-item__qty {
     display: flex;
     align-items: center;
-    border: 1px solid rgba(200, 169, 110, 0.35);
+    border: 1px solid rgba(154, 130, 92, 0.35);
   }
 
   .cart-item__qty-btn {
@@ -313,7 +314,7 @@
   }
 
   .cart-item__qty-btn:hover {
-    background: rgba(200, 169, 110, 0.12);
+    background: rgba(154, 130, 92, 0.12);
   }
 
   .cart-item__qty-input {
@@ -322,10 +323,11 @@
     text-align: center;
     background: none;
     border: none;
-    border-left: 1px solid rgba(200, 169, 110, 0.35);
-    border-right: 1px solid rgba(200, 169, 110, 0.35);
+    border-left: 1px solid rgba(154, 130, 92, 0.35);
+    border-right: 1px solid rgba(154, 130, 92, 0.35);
     color: var(--color-white);
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 14px;
     font-weight: 600;
     -moz-appearance: textfield;
@@ -341,27 +343,29 @@
   }
 
   .cart-item__price {
-    font-family: var(--font-label);
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    color: var(--color-tan);
+    font-family: var(--font-heading);
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--color-navy);
   }
 
   .cart-item__compare-price {
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 13px;
-    color: rgba(200, 169, 110, 0.45);
+    color: rgba(154, 130, 92, 0.45);
     text-decoration: line-through;
   }
 
   .cart-item__remove {
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 2px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(200, 169, 110, 0.4);
+    color: rgba(154, 130, 92, 0.4);
     text-decoration: none;
     align-self: flex-start;
     transition: color 0.2s;
@@ -378,9 +382,10 @@
 
   .cart-note__label {
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 3px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-tan);
     display: block;
@@ -412,7 +417,7 @@
     color: var(--color-white);
     margin-bottom: 20px;
     padding-bottom: 16px;
-    border-bottom: 1px solid rgba(200, 169, 110, 0.15);
+    border-bottom: 1px solid var(--color-rule);
   }
 
   .cart-summary__row {
@@ -424,19 +429,20 @@
 
   .cart-summary__label {
     font-family: var(--font-label);
-    font-size: 13px;
+    font-stretch: var(--label-stretch);
+    font-size: 11px;
     font-weight: 500;
-    letter-spacing: 2px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(200, 169, 110, 0.65);
+    color: rgba(154, 130, 92, 0.65);
   }
 
   .cart-summary__value {
-    font-family: var(--font-label);
+    font-family: var(--font-heading);
     font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--color-tan);
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--color-navy);
   }
 
   .cart-summary__value--discount {
@@ -446,7 +452,7 @@
   .cart-summary__shipping-note {
     font-family: var(--font-body);
     font-size: 13px;
-    color: rgba(200, 169, 110, 0.45);
+    color: rgba(154, 130, 92, 0.45);
     margin: 4px 0 20px;
     line-height: 1.5;
   }
@@ -465,9 +471,10 @@
 
   .cart-summary__continue {
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 2.5px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-tan);
     text-decoration: none;
@@ -493,7 +500,7 @@
   .cart-empty__icon {
     width: 72px;
     height: 72px;
-    color: rgba(200, 169, 110, 0.3);
+    color: rgba(154, 130, 92, 0.3);
     margin-bottom: 24px;
   }
 
@@ -561,9 +568,10 @@
 
   .cart-community__label {
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 3px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-tan);
     display: block;
@@ -589,9 +597,10 @@
 
   .cart-community__status {
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-olive-light);
     flex-shrink: 0;
@@ -606,7 +615,7 @@
   .cart-community__note {
     font-family: var(--font-body);
     font-size: 13px;
-    color: rgba(200, 169, 110, 0.5);
+    color: rgba(154, 130, 92, 0.5);
     margin-top: 10px;
     line-height: 1.5;
   }

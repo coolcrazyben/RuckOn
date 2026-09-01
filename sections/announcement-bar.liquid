@@ -59,11 +59,11 @@
 
 {% stylesheet %}
   .announcement-bar {
-    background-color: var(--ab-bg, #4a5c2a);
-    border-bottom: 1px solid var(--ab-border, #6b7f3e);
-    padding: 11px 20px;
+    background-color: var(--ab-bg, #0a1e32);
+    border-bottom: 1px solid var(--ab-border, #0a1e32);
+    padding: 0 20px;
     text-align: center;
-    height: var(--announcement-bar-height, 42px);
+    height: var(--announcement-bar-height, 36px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,11 +71,12 @@
 
   .announcement-bar__text {
     font-family: var(--font-label);
-    font-size: 13px;
+    font-stretch: var(--label-stretch);
+    font-size: 11px;
     font-weight: 500;
-    letter-spacing: 2px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--ab-text-color, #f5f0e8);
+    color: var(--ab-text-color, #f4f0e9);
     margin: 0;
   }
 
@@ -85,13 +86,12 @@
   }
 
   .announcement-bar__link:hover {
-    color: var(--color-tan);
-    text-decoration: underline;
+    opacity: 0.75;
   }
 
   /* === Scrolling marquee === */
   .announcement-bar--marquee {
-    padding: 11px 0;
+    padding: 0;
     overflow: hidden;
   }
 
@@ -114,11 +114,12 @@
 
   .announcement-bar__item {
     font-family: var(--font-label);
-    font-size: 13px;
+    font-stretch: var(--label-stretch);
+    font-size: 11px;
     font-weight: 500;
-    letter-spacing: 2px;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--ab-text-color, #f5f0e8);
+    color: var(--ab-text-color, #f4f0e9);
     display: inline-flex;
     align-items: center;
     white-space: nowrap;
@@ -174,7 +175,7 @@
       "id": "announcement_text",
       "label": "Announcement messages",
       "info": "Put each message on its own line. They scroll one after another, separated by the symbol below.",
-      "default": "Try the Ruck On App Today\nFree shipping on orders over $75\nUse code RUCKON10 for 10% off"
+      "default": "Free shipping on all orders $200+\nThe Autumn Collection has landed. Shop now\n30-day wear test on every ruck"
     },
     {
       "type": "url",
@@ -196,7 +197,7 @@
       "type": "text",
       "id": "separator",
       "label": "Separator between repeats",
-      "default": "•"
+      "default": "/"
     },
     {
       "type": "range",
@@ -227,19 +228,19 @@
       "type": "color",
       "id": "background_color",
       "label": "Background color",
-      "default": "#4a5c2a"
+      "default": "#0a1e32"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text color",
-      "default": "#f5f0e8"
+      "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "border_color",
       "label": "Border color",
-      "default": "#6b7f3e"
+      "default": "#0a1e32"
     }
   ]
 }

@@ -113,12 +113,12 @@
 
     <div class="hero__buttons fade-up" data-delay="5">
       {%- if section.settings.btn_primary_text != blank -%}
-        <a href="{{ section.settings.btn_primary_url | default: '#' }}" class="btn btn--primary">
+        <a href="{{ section.settings.btn_primary_url | default: '#' }}" class="btn btn--white">
           {{ section.settings.btn_primary_text }}
         </a>
       {%- endif -%}
       {%- if section.settings.btn_secondary_text != blank -%}
-        <a href="{{ section.settings.btn_secondary_url | default: '#' }}" class="btn btn--secondary">
+        <a href="{{ section.settings.btn_secondary_url | default: '#' }}" class="btn btn--outline-light">
           {{ section.settings.btn_secondary_text }}
         </a>
       {%- endif -%}
@@ -149,10 +149,11 @@
 {% stylesheet %}
   .hero {
     position: relative;
-    min-height: max(100svh, var(--hero-min-height, 700px));
-    background-color: var(--color-charcoal);
+    min-height: max(92svh, var(--hero-min-height, 700px));
+    background-color: var(--color-navy);
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
   }
 
@@ -183,118 +184,115 @@
     display: block;
   }
 
-  /* Gradient + color overlays */
+  /* A quiet scrim — just enough to hold type, never enough to dull the photo */
   .hero__overlay {
     position: absolute;
     inset: 0;
     z-index: 1;
     background:
-      radial-gradient(ellipse at 15% 55%, rgba(74, 92, 42, 0.38) 0%, transparent 58%),
-      radial-gradient(ellipse at 85% 15%, rgba(212, 98, 42, 0.18) 0%, transparent 50%),
       linear-gradient(to top,
-        rgba(17, 16, 9, 0.95) 0%,
-        rgba(17, 16, 9, 0.55) 40%,
-        rgba(17, 16, 9, 0.45) 100%
+        rgba(10, 30, 50, 0.45) 0%,
+        rgba(10, 30, 50, 0.18) 45%,
+        rgba(10, 30, 50, 0.28) 100%
       );
   }
 
-  /* Tactical grid */
-  .hero__grid {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    background-image:
-      linear-gradient(rgba(74, 92, 42, 0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(74, 92, 42, 0.07) 1px, transparent 1px);
-    background-size: 60px 60px;
-    animation: grid-pulse 7s ease-in-out infinite;
-  }
+  /* Retired with the tactical treatment; kept so existing markup stays valid */
+  .hero__grid { display: none; }
 
-  @keyframes grid-pulse {
-    0%, 100% { opacity: 0.5; }
-    50%       { opacity: 1;   }
-  }
-
-  /* Content */
+  /* Content — centred masthead */
   .hero__content {
     position: relative;
     z-index: 3;
-    padding: 0 clamp(24px, 5vw, 80px) clamp(64px, 8vh, 120px);
-    max-width: 960px;
+    padding: clamp(64px, 10vh, 140px) clamp(24px, 5vw, 80px);
+    max-width: 900px;
     width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .hero__eyebrow {
     font-family: var(--font-label);
-    font-size: 12px;
+    font-stretch: var(--label-stretch);
+    font-size: 11px;
     font-weight: 500;
-    letter-spacing: 5px;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: var(--hero-eyebrow-color, #d4622a);
+    color: var(--hero-eyebrow-color, rgba(255, 255, 255, 0.78));
     margin-bottom: 1.5rem;
   }
 
   .hero__headline {
     font-family: var(--font-heading);
-    font-size: clamp(68px, 9.5vw, 134px);
-    line-height: 0.93;
-    letter-spacing: -1px;
-    margin-bottom: 1.75rem;
+    font-size: clamp(52px, 7.2vw, 104px);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    margin-bottom: 1.25rem;
     display: flex;
     flex-direction: column;
-    gap: 0.08em;
+    gap: 0;
   }
 
-  .hero__headline-1 { color: var(--hero-headline1-color, #faf8f4); display: block; }
-  .hero__headline-2 { color: var(--hero-headline2-color, #c8a96e); display: block; }
+  .hero__headline-1 {
+    color: var(--hero-headline1-color, #ffffff);
+    display: block;
+  }
+
+  /* The second line carries the house italic */
+  .hero__headline-2 {
+    color: var(--hero-headline2-color, #ffffff);
+    display: block;
+    font-style: italic;
+  }
 
   .hero__subtext {
     font-family: var(--font-body);
-    font-size: 18px;
-    font-weight: 300;
-    color: var(--hero-subtext-color, #e8d5b0);
-    max-width: 520px;
-    line-height: 1.65;
-    margin-bottom: 2.5rem;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--hero-subtext-color, rgba(255, 255, 255, 0.88));
+    max-width: 46ch;
+    line-height: 1.6;
+    margin: 0 auto 2.25rem;
   }
 
   .hero__buttons {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
+    justify-content: center;
   }
 
   /* Slideshow dots */
   .hero__dots {
     position: absolute;
-    bottom: 44px;
+    bottom: 36px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 3;
     display: flex;
-    gap: 12px;
+    gap: 10px;
   }
 
   .hero__dot {
-    width: 10px;
-    height: 10px;
+    width: 7px;
+    height: 7px;
     padding: 0;
-    border: 1px solid var(--color-tan);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     background: transparent;
     border-radius: 50%;
     cursor: pointer;
-    transition: background 0.25s ease, transform 0.25s ease;
+    transition: background 0.25s ease;
   }
 
-  .hero__dot.is-active {
-    background: var(--color-tan);
-    transform: scale(1.15);
-  }
+  .hero__dot.is-active { background: #fff; }
 
   /* Scroll indicator */
   .hero__scroll {
     position: absolute;
-    bottom: 44px;
+    bottom: 36px;
     right: clamp(20px, 4vw, 60px);
     z-index: 3;
     display: flex;
@@ -306,8 +304,8 @@
   .hero__scroll-line {
     display: block;
     width: 1px;
-    height: 64px;
-    background: linear-gradient(to bottom, transparent, #c8a96e);
+    height: 56px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8));
     animation: scroll-pulse 2.4s ease-in-out infinite;
   }
 
@@ -319,19 +317,19 @@
 
   .hero__scroll-label {
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 10px;
-    letter-spacing: 4px;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: var(--color-tan);
+    color: rgba(255, 255, 255, 0.8);
     writing-mode: vertical-rl;
   }
 
   @media (max-width: 768px) {
     .hero__scroll { display: none; }
-
-    .hero__headline {
-      font-size: clamp(52px, 14vw, 90px);
-    }
+    .hero__headline { font-size: clamp(40px, 11vw, 68px); }
+    .hero__buttons { width: 100%; flex-direction: column; align-items: center; }
+    .hero__buttons .btn { width: min(280px, 100%); }
   }
 {% endstylesheet %}
 
@@ -462,13 +460,13 @@
       "type": "text",
       "id": "eyebrow_text",
       "label": "Eyebrow text",
-      "default": "// Tactical Gear & Apparel"
+      "default": "Autumn Collection"
     },
     {
       "type": "color",
       "id": "eyebrow_color",
       "label": "Eyebrow color",
-      "default": "#d4622a"
+      "default": "#ffffff"
     },
     {
       "type": "header",
@@ -477,26 +475,26 @@
     {
       "type": "text",
       "id": "headline_line1",
-      "label": "Headline — line 1 (white)",
-      "default": "Carry"
+      "label": "Headline — line 1 (roman)",
+      "default": "Carry the"
     },
     {
       "type": "color",
       "id": "headline1_color",
       "label": "Headline line 1 color",
-      "default": "#faf8f4"
+      "default": "#ffffff"
     },
     {
       "type": "text",
       "id": "headline_line2",
-      "label": "Headline — line 2 (tan)",
-      "default": "the Weight."
+      "label": "Headline — line 2 (italic)",
+      "default": "Weight"
     },
     {
       "type": "color",
       "id": "headline2_color",
       "label": "Headline line 2 color",
-      "default": "#c8a96e"
+      "default": "#ffffff"
     },
     {
       "type": "header",
@@ -506,13 +504,13 @@
       "type": "textarea",
       "id": "subtext",
       "label": "Subtext paragraph",
-      "default": "Gear built for those who don't put the ruck down. Built to last. Built to perform. Built to Ruck On."
+      "default": "Built for the miles that ask more of you."
     },
     {
       "type": "color",
       "id": "subtext_color",
       "label": "Subtext color",
-      "default": "#e8d5b0"
+      "default": "#ffffff"
     },
     {
       "type": "header",

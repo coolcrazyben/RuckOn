@@ -71,43 +71,47 @@
 
 {% stylesheet %}
   .categories {
-    background-color: var(--cat-bg, #111009);
-    padding: 80px var(--page-margin);
+    background-color: var(--cat-bg, #ffffff);
+    padding: 96px var(--page-margin);
     max-width: var(--page-width);
     margin: 0 auto;
     width: 100%;
   }
 
   .categories__header {
-    margin-bottom: 40px;
+    margin-bottom: 44px;
+    text-align: center;
   }
 
   .categories__title {
     font-family: var(--font-heading);
-    font-size: clamp(36px, 5vw, 60px);
-    line-height: 1;
-    color: var(--cat-heading, #faf8f4);
+    font-size: clamp(30px, 3.6vw, 46px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--cat-heading, #0a1e32);
   }
 
   .categories__title span {
-    color: var(--cat-accent, #c8a96e);
+    color: inherit;
+    font-style: italic;
   }
 
   /* Grid */
   .categories__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 3px;
+    gap: 8px;
   }
 
   /* Card */
   .category-card {
     position: relative;
-    height: 420px;
+    aspect-ratio: 3 / 4;
     overflow: hidden;
     text-decoration: none;
     display: block;
-    background-color: var(--color-charcoal);
+    background-color: var(--color-paper-cool);
   }
 
   .category-card__media {
@@ -124,56 +128,62 @@
     transition: transform 0.7s ease;
   }
 
-  .category-card:hover .category-card__media img { transform: scale(1.06); }
+  .category-card:hover .category-card__media img { transform: scale(1.035); }
 
   .category-card__overlay {
     position: absolute;
     inset: 0;
-    background: var(--card-gradient, linear-gradient(to top, rgba(17,16,9,0.85) 0%, rgba(17,16,9,0.2) 60%, transparent 100%));
+    background: var(--card-gradient, linear-gradient(to top, rgba(10, 30, 50,0.85) 0%, rgba(10, 30, 50,0.2) 60%, transparent 100%));
     z-index: 1;
   }
 
   .category-card__info {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    inset: 0;
     z-index: 2;
-    padding: 28px 24px;
+    padding: 32px 24px 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-end;
     text-align: center;
-    gap: 6px;
+    gap: 14px;
   }
 
   .category-card__name {
     font-family: var(--font-heading);
-    font-size: 28px;
-    line-height: 1;
-    color: var(--cat-card-text, #faf8f4);
+    font-size: clamp(26px, 2.6vw, 38px);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--cat-card-text, #ffffff);
     overflow-wrap: normal;
     word-break: normal;
   }
 
+  /* Reads as the house stroke link sitting under the tile name */
   .category-card__count {
     font-family: var(--font-label);
-    font-size: 12px;
+    font-stretch: var(--label-stretch);
+    font-size: 11px;
     font-weight: 500;
-    letter-spacing: 2.5px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--cat-accent, #c8a96e);
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    padding-bottom: 2px;
+    transition: border-color 0.2s ease;
   }
+
+  .category-card:hover .category-card__count { border-bottom-color: #ffffff; }
 
   @media (max-width: 1024px) {
     .categories__grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (max-width: 768px) {
-    .categories { padding: 60px var(--page-margin); }
-    .categories__grid { grid-template-columns: repeat(2, 1fr); }
-    .category-card { height: 280px; }
-    .category-card__name { font-size: clamp(14px, 4vw, 20px); }
+    .categories { padding: 64px var(--page-margin); }
+    .categories__grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .category-card__name { font-size: clamp(18px, 5vw, 26px); }
   }
 {% endstylesheet %}
 
@@ -186,7 +196,7 @@
       "type": "text",
       "id": "eyebrow_text",
       "label": "Eyebrow label",
-      "default": "// Everything You Need"
+      "default": "Everything You Need"
     },
     {
       "type": "text",
@@ -208,31 +218,31 @@
       "type": "color",
       "id": "background_color",
       "label": "Section background",
-      "default": "#111009"
+      "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "eyebrow_color",
       "label": "Eyebrow color",
-      "default": "#d4622a"
+      "default": "#857151"
     },
     {
       "type": "color",
       "id": "heading_color",
       "label": "Heading color",
-      "default": "#faf8f4"
+      "default": "#0a1e32"
     },
     {
       "type": "color",
       "id": "accent_color",
       "label": "Accent color",
-      "default": "#c8a96e"
+      "default": "#9a825c"
     },
     {
       "type": "color",
       "id": "card_text_color",
       "label": "Card text color",
-      "default": "#faf8f4"
+      "default": "#ffffff"
     }
   ],
   "blocks": [
@@ -273,7 +283,7 @@
           "type": "textarea",
           "id": "gradient_overlay",
           "label": "Card gradient overlay (CSS)",
-          "default": "linear-gradient(to top, rgba(17,16,9,0.88) 0%, rgba(74,92,42,0.3) 60%, transparent 100%)",
+          "default": "linear-gradient(to top, rgba(10, 30, 50,0.88) 0%, rgba(10, 30, 50,0.3) 60%, transparent 100%)",
           "info": "Paste a CSS gradient value for the card's color overlay"
         }
       ]
@@ -288,7 +298,7 @@
           "settings": {
             "category_name": "Ruck Packs",
             "product_count": "24 Products",
-            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(74,92,42,0.35) 60%, transparent 100%)"
+            "gradient_overlay": "linear-gradient(to top, rgba(10, 30, 50,0.9) 0%, rgba(10, 30, 50,0.35) 60%, transparent 100%)"
           }
         },
         {
@@ -296,7 +306,7 @@
           "settings": {
             "category_name": "Apparel",
             "product_count": "38 Products",
-            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(80,60,30,0.4) 60%, transparent 100%)"
+            "gradient_overlay": "linear-gradient(to top, rgba(10, 30, 50,0.9) 0%, rgba(133, 113, 81,0.4) 60%, transparent 100%)"
           }
         },
         {
@@ -304,7 +314,7 @@
           "settings": {
             "category_name": "Accessories",
             "product_count": "16 Products",
-            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(20,45,20,0.45) 60%, transparent 100%)"
+            "gradient_overlay": "linear-gradient(to top, rgba(10, 30, 50,0.9) 0%, rgba(10, 30, 50,0.45) 60%, transparent 100%)"
           }
         },
         {
@@ -312,7 +322,7 @@
           "settings": {
             "category_name": "Community",
             "product_count": "10K+ Members",
-            "gradient_overlay": "linear-gradient(to top, rgba(17,16,9,0.9) 0%, rgba(100,40,15,0.4) 60%, transparent 100%)"
+            "gradient_overlay": "linear-gradient(to top, rgba(10, 30, 50,0.9) 0%, rgba(133, 113, 81,0.4) 60%, transparent 100%)"
           }
         }
       ]

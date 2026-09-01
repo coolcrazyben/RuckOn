@@ -16,7 +16,9 @@
       "settings": {
         "logo_text_1": "RUCK",
         "logo_text_2": "ON",
-        "tagline": "Tactical gear and apparel for those who never put the ruck down.",
+        "tagline": "Gear for the long carry — made for people who never put the ruck down.",
+        "address": "The Rucking House\n112 Grant Street\nBoston, MA 02118",
+        "social_label": "Follow us",
         "show_payment_icons": true,
         "col1_title": "Shop",
         "col1_menu": "footer",
@@ -25,15 +27,15 @@
         "col3_title": "Support",
         "col3_menu": "footer-support",
         "copyright_suffix": "All rights reserved.",
-        "footer_tagline": "Made for Ruckers. By Ruckers.",
-        "background_color": "#111009",
-        "top_border_color": "#c8a96e",
-        "logo_color_1": "#c8a96e",
-        "logo_color_2": "#faf8f4",
-        "tagline_color": "#e8d5b0",
-        "column_title_color": "#c8a96e",
-        "link_color": "#e8d5b0",
-        "bottom_text_color": "#e8d5b0"
+        "footer_tagline": "Carry the Weight",
+        "background_color": "#ffffff",
+        "top_border_color": "#e7e9eb",
+        "logo_color_1": "#0a1e32",
+        "logo_color_2": "#0a1e32",
+        "tagline_color": "#5c6469",
+        "column_title_color": "#0a1e32",
+        "link_color": "#5c6469",
+        "bottom_text_color": "#5c6469"
       }
     }
   },

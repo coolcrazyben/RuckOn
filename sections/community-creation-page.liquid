@@ -228,7 +228,7 @@
    ============================================================ */
 .cc-hero {
   position: relative;
-  background-color: var(--cc-hero-bg, #111009);
+  background-color: var(--cc-hero-bg, #ffffff);
   min-height: 72vh;
   display: flex;
   align-items: center;
@@ -240,9 +240,9 @@
   inset: 0;
   z-index: 1;
   background:
-    radial-gradient(ellipse at 10% 60%, rgba(74, 92, 42, 0.30) 0%, transparent 55%),
-    radial-gradient(ellipse at 90% 10%, rgba(212, 98, 42, 0.14) 0%, transparent 48%),
-    linear-gradient(to bottom, rgba(17, 16, 9, 0.60) 0%, rgba(17, 16, 9, 0.85) 100%);
+    radial-gradient(ellipse at 10% 60%, rgba(10, 30, 50, 0.30) 0%, transparent 55%),
+    radial-gradient(ellipse at 90% 10%, rgba(133, 113, 81, 0.14) 0%, transparent 48%),
+    linear-gradient(to bottom, rgba(10, 30, 50, 0.60) 0%, rgba(10, 30, 50, 0.85) 100%);
 }
 
 .cc-hero__grid {
@@ -250,8 +250,8 @@
   inset: 0;
   z-index: 2;
   background-image:
-    linear-gradient(rgba(74, 92, 42, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(74, 92, 42, 0.07) 1px, transparent 1px);
+    linear-gradient(rgba(10, 30, 50, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 30, 50, 0.07) 1px, transparent 1px);
   background-size: 56px 56px;
 }
 
@@ -265,11 +265,12 @@
 
 .cc-hero__eyebrow {
   font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 5px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--cc-hero-eyebrow, #d4622a);
+  color: var(--cc-hero-eyebrow, #857151);
   margin-bottom: 1.25rem;
 }
 
@@ -285,12 +286,12 @@
 }
 
 .cc-hero__hl1 {
-  color: var(--cc-hero-h1, #faf8f4);
+  color: var(--cc-hero-h1, #0a1e32);
   display: block;
 }
 
 .cc-hero__hl2 {
-  color: var(--cc-hero-h2, #c8a96e);
+  color: var(--cc-hero-h2, #9a825c);
   display: block;
 }
 
@@ -298,7 +299,7 @@
   font-family: var(--font-body);
   font-size: clamp(17px, 2.2vw, 22px);
   font-weight: 300;
-  color: var(--cc-hero-sub, #e8d5b0);
+  color: var(--cc-hero-sub, #5c6469);
   max-width: 560px;
   line-height: 1.65;
   margin-bottom: 2.5rem;
@@ -314,7 +315,7 @@
    HOW IT WORKS — STEPS
    ============================================================ */
 .cc-steps {
-  background-color: var(--cc-steps-bg, #1e1e1a);
+  background-color: var(--cc-steps-bg, #f8f8f9);
   padding: 100px clamp(24px, 6vw, 100px);
 }
 
@@ -325,11 +326,12 @@
 
 .cc-steps__eyebrow {
   font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 5px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--cc-steps-label, #d4622a);
+  color: var(--cc-steps-label, #857151);
   margin-bottom: 1rem;
   text-align: center;
 }
@@ -337,11 +339,10 @@
 .cc-steps__heading {
   font-family: var(--font-heading);
   font-size: clamp(32px, 4.5vw, 60px);
-  color: var(--cc-steps-title, #faf8f4);
+  color: var(--cc-steps-title, #0a1e32);
   line-height: 1;
   text-align: center;
   margin-bottom: 3.5rem;
-  text-transform: uppercase;
 }
 
 .cc-steps__grid {
@@ -361,7 +362,7 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border: 1px solid var(--cc-steps-ph-bdr, #2d3a18);
+  border: 1px solid var(--cc-steps-ph-bdr, #061524);
 }
 
 .cc-step__img {
@@ -381,8 +382,9 @@
 
 .cc-step__placeholder-label {
   font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
   font-size: 10px;
-  letter-spacing: 3px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #3a3a30;
 }
@@ -397,15 +399,14 @@
   font-family: var(--font-heading);
   font-size: 52px;
   line-height: 1;
-  color: var(--cc-steps-num, #2d3a18);
+  color: var(--cc-steps-num, #061524);
   letter-spacing: -2px;
 }
 
 .cc-step__title {
   font-family: var(--font-heading);
   font-size: clamp(22px, 2.5vw, 30px);
-  color: var(--cc-steps-title, #faf8f4);
-  text-transform: uppercase;
+  color: var(--cc-steps-title, #0a1e32);
   line-height: 1.1;
 }
 
@@ -413,7 +414,7 @@
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 300;
-  color: var(--cc-steps-body, #e8d5b0);
+  color: var(--cc-steps-body, #5c6469);
   line-height: 1.7;
 }
 
@@ -421,7 +422,7 @@
    WHY IT WORKS — VALUE PROPS
    ============================================================ */
 .cc-why {
-  background-color: var(--cc-why-bg, #111009);
+  background-color: var(--cc-why-bg, #ffffff);
   padding: 100px clamp(24px, 6vw, 100px);
 }
 
@@ -432,11 +433,12 @@
 
 .cc-why__eyebrow {
   font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 5px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--cc-why-label, #d4622a);
+  color: var(--cc-why-label, #857151);
   margin-bottom: 1rem;
   text-align: center;
 }
@@ -444,11 +446,10 @@
 .cc-why__heading {
   font-family: var(--font-heading);
   font-size: clamp(32px, 4.5vw, 60px);
-  color: var(--cc-why-title, #faf8f4);
+  color: var(--cc-why-title, #0a1e32);
   line-height: 1;
   text-align: center;
   margin-bottom: 3.5rem;
-  text-transform: uppercase;
 }
 
 .cc-why__grid {
@@ -458,8 +459,8 @@
 }
 
 .cc-prop {
-  background-color: var(--cc-why-card-bg, #1e1e1a);
-  border: 1px solid var(--cc-why-card-bdr, #2d3a18);
+  background-color: var(--cc-why-card-bg, #f8f8f9);
+  border: 1px solid var(--cc-why-card-bdr, #061524);
   padding: 36px 32px;
   display: flex;
   flex-direction: column;
@@ -468,15 +469,14 @@
 
 .cc-prop__icon {
   font-size: 28px;
-  color: var(--cc-why-icon, #c8a96e);
+  color: var(--cc-why-icon, #9a825c);
   line-height: 1;
 }
 
 .cc-prop__title {
   font-family: var(--font-heading);
   font-size: clamp(18px, 1.8vw, 22px);
-  color: var(--cc-why-prop-title, #faf8f4);
-  text-transform: uppercase;
+  color: var(--cc-why-prop-title, #0a1e32);
   line-height: 1.1;
 }
 
@@ -484,7 +484,7 @@
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 300;
-  color: var(--cc-why-prop-body, #e8d5b0);
+  color: var(--cc-why-prop-body, #5c6469);
   line-height: 1.7;
 }
 
@@ -493,7 +493,7 @@
    ============================================================ */
 .cc-cta {
   position: relative;
-  background-color: var(--cc-cta-bg, #2d3a18);
+  background-color: var(--cc-cta-bg, #061524);
   padding: 100px clamp(24px, 6vw, 100px);
   overflow: hidden;
 }
@@ -502,8 +502,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(200, 169, 110, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(200, 169, 110, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(154, 130, 92, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(154, 130, 92, 0.05) 1px, transparent 1px);
   background-size: 48px 48px;
   pointer-events: none;
 }
@@ -522,26 +522,26 @@
 
 .cc-cta__eyebrow {
   font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 5px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--cc-hero-eyebrow, #d4622a);
+  color: var(--cc-hero-eyebrow, #857151);
 }
 
 .cc-cta__heading {
   font-family: var(--font-heading);
   font-size: clamp(36px, 5.5vw, 72px);
-  color: var(--cc-cta-title, #faf8f4);
+  color: var(--cc-cta-title, #0a1e32);
   line-height: 1;
-  text-transform: uppercase;
 }
 
 .cc-cta__subtext {
   font-family: var(--font-body);
   font-size: 17px;
   font-weight: 300;
-  color: var(--cc-steps-body, #e8d5b0);
+  color: var(--cc-steps-body, #5c6469);
   line-height: 1.65;
   max-width: 520px;
 }
@@ -592,7 +592,7 @@
       "type": "text",
       "id": "hero_eyebrow",
       "label": "Hero eyebrow label",
-      "default": "// Community Program"
+      "default": "Community Program"
     },
     {
       "type": "text",
@@ -635,31 +635,31 @@
       "type": "color",
       "id": "hero_bg_color",
       "label": "Hero background color",
-      "default": "#111009"
+      "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "hero_eyebrow_color",
       "label": "Eyebrow color",
-      "default": "#d4622a"
+      "default": "#857151"
     },
     {
       "type": "color",
       "id": "hero_headline1_color",
       "label": "Headline line 1 color",
-      "default": "#faf8f4"
+      "default": "#0a1e32"
     },
     {
       "type": "color",
       "id": "hero_headline2_color",
       "label": "Headline line 2 color",
-      "default": "#c8a96e"
+      "default": "#9a825c"
     },
     {
       "type": "color",
       "id": "hero_subtext_color",
       "label": "Subheadline color",
-      "default": "#e8d5b0"
+      "default": "#5c6469"
     },
     {
       "type": "header",
@@ -669,7 +669,7 @@
       "type": "text",
       "id": "steps_eyebrow",
       "label": "Steps section eyebrow",
-      "default": "// How It Works"
+      "default": "How It Works"
     },
     {
       "type": "text",
@@ -754,31 +754,31 @@
       "type": "color",
       "id": "steps_bg_color",
       "label": "Steps section background",
-      "default": "#1e1e1a"
+      "default": "#f8f8f9"
     },
     {
       "type": "color",
       "id": "steps_label_color",
       "label": "Steps eyebrow color",
-      "default": "#d4622a"
+      "default": "#857151"
     },
     {
       "type": "color",
       "id": "steps_number_color",
       "label": "Step number color",
-      "default": "#2d3a18"
+      "default": "#061524"
     },
     {
       "type": "color",
       "id": "steps_title_color",
       "label": "Step title color",
-      "default": "#faf8f4"
+      "default": "#0a1e32"
     },
     {
       "type": "color",
       "id": "steps_body_color",
       "label": "Step description color",
-      "default": "#e8d5b0"
+      "default": "#5c6469"
     },
     {
       "type": "color",
@@ -790,7 +790,7 @@
       "type": "color",
       "id": "steps_placeholder_border",
       "label": "Image placeholder border",
-      "default": "#2d3a18"
+      "default": "#061524"
     },
     {
       "type": "header",
@@ -800,7 +800,7 @@
       "type": "text",
       "id": "why_eyebrow",
       "label": "Why section eyebrow",
-      "default": "// Why It Works"
+      "default": "Why It Works"
     },
     {
       "type": "text",
@@ -904,49 +904,49 @@
       "type": "color",
       "id": "why_bg_color",
       "label": "Why section background",
-      "default": "#111009"
+      "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "why_label_color",
       "label": "Why eyebrow color",
-      "default": "#d4622a"
+      "default": "#857151"
     },
     {
       "type": "color",
       "id": "why_section_title_color",
       "label": "Why section heading color",
-      "default": "#faf8f4"
+      "default": "#0a1e32"
     },
     {
       "type": "color",
       "id": "why_card_bg",
       "label": "Value prop card background",
-      "default": "#1e1e1a"
+      "default": "#f8f8f9"
     },
     {
       "type": "color",
       "id": "why_card_border",
       "label": "Value prop card border",
-      "default": "#2d3a18"
+      "default": "#061524"
     },
     {
       "type": "color",
       "id": "why_icon_color",
       "label": "Value prop icon color",
-      "default": "#c8a96e"
+      "default": "#9a825c"
     },
     {
       "type": "color",
       "id": "why_prop_title_color",
       "label": "Value prop title color",
-      "default": "#faf8f4"
+      "default": "#0a1e32"
     },
     {
       "type": "color",
       "id": "why_prop_body_color",
       "label": "Value prop description color",
-      "default": "#e8d5b0"
+      "default": "#5c6469"
     },
     {
       "type": "header",
@@ -956,7 +956,7 @@
       "type": "text",
       "id": "cta_eyebrow",
       "label": "CTA section eyebrow",
-      "default": "// Ready to Launch"
+      "default": "Ready to Launch"
     },
     {
       "type": "text",
@@ -989,13 +989,13 @@
       "type": "color",
       "id": "cta_bg_color",
       "label": "CTA section background",
-      "default": "#2d3a18"
+      "default": "#061524"
     },
     {
       "type": "color",
       "id": "cta_title_color",
       "label": "CTA heading color",
-      "default": "#faf8f4"
+      "default": "#0a1e32"
     }
   ],
   "presets": [

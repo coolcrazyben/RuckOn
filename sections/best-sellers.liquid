@@ -85,54 +85,64 @@
 
 {% stylesheet %}
   .best-sellers {
-    background-color: var(--bs-bg, #111009);
-    padding: 80px var(--page-margin);
+    background-color: var(--bs-bg, #ffffff);
+    padding: 96px var(--page-margin);
     max-width: var(--page-width);
     margin: 0 auto;
     width: 100%;
   }
 
   /* Section header */
+  /* Centred masthead with the view-all sitting underneath, editorial style */
   .best-sellers__header {
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: 40px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 44px;
     gap: 16px;
-    flex-wrap: wrap;
   }
 
   .best-sellers__title {
     font-family: var(--font-heading);
-    font-size: clamp(36px, 5vw, 60px);
-    line-height: 1;
-    color: var(--bs-heading, #faf8f4);
+    font-size: clamp(30px, 3.6vw, 46px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--bs-heading, #0a1e32);
   }
 
   .best-sellers__title span {
-    color: var(--bs-accent, #c8a96e);
+    color: inherit;
+    font-style: italic;
   }
 
   .best-sellers__view-all {
     font-family: var(--font-label);
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 2.5px;
+    font-stretch: var(--label-stretch);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--bs-accent, #c8a96e);
+    color: var(--bs-accent, #857151);
     text-decoration: none;
     white-space: nowrap;
+    border-bottom: 1px solid currentcolor;
+    padding-bottom: 2px;
+    opacity: 0.75;
     transition: opacity 0.2s;
   }
 
-  .best-sellers__view-all:hover { opacity: 0.7; }
+  .best-sellers__view-all:hover { opacity: 1; }
 
   /* Product grid */
   .best-sellers__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
-    gap: 3px;
+    column-gap: 24px;
+    row-gap: 48px;
   }
 
   /* All cards uniform size — no spanning */
@@ -144,10 +154,11 @@
 
   .best-sellers__empty {
     font-family: var(--font-label);
-    font-size: 14px;
-    letter-spacing: 2px;
+    font-stretch: var(--label-stretch);
+    font-size: 11px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--color-tan);
+    color: var(--color-navy-60);
     text-align: center;
     padding: 60px 0;
   }
@@ -164,6 +175,8 @@
     }
     .best-sellers__grid {
       grid-template-columns: repeat(2, 1fr);
+      column-gap: 12px;
+      row-gap: 32px;
     }
     /* product-card height is driven by aspect-ratio, no min-height needed */
   }
@@ -181,7 +194,7 @@
       "type": "text",
       "id": "eyebrow_text",
       "label": "Eyebrow label",
-      "default": "// Drop 01"
+      "default": "The Collection"
     },
     {
       "type": "text",
@@ -246,37 +259,37 @@
       "type": "color",
       "id": "background_color",
       "label": "Section background",
-      "default": "#111009"
+      "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "eyebrow_color",
       "label": "Eyebrow color",
-      "default": "#d4622a"
+      "default": "#857151"
     },
     {
       "type": "color",
       "id": "heading_color",
       "label": "Heading color",
-      "default": "#faf8f4"
+      "default": "#0a1e32"
     },
     {
       "type": "color",
       "id": "accent_color",
       "label": "Accent / price color",
-      "default": "#c8a96e"
+      "default": "#9a825c"
     },
     {
       "type": "color",
       "id": "badge_bg_color",
       "label": "Badge background",
-      "default": "#d4622a"
+      "default": "#857151"
     },
     {
       "type": "color",
       "id": "badge_text_color",
       "label": "Badge text color",
-      "default": "#faf8f4"
+      "default": "#0a1e32"
     }
   ],
   "presets": [

@@ -50,7 +50,7 @@
 
       {%- if section.settings.cta_text != blank -%}
         <div class="community__cta fade-up" data-delay="4">
-          <a href="{{ section.settings.cta_url | default: '#' }}" class="btn btn--primary">
+          <a href="{{ section.settings.cta_url | default: '#' }}" class="btn btn--navy">
             {{ section.settings.cta_text }}
           </a>
         </div>
@@ -105,14 +105,14 @@
 
 {% stylesheet %}
   .community {
-    background-color: var(--com-bg, #1e1e1a);
-    padding: 80px var(--page-margin);
+    background-color: var(--com-bg, #ffffff);
+    padding: 104px var(--page-margin);
   }
 
   .community__inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 72px;
     align-items: center;
     max-width: var(--page-width);
     margin: 0 auto;
@@ -120,29 +120,32 @@
 
   /* Left: text */
   .community__eyebrow {
-    color: var(--com-eyebrow, #d4622a);
+    color: var(--com-eyebrow, #857151);
   }
 
   .community__title {
     font-family: var(--font-heading);
-    font-size: clamp(36px, 4.5vw, 58px);
+    font-size: clamp(32px, 3.8vw, 50px);
+    font-weight: 400;
     line-height: 1.05;
-    color: var(--com-heading1, #faf8f4);
-    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+    color: var(--com-heading1, #0a1e32);
+    margin-bottom: 1.25rem;
   }
 
   .community__title span {
-    color: var(--com-heading2, #c8a96e);
+    color: inherit;
+    font-style: italic;
   }
 
   .community__body {
     font-family: var(--font-body);
     font-size: 17px;
-    font-weight: 300;
-    color: var(--com-body, #e8d5b0);
+    font-weight: 400;
+    color: var(--com-body, #5c6469);
     line-height: 1.7;
     margin-bottom: 2rem;
-    max-width: 480px;
+    max-width: 50ch;
   }
 
   .community__stats {
@@ -150,8 +153,8 @@
     gap: 40px;
     margin-bottom: 2.5rem;
     padding: 24px 0;
-    border-top: 1px solid rgba(200, 169, 110, 0.2);
-    border-bottom: 1px solid rgba(200, 169, 110, 0.2);
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-rule);
   }
 
   .community__stat {
@@ -162,18 +165,20 @@
 
   .community__stat-number {
     font-family: var(--font-heading);
-    font-size: 36px;
+    font-size: 38px;
+    font-weight: 400;
     line-height: 1;
-    color: var(--com-stat, #c8a96e);
+    color: var(--com-stat, #0a1e32);
   }
 
   .community__stat-label {
     font-family: var(--font-label);
-    font-size: 11px;
+    font-stretch: var(--label-stretch);
+    font-size: 10px;
     font-weight: 500;
-    letter-spacing: 3px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(232, 213, 176, 0.65);
+    color: var(--color-navy-60);
   }
 
   /* Right: visual */
@@ -211,11 +216,11 @@
     width: 55%;
     height: 60%;
     z-index: 2;
-    border: 3px solid var(--color-charcoal);
+    border: 6px solid var(--color-paper);
   }
 
   .community__img--placeholder {
-    background: var(--color-charcoal);
+    background: var(--color-paper-cool);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -224,8 +229,8 @@
   .community__img--placeholder svg {
     width: 60%;
     height: 60%;
-    opacity: 0.3;
-    fill: var(--color-tan);
+    opacity: 0.25;
+    fill: var(--color-navy);
   }
 
   /* Badge */
@@ -234,17 +239,19 @@
     bottom: 20px;
     right: -10px;
     z-index: 3;
-    background: var(--com-badge-bg, #d4622a);
-    color: var(--com-badge-text, #faf8f4);
-    font-family: var(--font-heading);
-    font-size: 11px;
-    letter-spacing: 3px;
+    background: var(--com-badge-bg, #0a1e32);
+    color: var(--com-badge-text, #ffffff);
+    font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    padding: 16px 20px;
-    max-width: 160px;
+    padding: 12px 18px;
+    max-width: 190px;
     text-align: center;
-    line-height: 1.4;
-    transform: rotate(-3deg);
+    line-height: 1.5;
+    transform: none;
   }
 
   @media (max-width: 1024px) {
@@ -258,7 +265,7 @@
   }
 
   @media (max-width: 768px) {
-    .community { padding: 60px var(--page-margin); }
+    .community { padding: 72px var(--page-margin); }
     .community__stats { flex-direction: column; gap: 20px; }
     .community__images { height: 300px; }
   }
@@ -276,7 +283,7 @@
       "type": "text",
       "id": "eyebrow_text",
       "label": "Eyebrow label",
-      "default": "// The Movement"
+      "default": "The Movement"
     },
     {
       "type": "text",
@@ -371,49 +378,49 @@
       "type": "color",
       "id": "background_color",
       "label": "Section background",
-      "default": "#1e1e1a"
+      "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "eyebrow_color",
       "label": "Eyebrow color",
-      "default": "#d4622a"
+      "default": "#857151"
     },
     {
       "type": "color",
       "id": "heading_color_1",
       "label": "Heading line 1 color",
-      "default": "#faf8f4"
+      "default": "#0a1e32"
     },
     {
       "type": "color",
       "id": "heading_color_2",
       "label": "Heading line 2 color",
-      "default": "#c8a96e"
+      "default": "#0a1e32"
     },
     {
       "type": "color",
       "id": "body_color",
       "label": "Body text color",
-      "default": "#e8d5b0"
+      "default": "#5c6469"
     },
     {
       "type": "color",
       "id": "stat_number_color",
       "label": "Stat number color",
-      "default": "#c8a96e"
+      "default": "#0a1e32"
     },
     {
       "type": "color",
       "id": "badge_bg_color",
       "label": "Badge background",
-      "default": "#d4622a"
+      "default": "#0a1e32"
     },
     {
       "type": "color",
       "id": "badge_text_color",
       "label": "Badge text color",
-      "default": "#faf8f4"
+      "default": "#ffffff"
     }
   ],
   "presets": [

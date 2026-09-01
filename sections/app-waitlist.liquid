@@ -1,6 +1,5 @@
 {% style %}
   #shopify-section-{{ section.id }} .aw {
-    --aw-eyebrow: {{ section.settings.eyebrow_color }};
     --aw-headline1: {{ section.settings.headline1_color }};
     --aw-headline2: {{ section.settings.headline2_color }};
     --aw-subtext: {{ section.settings.subtext_color }};
@@ -153,12 +152,12 @@
     inset: 0;
     z-index: 1;
     background:
-      radial-gradient(ellipse at 20% 60%, rgba(74, 92, 42, 0.35) 0%, transparent 55%),
-      radial-gradient(ellipse at 80% 20%, rgba(212, 98, 42, 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 60%, rgba(10, 30, 50, 0.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 20%, rgba(133, 113, 81, 0.15) 0%, transparent 50%),
       linear-gradient(to bottom,
-        rgba(17, 16, 9, 0.75) 0%,
-        rgba(17, 16, 9, 0.88) 50%,
-        rgba(17, 16, 9, 0.97) 100%
+        rgba(10, 30, 50, 0.75) 0%,
+        rgba(10, 30, 50, 0.88) 50%,
+        rgba(10, 30, 50, 0.97) 100%
       );
   }
 
@@ -167,8 +166,8 @@
     inset: 0;
     z-index: 2;
     background-image:
-      linear-gradient(rgba(74, 92, 42, 0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(74, 92, 42, 0.07) 1px, transparent 1px);
+      linear-gradient(rgba(10, 30, 50, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10, 30, 50, 0.07) 1px, transparent 1px);
     background-size: 60px 60px;
     animation: aw-grid-pulse 7s ease-in-out infinite;
   }
@@ -197,13 +196,14 @@
 
   .aw__badge {
     display: inline-block;
-    background: var(--aw-badge-bg, rgba(212, 98, 42, 0.15));
-    color: var(--aw-badge-text, #d4622a);
-    border: 1px solid rgba(212, 98, 42, 0.4);
+    background: var(--aw-badge-bg, rgba(133, 113, 81, 0.15));
+    color: var(--aw-badge-text, #857151);
+    border: 1px solid rgba(133, 113, 81, 0.4);
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 4px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     padding: 7px 16px;
     margin-bottom: 28px;
@@ -222,19 +222,19 @@
 
   .aw__headline-1 {
     display: block;
-    color: var(--aw-headline1, #faf8f4);
+    color: var(--aw-headline1, #0a1e32);
   }
 
   .aw__headline-2 {
     display: block;
-    color: var(--aw-headline2, #c8a96e);
+    color: var(--aw-headline2, #9a825c);
   }
 
   .aw__subtext {
     font-family: var(--font-body);
     font-size: 18px;
     font-weight: 300;
-    color: var(--aw-subtext, #e8d5b0);
+    color: var(--aw-subtext, #5c6469);
     line-height: 1.65;
     max-width: 520px;
     margin-bottom: 36px;
@@ -266,8 +266,8 @@
     align-items: flex-start;
     gap: 14px;
     padding: 16px 20px;
-    background: rgba(30, 30, 26, 0.7);
-    border: 1px solid rgba(200, 169, 110, 0.15);
+    background: rgba(10, 30, 50, 0.7);
+    border: 1px solid var(--color-rule);
     border-left: 3px solid var(--color-tan);
   }
 
@@ -286,17 +286,18 @@
 
   .aw__feature-title {
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--aw-feature-title, #faf8f4);
+    color: var(--aw-feature-title, #0a1e32);
   }
 
   .aw__feature-desc {
     font-family: var(--font-body);
     font-size: 14px;
-    color: var(--aw-feature-body, #e8d5b0);
+    color: var(--aw-feature-body, #5c6469);
     line-height: 1.5;
     font-weight: 300;
   }
@@ -318,8 +319,8 @@
   .aw__input {
     flex: 1;
     padding: 16px 20px;
-    background: rgba(17, 16, 9, 0.7);
-    border: 1px solid rgba(200, 169, 110, 0.5);
+    background: rgba(10, 30, 50, 0.7);
+    border: 1px solid rgba(154, 130, 92, 0.5);
     border-right: none;
     color: var(--color-white);
     font-family: var(--font-body);
@@ -331,12 +332,12 @@
   }
 
   .aw__input::placeholder {
-    color: rgba(232, 213, 176, 0.45);
+    color: rgba(92, 100, 105, 0.45);
   }
 
   .aw__input:focus {
     border-color: var(--color-tan);
-    background: rgba(17, 16, 9, 0.9);
+    background: rgba(10, 30, 50, 0.9);
   }
 
   .aw__btn {
@@ -344,9 +345,10 @@
     background: var(--color-orange);
     color: var(--color-white);
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     padding: 16px 28px;
     border: none;
@@ -364,19 +366,20 @@
 
   .aw__success {
     font-family: var(--font-label);
-    font-size: 13px;
-    letter-spacing: 2px;
+    font-stretch: var(--label-stretch);
+    font-size: 11px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-tan);
     padding: 18px;
-    border: 1px solid rgba(200, 169, 110, 0.4);
+    border: 1px solid rgba(154, 130, 92, 0.4);
     text-align: center;
   }
 
   .aw__disclaimer {
     font-family: var(--font-body);
     font-size: 12px;
-    color: rgba(232, 213, 176, 0.4);
+    color: rgba(92, 100, 105, 0.4);
     line-height: 1.5;
     margin-top: 12px;
     text-align: center;
@@ -388,7 +391,7 @@
     .aw__headline { font-size: clamp(44px, 12vw, 80px); }
 
     .aw__row { flex-direction: column; }
-    .aw__input { border-right: 1px solid rgba(200, 169, 110, 0.5); border-bottom: none; }
+    .aw__input { border-right: 1px solid rgba(154, 130, 92, 0.5); border-bottom: none; }
     .aw__btn { width: 100%; padding: 16px; }
   }
 {% endstylesheet %}
@@ -414,19 +417,19 @@
       "type": "text",
       "id": "badge_text",
       "label": "Badge label",
-      "default": "// Coming Soon"
+      "default": "Coming Soon"
     },
     {
       "type": "color",
       "id": "badge_bg_color",
       "label": "Badge background",
-      "default": "#1e1e1a"
+      "default": "#f8f8f9"
     },
     {
       "type": "color",
       "id": "badge_text_color",
       "label": "Badge text color",
-      "default": "#d4622a"
+      "default": "#857151"
     },
     {
       "type": "header",
@@ -442,7 +445,7 @@
       "type": "color",
       "id": "headline1_color",
       "label": "Line 1 color",
-      "default": "#faf8f4"
+      "default": "#0a1e32"
     },
     {
       "type": "text",
@@ -454,7 +457,7 @@
       "type": "color",
       "id": "headline2_color",
       "label": "Line 2 color",
-      "default": "#c8a96e"
+      "default": "#9a825c"
     },
     {
       "type": "textarea",
@@ -466,7 +469,7 @@
       "type": "color",
       "id": "subtext_color",
       "label": "Subtext color",
-      "default": "#e8d5b0"
+      "default": "#5c6469"
     },
     {
       "type": "header",
@@ -485,13 +488,13 @@
       "type": "color",
       "id": "feature_title_color",
       "label": "Feature title color",
-      "default": "#faf8f4"
+      "default": "#0a1e32"
     },
     {
       "type": "color",
       "id": "feature_body_color",
       "label": "Feature description color",
-      "default": "#e8d5b0"
+      "default": "#5c6469"
     },
     {
       "type": "header",

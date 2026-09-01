@@ -1,26 +1,53 @@
 {% style %}
   :root {
-    /* === Ruck On Brand Colors === */
-    --color-olive:       #4a5c2a;
-    --color-olive-dark:  #2d3a18;
-    --color-olive-light: #6b7f3e;
-    --color-tan:         #c8a96e;
-    --color-tan-light:   #e8d5b0;
-    --color-cream:       #f5f0e8;
-    --color-black:       #111009;
-    --color-charcoal:    #1e1e1a;
-    --color-white:       #faf8f4;
-    --color-orange:      #d4622a;
+    /* === Ruck On Brand Colors ===
+       Editorial running-heritage palette: deep navy, antique gold, warm paper. */
+
+    /* Navy family (primary brand color, text, dark panels) */
+    --color-navy:        #0a1e32;
+    --color-navy-deep:   #061524;
+    --color-navy-mid:    #2c4763;
+    --color-navy-60:     #5c6469;
+
+    /* Gold family (accent, CTAs, eyebrows) */
+    --color-gold:        #9a825c;
+    --color-gold-dark:   #857151;
+    --color-gold-light:  #c3ac83;
+
+    /* Paper family (backgrounds) */
+    --color-paper:       #ffffff;
+    --color-paper-warm:  #f4f0e9;
+    --color-paper-cool:  #f8f8f9;
+    --color-rule:        #e7e9eb;
+
+    /* --- Legacy aliases -------------------------------------------------
+       Existing sections reference these names. They now resolve to the
+       editorial palette, so the whole theme flips together. ------------- */
+    --color-olive:       var(--color-navy);
+    --color-olive-dark:  var(--color-navy-deep);
+    --color-olive-light: var(--color-navy-mid);
+    --color-tan:         var(--color-gold);
+    --color-tan-light:   var(--color-navy-60);
+    --color-cream:       var(--color-paper-warm);
+    --color-black:       var(--color-paper);
+    --color-charcoal:    var(--color-paper-cool);
+    --color-white:       var(--color-navy);
+    --color-orange:      var(--color-gold);
 
     /* === Semantic Aliases === */
-    --color-background: {{ settings.background_color | default: '#111009' }};
-    --color-foreground: {{ settings.foreground_color | default: '#faf8f4' }};
+    --color-background: {{ settings.background_color | default: '#ffffff' }};
+    --color-foreground: {{ settings.foreground_color | default: '#0a1e32' }};
 
-    /* === Typography === */
-    --font-heading:  'Black Ops One', cursive;
-    --font-label:    'Barlow Condensed', sans-serif;
-    --font-body:     'Barlow', sans-serif;
+    /* === Typography ===
+       Display serif with true italics for editorial headlines; an extended
+       grotesque for nav, labels, buttons and body copy. */
+    --font-heading:  'Playfair Display', 'Times New Roman', Georgia, serif;
+    --font-label:    'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-body:     'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --font-primary--family: var(--font-body);
+
+    /* Width axis used to fake the "extended grotesque" of the label face */
+    --label-stretch: 112%;
 
     /* === Layout === */
     --page-width:   {{ settings.max_page_width }};
@@ -28,7 +55,7 @@
     --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
 
     /* === Header Heights === */
-    --announcement-bar-height: 42px;
+    --announcement-bar-height: 36px;
     --nav-height:              72px;
     --header-total-height:     calc(var(--announcement-bar-height) + var(--nav-height));
   }

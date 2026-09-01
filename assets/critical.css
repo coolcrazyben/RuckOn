@@ -1,4 +1,6 @@
-/** Critical CSS for Ruck On theme. Loaded on every page. */
+/** Critical CSS for Ruck On theme. Loaded on every page.
+    Editorial running-heritage system: paper backgrounds, navy ink, gold accents,
+    display serif headlines with true italics, extended-grotesque labels. */
 
 /* === Reset === */
 *, *::before, *::after { box-sizing: border-box; margin: 0; }
@@ -8,9 +10,12 @@ body {
   flex-direction: column;
   min-height: 100svh;
   font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
   background-color: var(--color-background);
   color: var(--color-foreground);
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
 }
 
 html:has(dialog[scroll-lock][open], details[scroll-lock][open]) { overflow: hidden; }
@@ -88,55 +93,142 @@ p:empty { display: none; }
   flex: none;
 }
 
-/* === Global Typography === */
-h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
+/* === Global Typography ===
+   Headlines are a display serif. `<em>` inside a heading is the house style:
+   an italic word or two that carries the editorial voice. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.005em;
+  color: var(--color-navy);
+}
 
-/* === Global Buttons === */
+h1 em, h2 em, h3 em, h4 em,
+.display-serif em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Extended-grotesque label treatment: nav, eyebrows, buttons, meta */
+.label-type {
+  font-family: var(--font-label);
+  font-stretch: var(--label-stretch);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 500;
+}
+
+/* === Global Buttons ===
+   Small, rectangular, uppercase. No radius, no shadow, no skew. */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-label);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 3px;
+  font-stretch: var(--label-stretch);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 14px 32px;
-  clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-  cursor: pointer;
-  border: none;
+  min-width: 9rem;
+  padding: 13px 26px;
+  border: 1px solid transparent;
+  border-radius: 0;
   line-height: 1;
+  cursor: pointer;
+  transition: opacity 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
+
+.btn:hover { opacity: 0.8; }
 
 .btn--primary {
-  background: var(--color-orange);
-  color: var(--color-white);
+  background: var(--color-gold-dark);
+  color: #fff;
+  border-color: var(--color-gold-dark);
 }
 
-.btn--primary:hover {
-  background: var(--color-tan);
-  color: var(--color-black);
+.btn--navy {
+  background: var(--color-navy);
+  color: #fff;
+  border-color: var(--color-navy);
 }
 
+/* Outline on paper */
 .btn--secondary {
   background: transparent;
-  color: var(--color-tan);
-  clip-path: none;
-  border: 1px solid var(--color-tan);
-  padding: 13px 32px;
+  color: var(--color-navy);
+  border-color: rgba(10, 30, 50, 0.4);
 }
 
 .btn--secondary:hover {
-  background: rgba(200, 169, 110, 0.1);
+  opacity: 1;
+  border-color: var(--color-navy);
+  background: var(--color-navy);
+  color: #fff;
 }
+
+/* Solid white — for use over photography */
+.btn--white {
+  background: #fff;
+  color: var(--color-navy);
+  border-color: #fff;
+}
+
+/* Outline white — for use over photography */
+.btn--outline-light {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.btn--outline-light:hover {
+  opacity: 1;
+  background: #fff;
+  color: var(--color-navy);
+  border-color: #fff;
+}
+
+/* === Stroke link ===
+   The house CTA: uppercase micro-label with a hairline underline that
+   solidifies on hover. */
+.link-stroke {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-stretch: var(--label-stretch);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-gold-dark);
+  border-bottom: 1px solid rgba(133, 113, 81, 0.4);
+  padding-bottom: 2px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.link-stroke:hover { border-bottom-color: var(--color-gold-dark); }
+
+.link-stroke--navy {
+  color: var(--color-navy);
+  border-bottom-color: rgba(10, 30, 50, 0.4);
+}
+
+.link-stroke--navy:hover { border-bottom-color: var(--color-navy); }
+
+.link-stroke--light {
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+.link-stroke--light:hover { border-bottom-color: #fff; }
 
 /* === Scroll Animation Classes === */
 .fade-up {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s ease, transform 0.65s ease;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .fade-up.in-view {
@@ -155,41 +247,53 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 /* === Eyebrow Label === */
 .eyebrow {
   font-family: var(--font-label);
-  font-size: 12px;
+  font-stretch: var(--label-stretch);
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 5px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-orange);
+  color: var(--color-gold-dark);
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 /* === Section Heading Utility === */
 .section-title {
   font-family: var(--font-heading);
-  font-size: clamp(36px, 5vw, 64px);
-  line-height: 1;
-  color: var(--color-white);
+  font-size: clamp(30px, 3.6vw, 46px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--color-navy);
 }
 
-.section-title span { color: var(--color-tan); }
+/* Legacy: sections wrap an accent word in <span>. Render it as the italic
+   serif accent rather than a color change. */
+.section-title span,
+.section-title em {
+  font-style: italic;
+  color: inherit;
+}
 
 /* === Divider line === */
 .divider-line {
   display: block;
-  width: 80px;
-  height: 2px;
-  background: var(--color-tan);
+  width: 100%;
+  max-width: 64px;
+  height: 1px;
+  background: var(--color-gold);
 }
 
 /* === Page padding for non-hero pages === */
 #main-content { flex: 1; }
 
-/* === Shared Product Card === */
+/* === Shared Product Card ===
+   Centered, borderless, on a cool paper tile. */
 .product-card {
-  background-color: var(--color-charcoal);
+  background-color: transparent;
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 .product-card__link {
@@ -205,8 +309,8 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
   aspect-ratio: 4 / 5;
   overflow: hidden;
   flex-shrink: 0;
+  background: var(--color-paper-cool);
 }
-
 
 .product-card__media img,
 .product-card__media video,
@@ -214,73 +318,77 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .product-card:hover .product-card__media img,
-.product-card:hover .product-card__media video { transform: scale(1.05); }
+.product-card:hover .product-card__media video { transform: scale(1.035); }
 
 /* Overlay removed — info is now below the image */
 .product-card__overlay { display: none; }
 
 .product-card__info {
-  background: #1e1e1a;
-  padding: 14px 16px 16px;
+  background: transparent;
+  padding: 14px 8px 20px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  align-items: center;
+  gap: 6px;
 }
 
 .product-card__badge {
   display: inline-block;
-  background: var(--color-orange);
-  color: var(--color-white);
+  background: transparent;
+  color: var(--color-gold-dark);
   font-family: var(--font-label);
+  font-stretch: var(--label-stretch);
   font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 3px 10px;
-  align-self: flex-start;
+  padding: 0;
+  align-self: center;
 }
 
-.product-card__badge--soldout {
-  background: var(--color-olive);
-}
+.product-card__badge--soldout { color: var(--color-navy-60); }
 
 .product-card__title {
-  font-family: var(--font-heading);
-  font-size: 22px;
-  line-height: 1.1;
-  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--color-navy);
 }
 
 .product-card__price {
-  font-family: var(--font-label);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  color: var(--color-tan);
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--color-navy);
   display: flex;
-  gap: 8px;
+  gap: 10px;
   align-items: baseline;
+  justify-content: center;
 }
 
 .product-card__compare {
-  font-size: 12px;
-  opacity: 0.6;
+  font-size: 15px;
+  color: #6c7884;
   text-decoration: line-through;
 }
 
 .product-card__cta {
   font-family: var(--font-label);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 2px;
+  font-stretch: var(--label-stretch);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-orange);
+  color: var(--color-gold-dark);
   opacity: 0;
-  transform: translateY(6px);
+  transform: translateY(4px);
   transition: opacity 0.25s ease, transform 0.25s ease;
   display: block;
 }
@@ -291,7 +399,8 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 }
 
 @media (max-width: 768px) {
-  .product-card__title { font-size: 16px; }
+  .product-card__title { font-size: 15px; }
+  .product-card__price { font-size: 15px; }
 }
 
 /* === Shared Pagination === */
@@ -299,63 +408,65 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 40px 0;
+  gap: 4px;
+  padding: 56px 0;
 }
 
 .pagination a,
 .pagination span,
 .pagination em {
   font-family: var(--font-label);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 2px;
+  font-stretch: var(--label-stretch);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-tan);
+  color: var(--color-navy);
   text-decoration: none;
   padding: 8px 14px;
-  border: 1px solid transparent;
-  transition: border-color 0.2s, background 0.2s;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
   display: inline-block;
 }
 
-.pagination a:hover {
-  border-color: var(--color-tan);
-}
+.pagination a:hover { border-bottom-color: var(--color-navy); }
 
 .pagination em {
-  border-color: var(--color-orange);
-  background: rgba(212, 98, 42, 0.15);
-  color: var(--color-orange);
+  border-bottom-color: var(--color-gold);
+  color: var(--color-gold-dark);
   font-style: normal;
 }
 
 /* === Rich Text Editor (article content) === */
-.rte { color: var(--color-tan-light); line-height: 1.8; }
-.rte h1, .rte h2, .rte h3, .rte h4 { font-family: var(--font-heading); color: var(--color-white); margin: 1.5em 0 0.5em; }
-.rte p { margin-bottom: 1rem; }
-.rte a { color: var(--color-tan); text-decoration: underline; }
-.rte a:hover { color: var(--color-white); }
+.rte { color: var(--color-navy); line-height: 1.75; font-size: 16px; }
+.rte h1, .rte h2, .rte h3, .rte h4 { font-family: var(--font-heading); color: var(--color-navy); margin: 1.6em 0 0.5em; font-weight: 400; }
+.rte p { margin-bottom: 1.1rem; }
+.rte a { color: var(--color-gold-dark); text-decoration: none; border-bottom: 1px solid rgba(133, 113, 81, 0.4); }
+.rte a:hover { border-bottom-color: var(--color-gold-dark); }
 .rte ul, .rte ol { padding-left: 1.5rem; margin-bottom: 1rem; }
 .rte li { margin-bottom: 0.4rem; }
-.rte img { max-width: 100%; height: auto; margin: 1.5rem 0; }
+.rte img { max-width: 100%; height: auto; margin: 2rem 0; }
 .rte blockquote {
-  border-left: 3px solid var(--color-tan);
-  margin: 1.5rem 0;
-  padding: 0.75rem 1.5rem;
+  border: 0;
+  margin: 2.5rem auto;
+  padding: 0;
+  max-width: 40ch;
+  text-align: center;
+  font-family: var(--font-heading);
   font-style: italic;
-  font-size: 1.1em;
-  color: var(--color-tan-light);
+  font-size: clamp(22px, 2.6vw, 30px);
+  line-height: 1.3;
+  color: var(--color-navy);
 }
-.rte strong { color: var(--color-white); }
+.rte strong { color: var(--color-navy); font-weight: 600; }
 .rte code {
-  background: rgba(200, 169, 110, 0.1);
+  background: var(--color-paper-cool);
   padding: 2px 6px;
   font-family: monospace;
   font-size: 0.9em;
 }
 .rte pre {
-  background: var(--color-charcoal);
+  background: var(--color-paper-cool);
   padding: 1rem;
   overflow-x: auto;
   margin: 1rem 0;
@@ -363,29 +474,44 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
 
 /* === Page-level layout wrapper === */
 .page-wrapper {
-  padding: 60px var(--page-margin) 80px;
+  padding: 72px var(--page-margin) 96px;
   max-width: var(--page-width);
   margin: 0 auto;
   width: 100%;
 }
 
-/* === Dark form inputs === */
+/* === Form inputs — hairline underline, no box === */
 .form-input {
   width: 100%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(200, 169, 110, 0.4);
-  color: var(--color-white);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(10, 30, 50, 0.25);
+  color: var(--color-navy);
   font-family: var(--font-body);
   font-size: 15px;
-  padding: 12px 16px;
+  padding: 12px 2px;
   outline: none;
   transition: border-color 0.2s;
 }
 
-.form-input:focus {
-  border-color: var(--color-tan);
-}
+.form-input:focus { border-bottom-color: var(--color-navy); }
 
 .form-input::placeholder {
-  color: rgba(200, 169, 110, 0.5);
+  color: rgba(10, 30, 50, 0.4);
+}
+
+/* Light-on-dark variant, for forms sitting on navy panels or photography */
+.form-input--light {
+  border-bottom-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.form-input--light:focus { border-bottom-color: #fff; }
+.form-input--light::placeholder { color: rgba(255, 255, 255, 0.5); }
+
+/* === Hairline rule === */
+.hairline {
+  border: 0;
+  border-top: 1px solid var(--color-rule);
+  width: 100%;
 }

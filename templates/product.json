@@ -15,7 +15,7 @@
         "eyebrow": {
           "type": "product-eyebrow",
           "settings": {
-            "eyebrow_text": "// Tactical Gear"
+            "eyebrow_text": "Ruck On"
           },
           "blocks": {}
         },
@@ -124,22 +124,22 @@
       ],
       "settings": {
         "show_related": true,
-        "related_eyebrow": "// You May Also Like",
+        "related_eyebrow": "You May Also Like",
         "related_heading_1": "Load Up On",
         "related_heading_2": "More Gear",
         "related_cta_text": "View",
         "related_limit": 4,
         "show_patch_crosssell": false,
         "patch_crosssell_collection": "",
-        "crosssell_eyebrow": "// Complete Your Look",
+        "crosssell_eyebrow": "Complete Your Look",
         "crosssell_heading_1": "Mix & Match",
         "crosssell_heading_2": "Your Patch",
         "crosssell_subtext": "Our hats are built for interchangeable patches — grab a few and switch up your look.",
         "crosssell_cta_text": "Shop",
         "crosssell_limit": 4,
-        "accent_color": "#c8a96e",
-        "sale_color": "#d4622a",
-        "selected_pill_bg": "#4a5c2a"
+        "accent_color": "#9a825c",
+        "sale_color": "#857151",
+        "selected_pill_bg": "#0a1e32"
       }
     },
     "1784667318ca6af38c": {

@@ -170,9 +170,9 @@
     inset: 0;
     background: linear-gradient(
       to top,
-      rgba(17, 16, 9, 0.92) 0%,
-      rgba(17, 16, 9, 0.55) 50%,
-      rgba(17, 16, 9, 0.2) 100%
+      rgba(10, 30, 50, 0.92) 0%,
+      rgba(10, 30, 50, 0.55) 50%,
+      rgba(10, 30, 50, 0.2) 100%
     );
   }
 
@@ -230,11 +230,12 @@
   .article-page__author,
   .article-page__sep {
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 2.5px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(200, 169, 110, 0.7);
+    color: rgba(154, 130, 92, 0.7);
   }
 
   .article-page__date time {
@@ -267,19 +268,20 @@
 
   .article-page__tag {
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 2px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-tan);
     text-decoration: none;
-    border: 1px solid rgba(200, 169, 110, 0.3);
+    border: 1px solid var(--color-rule);
     padding: 5px 12px;
     transition: background 0.2s, border-color 0.2s;
   }
 
   .article-page__tag:hover {
-    background: rgba(200, 169, 110, 0.1);
+    background: rgba(154, 130, 92, 0.1);
     border-color: var(--color-tan);
   }
 
@@ -309,11 +311,12 @@
 
   .article-page__comments-title span {
     color: var(--color-tan);
+    font-style: italic;
   }
 
   /* Comment list */
   .comment {
-    border-top: 1px solid rgba(200, 169, 110, 0.15);
+    border-top: 1px solid var(--color-rule);
     padding: 24px 0;
   }
 
@@ -326,19 +329,21 @@
 
   .comment__author {
     font-family: var(--font-label);
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
+    font-stretch: var(--label-stretch);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--color-tan);
+    color: var(--color-navy);
   }
 
   .comment__sep,
   .comment__date {
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 12px;
     letter-spacing: 1px;
-    color: rgba(200, 169, 110, 0.5);
+    color: rgba(154, 130, 92, 0.5);
   }
 
   .comment__date time {
@@ -358,7 +363,7 @@
   .comment-form {
     margin-top: 56px;
     padding-top: 48px;
-    border-top: 1px solid rgba(200, 169, 110, 0.2);
+    border-top: 1px solid var(--color-rule);
   }
 
   .comment-form__row {
@@ -377,9 +382,10 @@
 
   .comment-form__label {
     font-family: var(--font-label);
+    font-stretch: var(--label-stretch);
     font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 3px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-tan);
   }
@@ -390,7 +396,7 @@
   }
 
   .comment-form__success {
-    background: rgba(74, 92, 42, 0.2);
+    background: rgba(10, 30, 50, 0.2);
     border: 1px solid var(--color-olive-light);
     color: var(--color-tan-light);
     font-family: var(--font-body);

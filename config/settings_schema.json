@@ -71,13 +71,13 @@
       {
         "type": "color",
         "id": "background_color",
-        "default": "#111009",
+        "default": "#ffffff",
         "label": "Page background"
       },
       {
         "type": "color",
         "id": "foreground_color",
-        "default": "#faf8f4",
+        "default": "#0a1e32",
         "label": "Page text"
       },
       {

@@ -15,32 +15,32 @@
       "type": "announcement-bar",
       "settings": {
         "show_bar": true,
-        "announcement_text": "Try the Ruck On App Today",
+        "announcement_text": "Free shipping on all orders $200+\nThe Autumn Collection has landed. Shop now\n30-day wear test on every ruck",
         "link_url": "",
         "enable_scroll": true,
-        "separator": "•",
+        "separator": "/",
         "repeat_count": 6,
         "scroll_speed": 30,
-        "background_color": "#4a5c2a",
-        "text_color": "#f5f0e8",
-        "border_color": "#6b7f3e"
+        "background_color": "#0a1e32",
+        "text_color": "#ffffff",
+        "border_color": "#0a1e32"
       }
     },
     "header": {
       "type": "header",
       "settings": {
-        "logo_image": "shopify://shop_images/ChatGPT_Image_Feb_22_2026_12_42_04_AM.png",
-        "logo_max_width": 600,
+        "logo_max_width": 220,
         "logo_text_1": "RUCK",
         "logo_text_2": "ON",
         "menu": "main-menu",
+        "nav_alignment": "left",
         "cart_label": "Cart",
         "account_label": "Account",
-        "background_color": "#111009",
-        "link_color": "#e8d5b0",
-        "logo_color_1": "#c8a96e",
-        "logo_color_2": "#faf8f4",
-        "cart_color": "#c8a96e"
+        "background_color": "#ffffff",
+        "link_color": "#0a1e32",
+        "logo_color_1": "#0a1e32",
+        "logo_color_2": "#0a1e32",
+        "cart_color": "#0a1e32"
       }
     }
   },

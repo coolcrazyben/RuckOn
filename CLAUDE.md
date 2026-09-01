@@ -3,45 +3,74 @@
 ## Brand Identity
 - **Name:** Ruck On
 - **Tagline:** "Carry the Weight"
-- **Description:** Tactical gear and apparel for those who never put the ruck down.
-- **Vibe:** Dark, tactical, military-inspired but modern and premium. Rugged meets clean design.
+- **Description:** Gear for the long carry — made for people who never put the ruck down.
+- **Vibe:** Editorial running-heritage. Paper-white grounds, deep navy ink, antique
+  gold accents, big photography and a display serif. Restrained, premium, magazine-like.
+  Modelled on tracksmith.com.
 
 ## Color Palette
 ```
---color-olive:       #4a5c2a  (primary brand green)
---color-olive-dark:  #2d3a18  (dark olive, backgrounds)
---color-olive-light: #6b7f3e  (light olive, accents)
---color-tan:         #c8a96e  (accent, highlights, logo)
---color-tan-light:   #e8d5b0  (light tan, body text)
---color-cream:       #f5f0e8  (very light, occasional bg)
---color-black:       #111009  (main background)
---color-charcoal:    #1e1e1a  (card/section backgrounds)
---color-white:       #faf8f4  (primary text color)
---color-orange:      #d4622a  (CTAs, eyebrow text, badges)
+--color-navy:        #0a1e32  (primary ink, dark panels, solid buttons)
+--color-navy-deep:   #061524  (deepest navy)
+--color-navy-mid:    #2c4763  (mid navy)
+--color-navy-60:     #5c6469  (secondary body copy, meta)
+--color-gold:        #9a825c  (accent, dividers)
+--color-gold-dark:   #857151  (eyebrows, stroke links, solid gold buttons)
+--color-gold-light:  #c3ac83
+--color-paper:       #ffffff  (main background)
+--color-paper-warm:  #f4f0e9  (cream — pull quotes, newsletter)
+--color-paper-cool:  #f8f8f9  (product-card media tile)
+--color-rule:        #e7e9eb  (hairline borders — the only border colour)
 ```
 
+Legacy aliases (`--color-olive`, `--color-tan`, `--color-black`, `--color-white`,
+`--color-orange`, …) still exist in `snippets/css-variables.liquid` and now resolve to
+the palette above, so older section CSS keeps working. **Prefer the new token names in
+new code**; treat the aliases as a compatibility layer, not an API.
+
 ## Typography
-- **Black Ops One** — headings, logo, product names, stat numbers
-- **Barlow Condensed** — eyebrow text, nav links, labels, uppercase text
-- **Barlow** — body text, descriptions
+- **Playfair Display** (`--font-heading`) — headlines, product/collection titles,
+  prices, stat numbers, the wordmark. Always `font-weight: 400`, tight leading,
+  slightly negative tracking, Title Case (never uppercase except the wordmark).
+- **Archivo** (`--font-label` and `--font-body`) — nav, eyebrows, buttons, labels,
+  body copy. Loaded as a variable font; label/uppercase text sets
+  `font-stretch: var(--label-stretch)` (112%) to read as an extended grotesque.
+
+### The house italic
+Headlines pair a roman phrase with an italic accent — "The Ruck *is Sacred*",
+"Join Our *Newsletter*", "Better *Together*". Sections express this as a second
+settings field rendered in a `<span>` (or `<em>` where the section has one text field);
+the accent is **italic in the same ink**, never a colour change.
 
 ## Design Tokens
-- Buttons use `clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%)` for tactical skew shape
-- All uppercase text: `letter-spacing: 2–5px` depending on size
-- Scroll-triggered `fade-up` animations on cards and stats
+- Buttons are rectangular — no radius, no shadow, no skew. ~11px uppercase,
+  `letter-spacing: 0.18em`, `min-width: 9rem`, hover `opacity: 0.8`.
+  Variants: `.btn--primary` (solid gold-dark), `.btn--navy` (solid navy — use for
+  commerce actions: add to cart, checkout), `.btn--secondary` (navy outline on paper),
+  `.btn--white` / `.btn--outline-light` (over photography).
+- `.link-stroke` is the house text CTA: uppercase micro-label with a 40%-opacity
+  hairline underline that solidifies on hover. Variants `--navy`, `--light`.
+- Borders are hairlines in `--color-rule`. Do not tint borders gold.
+- All uppercase text: `letter-spacing: 0.16em` (0.18–0.24em for buttons and eyebrows).
+- Scroll-triggered `fade-up` animations on cards and stats.
+- Product cards are centred and borderless: media on `--color-paper-cool`, sans title,
+  **serif price**, hover `scale(1.035)`.
 
 ## Header Layout
 3-column CSS grid (`1fr auto 1fr`) so the logo is always truly centered:
 
 | Zone | Desktop (≥1025px) | Mobile (≤1024px) |
 |------|-------------------|------------------|
-| Left `.site-header__left` | Nav links | Hamburger + Search icon |
+| Left `.site-header__left` | Nav links | Hamburger |
 | Center `.site-header__logo` | Logo | Logo |
-| Right `.site-header__right` | Search + Account + Cart icons | Account + Cart icons |
+| Right `.site-header__right` | Account + Cart icons | Account + Cart icons |
 
-- Cart is an **icon link** (shopping bag SVG) with an orange count badge — not a styled button
-- Desktop search icon: `.site-header__search-desktop`; mobile (left zone) search: `.site-header__search-link` (each hidden on the other breakpoint via CSS)
-- Mobile slide-out drawer is triggered by the hamburger button
+- White bar, hairline bottom rule, no blur or gradient.
+- `nav_alignment` (schema) defaults to `left` — all links sit left of the centred
+  wordmark, as on the reference site. Set it to `split` to balance them either side.
+- Cart is an **icon link** (shopping bag SVG); the count is a small plain gold numeral,
+  not a filled pip.
+- Mobile slide-out drawer is triggered by the hamburger button.
 
 ## Product Page Architecture
 The product page is **block-based**. `sections/product.liquid` renders the gallery (left
