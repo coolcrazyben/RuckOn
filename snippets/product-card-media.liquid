@@ -8,6 +8,11 @@
   (for non-product search results such as articles/pages) and then to a
   placeholder SVG when there is no media.
 
+  When the theme setting `card_hover_image` is on and the product has a second
+  image, that image is rendered alongside the cover and crossfaded in on hover.
+  It is decorative (the cover already carries the alt text), so it is hidden
+  from assistive tech, and the CSS only activates it on pointer devices.
+
   @param product {object} - The product (or search result) whose cover media to render.
   @param image_width {number} - Target width in px for the image URL and video poster.
   @param sizes {string} - The responsive `sizes` attribute for the rendered image.
@@ -16,6 +21,11 @@
 {%- liquid
   assign card_media = product.featured_media
   assign poster_size = image_width | append: 'x'
+
+  assign hover_image = null
+  if settings.card_hover_image and product.images.size > 1
+    assign hover_image = product.images[1]
+  endif
 -%}
 {%- if card_media and card_media.media_type == 'video' -%}
   {{
@@ -35,8 +45,21 @@
     | image_tag:
       loading: 'lazy',
       sizes: sizes,
+      class: 'product-card__img',
       alt: product.featured_image.alt | default: product.title
   }}
+  {%- if hover_image -%}
+    {{
+      hover_image
+      | image_url: width: image_width
+      | image_tag:
+        loading: 'lazy',
+        sizes: sizes,
+        class: 'product-card__img product-card__img--hover',
+        alt: '',
+        aria-hidden: 'true'
+    }}
+  {%- endif -%}
 {%- elsif product.image -%}
   {{
     product.image
@@ -44,6 +67,7 @@
     | image_tag:
       loading: 'lazy',
       sizes: sizes,
+      class: 'product-card__img',
       alt: product.image.alt | default: product.title
   }}
 {%- else -%}

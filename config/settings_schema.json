@@ -42,9 +42,18 @@
         "id": "max_page_width",
         "label": "Max page width",
         "options": [
-          { "value": "90rem",  "label": "Narrow (1440px)" },
-          { "value": "100rem", "label": "Standard (1600px)" },
-          { "value": "110rem", "label": "Wide (1760px)" }
+          {
+            "value": "90rem",
+            "label": "Narrow (1440px)"
+          },
+          {
+            "value": "100rem",
+            "label": "Standard (1600px)"
+          },
+          {
+            "value": "110rem",
+            "label": "Wide (1760px)"
+          }
         ],
         "default": "100rem"
       },
@@ -57,6 +66,18 @@
         "unit": "px",
         "label": "Page side margin",
         "default": 24
+      }
+    ]
+  },
+  {
+    "name": "Product cards",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "card_hover_image",
+        "label": "Show second image on hover",
+        "info": "On pointer devices, hovering a product card crossfades to the product's second image. Cards with only one image are unaffected.",
+        "default": true
       }
     ]
   },

@@ -1,0 +1,423 @@
+{% style %}
+  #shopify-section-{{ section.id }} .spotlight {
+    --sp-bg:        {{ section.settings.background_color }};
+    --sp-heading:   {{ section.settings.heading_color }};
+    --sp-accent:    {{ section.settings.accent_color }};
+    --sp-eyebrow:   {{ section.settings.eyebrow_color }};
+    --sp-columns:   {{ section.blocks.size | at_most: 3 | at_least: 1 }};
+    --sp-gap:       {{ section.settings.gap }}px;
+    --sp-ratio:     {{ section.settings.panel_ratio }};
+  }
+{% endstyle %}
+
+<div class="spotlight{% if section.settings.full_width %} full-width{% endif %}">
+  {%- if section.settings.eyebrow_text != blank or section.settings.heading_text_1 != blank -%}
+    <div class="spotlight__header">
+      {%- if section.settings.eyebrow_text != blank -%}
+        <span class="eyebrow spotlight__eyebrow">{{ section.settings.eyebrow_text }}</span>
+      {%- endif -%}
+      {%- if section.settings.heading_text_1 != blank -%}
+        <h2 class="spotlight__title">
+          {{ section.settings.heading_text_1 }}
+          {%- if section.settings.heading_text_2 != blank -%}
+            <span>{{ section.settings.heading_text_2 }}</span>
+          {%- endif -%}
+        </h2>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="spotlight__grid">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign panel_url = block.settings.link_url
+          if block.settings.collection != blank
+            assign linked = collections[block.settings.collection]
+            if linked != empty
+              assign panel_url = linked.url
+            endif
+          endif
+          if panel_url == blank
+            assign panel_url = '#'
+          endif
+        -%}
+
+        <a
+          href="{{ panel_url }}"
+          class="spotlight-panel spotlight-panel--{{ block.settings.content_position }} fade-up"
+          data-delay="{{ forloop.index }}"
+          style="--panel-scrim: {{ block.settings.overlay_strength }}; --panel-text: {{ block.settings.text_color }};"
+          {{ block.shopify_attributes }}
+        >
+          <div class="spotlight-panel__media">
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 1400
+                | image_tag:
+                  loading: 'lazy',
+                  sizes: '(max-width: 768px) 100vw, 50vw',
+                  alt: block.settings.image.alt | default: block.settings.heading
+              }}
+            {%- else -%}
+              {{ 'collection-2' | placeholder_svg_tag: 'spotlight-panel__placeholder' }}
+            {%- endif -%}
+          </div>
+
+          <div class="spotlight-panel__scrim" aria-hidden="true"></div>
+
+          <div class="spotlight-panel__content">
+            {%- if block.settings.eyebrow != blank -%}
+              <span class="spotlight-panel__eyebrow">{{ block.settings.eyebrow }}</span>
+            {%- endif -%}
+
+            {%- if block.settings.heading != blank -%}
+              <h3 class="spotlight-panel__heading">{{ block.settings.heading }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.body != blank -%}
+              <p class="spotlight-panel__body">{{ block.settings.body }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.cta_text != blank -%}
+              <span class="spotlight-panel__cta">{{ block.settings.cta_text }}</span>
+            {%- endif -%}
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .spotlight {
+    background-color: var(--sp-bg, #ffffff);
+    padding: 96px var(--page-margin);
+    max-width: var(--page-width);
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .spotlight.full-width {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .spotlight__header {
+    margin-bottom: 44px;
+    text-align: center;
+  }
+
+  .spotlight__eyebrow { color: var(--sp-eyebrow, #7a6634); }
+
+  .spotlight__title {
+    font-family: var(--font-heading);
+    font-size: clamp(30px, 3.6vw, 46px);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--sp-heading, #2d3a18);
+  }
+
+  .spotlight__title span { color: var(--sp-accent, #7a6634); }
+
+  /* Grid follows the number of panels, so removing one never leaves a hole */
+  .spotlight__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--sp-columns, 2), 1fr);
+    gap: var(--sp-gap, 8px);
+  }
+
+  /* Panel */
+  .spotlight-panel {
+    position: relative;
+    display: block;
+    aspect-ratio: var(--sp-ratio, 4 / 3);
+    overflow: hidden;
+    text-decoration: none;
+    background-color: var(--color-paper-cool);
+  }
+
+  .spotlight-panel__media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .spotlight-panel__media img,
+  .spotlight-panel__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .spotlight-panel:hover .spotlight-panel__media img { transform: scale(1.04); }
+
+  .spotlight-panel__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(45, 58, 24, calc(var(--panel-scrim, 0.55) * 1.15)) 0%,
+      rgba(45, 58, 24, var(--panel-scrim, 0.55)) 38%,
+      rgba(45, 58, 24, calc(var(--panel-scrim, 0.55) * 0.45)) 100%
+    );
+  }
+
+  .spotlight-panel__content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(28px, 4vw, 56px);
+    gap: 12px;
+    color: var(--panel-text, #ffffff);
+  }
+
+  .spotlight-panel--bottom .spotlight-panel__content {
+    justify-content: flex-end;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .spotlight-panel--center .spotlight-panel__content {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .spotlight-panel__eyebrow {
+    font-family: var(--font-label);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: inherit;
+    opacity: 0.85;
+  }
+
+  .spotlight-panel__heading {
+    font-family: var(--font-heading);
+    font-size: clamp(26px, 3vw, 42px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: inherit;
+  }
+
+  .spotlight-panel__body {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
+    color: inherit;
+    opacity: 0.9;
+    max-width: 42ch;
+  }
+
+  /* Reads as the house stroke link */
+  .spotlight-panel__cta {
+    display: inline-block;
+    font-family: var(--font-label);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: inherit;
+    border-bottom: 1px solid currentcolor;
+    padding-bottom: 2px;
+    margin-top: 4px;
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+  }
+
+  .spotlight-panel:hover .spotlight-panel__cta { opacity: 1; }
+
+  @media (max-width: 768px) {
+    .spotlight { padding: 64px var(--page-margin); }
+    .spotlight__grid { grid-template-columns: 1fr; }
+    .spotlight-panel { aspect-ratio: 3 / 2; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spotlight-panel__media img { transition: none; }
+    .spotlight-panel:hover .spotlight-panel__media img { transform: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Category spotlight",
+  "tag": "section",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section heading (optional)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "heading_text_1",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_text_2",
+      "label": "Heading accent word",
+      "info": "Shown in the accent colour after the heading."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "panel_ratio",
+      "label": "Panel shape",
+      "options": [
+        { "value": "3 / 2", "label": "Landscape" },
+        { "value": "4 / 3", "label": "Standard" },
+        { "value": "1 / 1", "label": "Square" },
+        { "value": "4 / 5", "label": "Portrait" }
+      ],
+      "default": "4 / 3"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between panels",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "info": "Let the panels run edge to edge instead of sitting inside the page margins.",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Section eyebrow color",
+      "default": "#7a6634"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Section heading color",
+      "default": "#2d3a18"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Section accent color",
+      "default": "#7a6634"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "panel",
+      "name": "Spotlight panel",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow",
+          "default": "Shop"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Best Sellers"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Body text",
+          "info": "Optional. Keep it to a line or two."
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Link label",
+          "default": "Shop Now"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Link to collection",
+          "info": "Takes priority over the link below."
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Or link to any URL"
+        },
+        {
+          "type": "select",
+          "id": "content_position",
+          "label": "Content position",
+          "options": [
+            { "value": "bottom", "label": "Bottom left" },
+            { "value": "center", "label": "Centered" }
+          ],
+          "default": "bottom"
+        },
+        {
+          "type": "range",
+          "id": "overlay_strength",
+          "label": "Image darkening",
+          "min": 0,
+          "max": 0.9,
+          "step": 0.1,
+          "default": 0.6
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category spotlight",
+      "blocks": [
+        { "type": "panel" },
+        { "type": "panel" }
+      ]
+    }
+  ]
+}
+{% endschema %}

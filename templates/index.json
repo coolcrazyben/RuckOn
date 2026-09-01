@@ -103,6 +103,52 @@
         "badge_text_color": "#2d3a18"
       }
     },
+    "category-spotlight": {
+      "type": "category-spotlight",
+      "blocks": {
+        "panel_best": {
+          "type": "panel",
+          "settings": {
+            "image": "shopify://shop_images/19-DSC06372.jpg",
+            "eyebrow": "Shop",
+            "heading": "Best Sellers",
+            "body": "The gear that earns its place on every ruck.",
+            "cta_text": "Shop the Collection",
+            "collection": "best-sellers",
+            "content_position": "bottom",
+            "overlay_strength": 0.6,
+            "text_color": "#ffffff"
+          }
+        },
+        "panel_stories": {
+          "type": "panel",
+          "settings": {
+            "image": "shopify://shop_images/23-DSC06395-2.jpg",
+            "eyebrow": "Read",
+            "heading": "Ruck On Stories",
+            "body": "Miles, weight and the people carrying it.",
+            "cta_text": "Read the Stories",
+            "link_url": "shopify://blogs/story",
+            "content_position": "bottom",
+            "overlay_strength": 0.6,
+            "text_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "panel_best",
+        "panel_stories"
+      ],
+      "settings": {
+        "panel_ratio": "4 / 3",
+        "gap": 8,
+        "full_width": false,
+        "background_color": "#ffffff",
+        "eyebrow_color": "#7a6634",
+        "heading_color": "#2d3a18",
+        "accent_color": "#7a6634"
+      }
+    },
     "manifesto": {
       "type": "manifesto",
       "settings": {
@@ -211,6 +257,7 @@
     "hero",
     "shop-by-category",
     "best-sellers",
+    "category-spotlight",
     "manifesto",
     "manifesto_niEbeg",
     "community_PFtmqE",
