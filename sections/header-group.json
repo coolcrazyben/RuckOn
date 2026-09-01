@@ -29,11 +29,12 @@
     "header": {
       "type": "header",
       "settings": {
-        "logo_max_width": 220,
+        "logo_image": "shopify://shop_images/Codex_Image_Aug_31_2026_11_19_05_PM.png",
+        "logo_max_width": 600,
         "logo_text_1": "RUCK",
         "logo_text_2": "ON",
         "menu": "main-menu",
-        "nav_alignment": "split",
+        "nav_alignment": "left",
         "cart_label": "Cart",
         "account_label": "Account",
         "background_color": "#ffffff",
