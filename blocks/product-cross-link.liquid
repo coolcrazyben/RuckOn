@@ -1,0 +1,68 @@
+{% doc %}
+  "Other path" pointer for the membership products.
+
+  A one-line prompt plus a stroke link, used to send a shopper from the standard
+  membership to the club-founder product and back again. Renders nothing until
+  both the link text and URL are set.
+
+  Settings: "prompt" is the lead-in line, "link_text" and "link_url" are the
+  stroke link itself.
+{% enddoc %}
+
+{%- if block.settings.link_text != blank and block.settings.link_url != blank -%}
+  <div class="product-crosslink" {{ block.shopify_attributes }}>
+    {%- if block.settings.prompt != blank -%}
+      <p class="product-crosslink__prompt">{{ block.settings.prompt }}</p>
+    {%- endif -%}
+    <a href="{{ block.settings.link_url }}" class="link-stroke link-stroke--navy">
+      {{ block.settings.link_text }}
+    </a>
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .product-crosslink {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 4px 0 8px;
+    padding-top: 18px;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .product-crosslink__prompt {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--color-ink-60);
+    margin: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Cross-link",
+  "settings": [
+    {
+      "type": "text",
+      "id": "prompt",
+      "label": "Prompt",
+      "default": "Don't see your gym in the list?"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text",
+      "default": "Start a club of your own"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    }
+  ],
+  "presets": [{ "name": "Cross-link" }]
+}
+{% endschema %}

@@ -1,6 +1,9 @@
 {% doc %}
   Renders <option> elements for the community selection dropdown.
 
+  The first name in the list is the house club and is pre-selected, so a member
+  who never touches the dropdown still joins a club rather than nothing.
+
   To add a community: append  |New Community Name  to the assign string below.
   To remove a community: delete that name (and its surrounding pipes) from the string.
   Names are rendered in the order they appear in the list.
@@ -18,9 +21,16 @@
   COMMUNITY LIST — Edit below. One pipe ( | ) separates each community.
   ======================================================================
 {%- endcomment -%}
-{%- assign community_names = "CrossFit Gold|Iron Brotherhood|Alpha Company|Bravo Squad|Charlie Platoon|Delta Company|Echo Team|Foxtrot Unit|GORUCK Chicago|GORUCK Atlanta|GORUCK Austin|GORUCK Seattle|Ruck Nation" | split: "|" -%}
+{%- assign community_names = "Ruck On Club|CrossFit Gold|Iron Brotherhood|Alpha Company|Bravo Squad|Charlie Platoon|Delta Company|Echo Team|Foxtrot Unit|GORUCK Chicago|GORUCK Atlanta|GORUCK Austin|GORUCK Seattle|Ruck Nation" | split: "|" -%}
 
-<option value="">No community / Individual</option>
 {%- for community in community_names -%}
-  <option value="{{ community | escape }}"{% if selected == community %} selected{% endif %}>{{ community }}</option>
+  {%- liquid
+    assign is_selected = false
+    if selected == blank and forloop.first
+      assign is_selected = true
+    elsif selected == community
+      assign is_selected = true
+    endif
+  -%}
+  <option value="{{ community | escape }}"{% if is_selected %} selected{% endif %}>{{ community }}</option>
 {%- endfor -%}

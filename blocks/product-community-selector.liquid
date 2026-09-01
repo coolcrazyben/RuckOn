@@ -1,29 +1,37 @@
 {% doc %}
   Basic-membership community selector dropdown.
 
-  Self-guards: only renders when the product is tagged with the membership tag
-  (default "basic-membership") and has no selling plan groups. Safe to include
-  on the shared default product template — it stays hidden on other products.
+  Self-guards on the membership tag (default "basic-membership"), so it is safe
+  to include on the shared default product template — it stays hidden on other
+  products. By default it also hides on products that carry a selling plan;
+  turn "hide_on_subscriptions" off on the membership template, where choosing a
+  club is part of the subscription itself.
 {% enddoc %}
 
-{%- if block.settings.membership_tag != blank -%}
-  {%- if product.selling_plan_groups.size == 0 -%}
-    {%- if product.tags contains block.settings.membership_tag -%}
-      <div class="product-community" {{ block.shopify_attributes }}>
-        <label class="product-option__label" for="community-select-input">
-          {{ block.settings.community_label }}
-        </label>
-        <select
-          id="community-select-input"
-          name="properties[Community]"
-          class="form-input product-community__select"
-          form="product-form"
-        >
-          {% render 'community-list' %}
-        </select>
-      </div>
-    {%- endif -%}
-  {%- endif -%}
+{%- liquid
+  assign show_selector = false
+  if block.settings.membership_tag != blank and product.tags contains block.settings.membership_tag
+    assign show_selector = true
+    if block.settings.hide_on_subscriptions and product.selling_plan_groups.size > 0
+      assign show_selector = false
+    endif
+  endif
+-%}
+
+{%- if show_selector -%}
+  <div class="product-community" {{ block.shopify_attributes }}>
+    <label class="product-option__label" for="community-select-input">
+      {{ block.settings.community_label }}
+    </label>
+    <select
+      id="community-select-input"
+      name="properties[Community]"
+      class="form-input product-community__select"
+      form="product-form"
+    >
+      {% render 'community-list' %}
+    </select>
+  </div>
 {%- endif -%}
 
 {% schema %}
@@ -42,6 +50,13 @@
       "id": "community_label",
       "label": "Community dropdown label",
       "default": "Select Your Community"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_subscriptions",
+      "label": "Hide on subscription products",
+      "default": true,
+      "info": "Turn this off on the membership template so members can pick their club when subscribing."
     }
   ],
   "presets": [{ "name": "Community selector" }]
