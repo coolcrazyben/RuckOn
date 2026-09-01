@@ -15,7 +15,7 @@
       "type": "announcement-bar",
       "settings": {
         "show_bar": true,
-        "announcement_text": "Free shipping on all orders $200+\nThe Autumn Collection has landed. Shop now\n30-day wear test on every ruck",
+        "announcement_text": "Free shipping on all orders $50+\nThe Autumn Collection has landed. Shop now\nDownload the Ruck On App Today",
         "link_url": "",
         "enable_scroll": true,
         "separator": "/",
