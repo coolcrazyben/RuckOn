@@ -134,6 +134,33 @@
         "accent_color": "#7a6634"
       }
     },
+    "community_PFtmqE": {
+      "type": "community",
+      "name": "Community",
+      "settings": {
+        "eyebrow_text": "Membership",
+        "heading_line1": "The Monthly",
+        "heading_line2": "Card",
+        "body_text": "A custom workout card and a patch, posted to you every month. Want the card on its own? That works too.",
+        "stat1_number": "200+",
+        "stat1_label": "Community Members",
+        "stat2_number": "$20",
+        "stat2_label": "A Month",
+        "cta_text": "Join the Club",
+        "cta_url": "shopify://products/monthly-patch-and-workout-subscription",
+        "image_1": "shopify://shop_images/IMG-5723.jpg",
+        "image_2": "shopify://shop_images/Untitled_design_2.png",
+        "badge_text": "Monday is for Rucking",
+        "background_color": "#f2f1ea",
+        "eyebrow_color": "#7a6634",
+        "heading_color_1": "#2d3a18",
+        "heading_color_2": "#7a6634",
+        "body_color": "#5f6653",
+        "stat_number_color": "#4a5c2a",
+        "badge_bg_color": "#4a5c2a",
+        "badge_text_color": "#ffffff"
+      }
+    },
     "manifesto": {
       "type": "manifesto",
       "settings": {
@@ -163,33 +190,6 @@
         "quote_color_2": "#7a6634",
         "body_color": "#5f6653",
         "divider_color": "#7a6634"
-      }
-    },
-    "community_PFtmqE": {
-      "type": "community",
-      "name": "Community",
-      "settings": {
-        "eyebrow_text": "Membership",
-        "heading_line1": "The Monthly",
-        "heading_line2": "Card",
-        "body_text": "A custom workout card and a patch, posted to you every month. Want the card on its own? That works too.",
-        "stat1_number": "200+",
-        "stat1_label": "Community Members",
-        "stat2_number": "$20",
-        "stat2_label": "A Month",
-        "cta_text": "Join the Club",
-        "cta_url": "shopify://products/monthly-patch-and-workout-subscription",
-        "image_1": "shopify://shop_images/IMG-5723.jpg",
-        "image_2": "shopify://shop_images/Untitled_design_2.png",
-        "badge_text": "Monday is for Rucking",
-        "background_color": "#f2f1ea",
-        "eyebrow_color": "#7a6634",
-        "heading_color_1": "#2d3a18",
-        "heading_color_2": "#7a6634",
-        "body_color": "#5f6653",
-        "stat_number_color": "#4a5c2a",
-        "badge_bg_color": "#4a5c2a",
-        "badge_text_color": "#ffffff"
       }
     },
     "community": {
@@ -242,9 +242,9 @@
     "hero",
     "shop-by-category",
     "category-spotlight",
+    "community_PFtmqE",
     "manifesto",
     "manifesto_niEbeg",
-    "community_PFtmqE",
     "community",
     "newsletter"
   ]
