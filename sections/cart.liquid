@@ -5,15 +5,22 @@
 {%- assign has_patch_sub    = false -%}
 {%- assign patch_sub_key    = '' -%}
 {%- assign patch_sub_community = '' -%}
+{%- assign patch_sub_quantity = 1 -%}
 {%- for item in cart.items -%}
   {%- if item.product.tags contains section.settings.patch_subscription_tag -%}
     {%- assign has_patch_sub    = true -%}
     {%- assign patch_sub_key    = item.key -%}
+    {%- assign patch_sub_quantity = item.quantity -%}
     {%- assign patch_sub_community = item.properties['Community'] -%}
   {%- endif -%}
 {%- endfor -%}
 
-<div class="cart-page">
+<div
+  class="cart-page"
+  data-section-id="{{ section.id }}"
+  data-cart-update-url="{{ routes.cart_update_url }}"
+  data-cart-change-url="{{ routes.cart_change_url }}"
+>
   <div class="cart-page__inner">
     <h1 class="cart-page__title">{{ section.settings.page_title }}</h1>
 
@@ -66,9 +73,11 @@
                       >−</button>
                       <input
                         type="number"
-                        name="updates[]"
+                        name="updates[{{ item.key }}]"
                         value="{{ item.quantity }}"
                         min="0"
+                        step="1"
+                        inputmode="numeric"
                         class="cart-item__qty-input"
                         data-key="{{ item.key }}"
                         aria-label="Quantity for {{ item.product.title }}"
@@ -113,6 +122,7 @@
                       id="cart-community-select"
                       class="form-input cart-community__select"
                       data-item-key="{{ patch_sub_key }}"
+                      data-item-quantity="{{ patch_sub_quantity }}"
                       aria-describedby="cart-community-note"
                     >
                       {% render 'community-list', selected: patch_sub_community %}
@@ -469,6 +479,23 @@
     text-align: center;
   }
 
+  /* Accelerated checkout buttons check out against the server cart directly,
+     so they stay inert until a pending quantity edit has been written. */
+  .cart-summary__alt-checkout--locked {
+    pointer-events: none;
+    opacity: 0.45;
+  }
+
+  .cart-page--busy .cart-item__qty {
+    opacity: 0.7;
+  }
+
+  .cart-page--busy .cart-item__pricing,
+  .cart-page--busy .cart-summary__value {
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+
   .cart-summary__continue {
     font-family: var(--font-label);
     font-stretch: var(--label-stretch);
@@ -622,68 +649,297 @@
 {% endstylesheet %}
 
 {% javascript %}
-  (function() {
-    var form = document.getElementById('cart-form');
-    if (!form) return;
+  (function () {
+    // Bound once per page load. Every listener is delegated off `document`, so
+    // the handlers survive the section being swapped out after each update.
+    if (window.__ruckOnCartBound) return;
+    window.__ruckOnCartBound = true;
 
-    // Quantity stepper buttons (update form input + auto-submit)
-    form.addEventListener('click', function(e) {
-      var btn = e.target.closest('.cart-item__qty-btn');
-      if (!btn) return;
+    var DEBOUNCE_MS = 450;
 
-      var input = btn.closest('.cart-item__qty').querySelector('.cart-item__qty-input');
-      var current = parseInt(input.value) || 1;
-      var action = btn.dataset.action;
+    // Edits are accumulated into one batch and the resulting requests are run
+    // strictly one at a time. Firing a request per edit would let a re-render
+    // land on top of a quantity the shopper had already typed but that hadn't
+    // been sent yet, silently dropping it.
+    var pending = null;
+    var timer = null;
+    var queue = [];
+    var inflight = false;
 
-      if (action === 'increase') {
-        input.value = current + 1;
-      } else if (action === 'decrease') {
-        input.value = Math.max(0, current - 1);
-      }
-    });
+    function root() {
+      return document.querySelector('.cart-page');
+    }
 
-    // Community selector — save selection as a line item property via AJAX
-    var communitySelect = document.getElementById('cart-community-select');
-    var communityStatus = document.getElementById('cart-community-status');
+    function route(name, fallback) {
+      var el = root();
+      var url = el && el.getAttribute(name);
+      return url && url.length ? url : fallback;
+    }
 
-    if (communitySelect) {
-      communitySelect.addEventListener('change', function() {
-        var itemKey   = communitySelect.dataset.itemKey;
-        var community = communitySelect.value;
+    function qtyInput(key) {
+      var el = root();
+      if (!el || !key) return null;
+      var escaped = key.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+      return el.querySelector('.cart-item__qty-input[data-key="' + escaped + '"]');
+    }
 
-        if (communityStatus) {
-          communityStatus.textContent = 'Saving\u2026';
-          communityStatus.classList.remove('cart-community__status--error');
+    function isDirty() {
+      return pending !== null || timer !== null || queue.length > 0 || inflight;
+    }
+
+    // Accelerated checkout buttons (Shop Pay, PayPal, Apple Pay) hand the
+    // server-side cart straight to checkout — they never carry this form's
+    // updates. Keep them inert until every edit has actually been written, or
+    // they check out at the old quantity. The regular checkout button is safe:
+    // it POSTs updates[key] with the form.
+    function syncBusy() {
+      var el = root();
+      if (!el) return;
+      var busy = isDirty();
+      el.classList.toggle('cart-page--busy', busy);
+      Array.prototype.forEach.call(
+        el.querySelectorAll('.cart-summary__alt-checkout'),
+        function (node) {
+          node.classList.toggle('cart-summary__alt-checkout--locked', busy);
+          node.setAttribute('aria-busy', busy ? 'true' : 'false');
         }
+      );
+    }
 
-        fetch('/cart/change.js', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            id: itemKey,
-            properties: { 'Community': community }
-          })
-        })
-        .then(function(res) {
+    function setStatus(text, isError) {
+      var status = document.getElementById('cart-community-status');
+      if (!status) return;
+      status.textContent = text;
+      status.classList.toggle('cart-community__status--error', !!isError);
+    }
+
+    function updateHeaderCount(count) {
+      var badge = document.querySelector('.cart-icon__count');
+      if (badge) {
+        badge.textContent = count;
+        badge.classList.toggle('is-hidden', count === 0);
+      }
+      var mobile = document.querySelector('.mobile-nav__cart-count');
+      if (mobile) mobile.textContent = count;
+      var link = document.querySelector('.site-header__cart-icon');
+      if (link) link.setAttribute('aria-label', 'Cart, ' + count + ' items');
+    }
+
+    function render(html) {
+      var current = root();
+      if (!current || !html) return;
+
+      var fresh = new DOMParser().parseFromString(html, 'text/html').querySelector('.cart-page');
+      if (!fresh) return;
+
+      // Carry over what the shopper has typed but not yet submitted.
+      var noteEl = document.getElementById('cart-note');
+      var note = noteEl ? noteEl.value : null;
+      var active = document.activeElement;
+      var focusKey =
+        active && active.classList && active.classList.contains('cart-item__qty-input')
+          ? active.dataset.key
+          : null;
+
+      current.replaceWith(fresh);
+
+      if (note !== null) {
+        var freshNote = document.getElementById('cart-note');
+        if (freshNote) freshNote.value = note;
+      }
+      if (focusKey) {
+        var input = qtyInput(focusKey);
+        if (input) {
+          input.focus();
+          var caret = input.value.length;
+          try { input.setSelectionRange(caret, caret); } catch (err) {}
+        }
+      }
+    }
+
+    function send(job) {
+      var el = root();
+      if (!el) {
+        inflight = false;
+        return;
+      }
+
+      var sectionId = el.getAttribute('data-section-id');
+      var payload = job.payload;
+      payload.sections = sectionId;
+      payload.sections_url = window.location.pathname;
+
+      fetch(job.url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(function (res) {
           if (!res.ok) throw new Error('Cart update failed');
           return res.json();
         })
-        .then(function() {
-          if (communityStatus) {
-            communityStatus.textContent = 'Saved';
-            setTimeout(function() {
-              communityStatus.textContent = '';
-            }, 2000);
+        .then(function (cart) {
+          updateHeaderCount(cart.item_count);
+          // Only repaint once nothing is left to write. Repainting over a
+          // still-unsent edit would replace it with the stale server value.
+          var more = pending !== null || timer !== null || queue.length > 0;
+          if (!more && cart.sections && cart.sections[sectionId]) {
+            render(cart.sections[sectionId]);
           }
+          if (job.done) job.done(cart);
         })
-        .catch(function() {
-          if (communityStatus) {
-            communityStatus.textContent = 'Error — try again';
-            communityStatus.classList.add('cart-community__status--error');
-          }
+        .catch(function () {
+          // The server cart is the source of truth. Without a handler of its
+          // own, reload rather than leave a quantity on screen that was never
+          // written to the cart.
+          if (job.fail) job.fail();
+          else window.location.reload();
+        })
+        .then(function () {
+          inflight = false;
+          drain();
         });
-      });
     }
+
+    function drain() {
+      if (inflight || queue.length === 0) {
+        syncBusy();
+        return;
+      }
+      inflight = true;
+      syncBusy();
+      send(queue.shift());
+    }
+
+    function enqueue(url, payload, done, fail) {
+      queue.push({ url: url, payload: payload, done: done, fail: fail });
+      drain();
+    }
+
+    // Send everything accumulated so far as a single /cart/update call.
+    function flush() {
+      if (timer) {
+        clearTimeout(timer);
+        timer = null;
+      }
+      if (pending === null) {
+        syncBusy();
+        return;
+      }
+      var batch = pending;
+      pending = null;
+      enqueue(route('data-cart-update-url', '/cart/update'), { updates: batch });
+    }
+
+    function stage(key, quantity) {
+      if (!key) return;
+      if (pending === null) pending = {};
+      pending[key] = quantity;
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(flush, DEBOUNCE_MS);
+      syncBusy();
+    }
+
+    function readQuantity(input) {
+      var qty = parseInt(input.value, 10);
+      if (isNaN(qty) || qty < 0) return null;
+      return qty;
+    }
+
+    // Quantity steppers — adjust the input, then persist it.
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest ? e.target.closest('.cart-item__qty-btn') : null;
+      if (!btn) return;
+
+      var wrapper = btn.closest('.cart-item__qty');
+      var input = wrapper && wrapper.querySelector('.cart-item__qty-input');
+      if (!input) return;
+
+      var current = parseInt(input.value, 10);
+      if (isNaN(current) || current < 0) current = 0;
+
+      if (btn.dataset.action === 'increase') {
+        input.value = current + 1;
+      } else if (btn.dataset.action === 'decrease') {
+        input.value = Math.max(0, current - 1);
+      }
+
+      stage(input.dataset.key, parseInt(input.value, 10));
+    });
+
+    // Typed quantities. A half-typed or cleared field is left alone until the
+    // field is committed.
+    document.addEventListener('input', function (e) {
+      var input = e.target;
+      if (!input.classList || !input.classList.contains('cart-item__qty-input')) return;
+      var qty = readQuantity(input);
+      if (qty === null) return;
+      stage(input.dataset.key, qty);
+    });
+
+    document.addEventListener('change', function (e) {
+      var target = e.target;
+
+      // Commit a typed quantity as soon as the field is committed or blurred.
+      if (target.classList && target.classList.contains('cart-item__qty-input')) {
+        var qty = readQuantity(target);
+        if (qty === null) {
+          target.value = target.defaultValue;
+          return;
+        }
+        stage(target.dataset.key, qty);
+        flush();
+        return;
+      }
+
+      // Community selector — store the choice as a line item property.
+      // /cart/change.js assumes a quantity of 1 when one isn't sent, so the
+      // line's current quantity has to travel with the properties or the line
+      // is quietly knocked back down to a single unit.
+      if (target.id !== 'cart-community-select') return;
+
+      var itemKey = target.dataset.itemKey;
+      var input = qtyInput(itemKey);
+      var quantity = input ? readQuantity(input) : null;
+      if (quantity === null || quantity < 1) {
+        quantity = parseInt(target.dataset.itemQuantity, 10) || 1;
+      }
+
+      setStatus('Saving…', false);
+
+      // Flush first: a properties change rewrites the line item key, so any
+      // quantity edit still holding the old key has to land before it.
+      flush();
+
+      // The section is re-rendered afterwards to pick up the new key.
+      enqueue(
+        route('data-cart-change-url', '/cart/change'),
+        {
+          id: itemKey,
+          quantity: quantity,
+          properties: { Community: target.value }
+        },
+        function () {
+          setStatus('Saved', false);
+          setTimeout(function () { setStatus('', false); }, 2000);
+        },
+        function () {
+          setStatus('Error — try again', true);
+        }
+      );
+    });
+
+    // Anything still queued when the shopper leaves the page would be lost, so
+    // get it on the wire immediately.
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'hidden') flush();
+    });
+
+    // The plain checkout button POSTs updates[key] itself, so its own edits are
+    // safe; flushing keeps the cart consistent for every other exit route.
+    document.addEventListener('submit', function (e) {
+      if (e.target && e.target.id === 'cart-form') flush();
+    });
   })();
 {% endjavascript %}
 
