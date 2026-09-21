@@ -33,6 +33,17 @@
     "shop-by-category": {
       "type": "shop-by-category",
       "blocks": {
+        "category_brYq87": {
+          "type": "category",
+          "settings": {
+            "category_name": "Weighted Vest",
+            "image": "shopify://shop_images/Untitled_design.png",
+            "collection": "weighted-vest",
+            "link_url": "",
+            "product_count": "24 Products",
+            "gradient_overlay": "linear-gradient(to top, rgba(45, 58, 24,0.88) 0%, rgba(45, 58, 24,0.3) 60%, transparent 100%)"
+          }
+        },
         "category_gpENHf": {
           "type": "category",
           "settings": {
@@ -68,6 +79,7 @@
         }
       },
       "block_order": [
+        "category_brYq87",
         "category_gpENHf",
         "category_e6TDiC",
         "category_Vxmmpz"
