@@ -24,7 +24,7 @@
         "subtext": "Built for the miles that ask more of you.",
         "subtext_color": "#ffffff",
         "btn_primary_text": "Shop Collection",
-        "btn_primary_url": "shopify://collections/all",
+        "btn_primary_url": "shopify://collections/weighted-vest",
         "btn_secondary_text": "Our Story",
         "btn_secondary_url": "shopify://pages/about-us",
         "show_scroll_indicator": false
